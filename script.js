@@ -103,7 +103,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), comp: "brasileiro", round: "23ª Rodada", date: "16/08", team1: "chapecoense", team2: "bahia", stadium: "Arena Condá", time: "11:00", score: "3 x 3" },
   { id: cryptoId(), comp: "brasileiro", round: "24ª Rodada", date: "23/08", team1: "vitoria", team2: "bahia", stadium: "Barradão", time: "16:00", score: "0 x 2" },
   { id: cryptoId(), comp: "brasileiro", round: "25ª Rodada", date: "30/08", team1: "bahia", team2: "internacional", stadium: "Arena Fonte Nova", time: "19:30", score: "3 x 2" },
-  { id: cryptoId(), comp: "brasileiro", round: "26ª Rodada", date: "05/09", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "x" },
+  { id: cryptoId(), comp: "brasileiro", round: "26ª Rodada", date: "05/09", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "2x3" },
   { id: cryptoId(), comp: "brasileiro", round: "27ª Rodada", date: "14/09", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "20:00", score: "x" },
   { id: cryptoId(), comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "x" },
   { id: cryptoId(), comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Allianz Parque", time: "21:30", score: "x" },
@@ -301,7 +301,7 @@ function renderHero() {
 
 const posicoesCompeticao = {
   "todos": "5º",
-  "brasileiro": "5º",
+  "brasileiro": "4º",
   "libertadores": "Caiu na 2ª Fase",
   "copas": "Oitavas",
   "estadual": "Campeão",
