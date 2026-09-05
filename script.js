@@ -222,7 +222,7 @@ function startCountdown(nextGameDate, timeStr) {
     const diff = targetTime - now;
 
     if (diff <= 0) {
-      timerEl.innerHTML = `<span class="text-gold font-bold">Jogo em andamento ou encerrado!</span>`;
+      timerEl.innerHTML = `<span class="text-gold font-bold">Jogo em andamento!</span>`;
       clearInterval(countdownInterval);
       return;
     }
