@@ -301,7 +301,7 @@ function renderHero() {
 
 const posicoesCompeticao = {
   "todos": "5º",
-  "brasileiro": "4º",
+  "brasileiro": "5º",
   "libertadores": "Caiu na 2ª Fase",
   "copas": "Oitavas",
   "estadual": "Campeão",
