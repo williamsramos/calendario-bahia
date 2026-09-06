@@ -1,6 +1,6 @@
 /* ===========================================================
-   Calendário Tricolor EC Bahia — COM ESTATÍSTICAS AVANÇADAS
-   + Suporte a Categorias (Masculino/Feminino)
+   Calendário Tricolor EC Bahia (Feminino) — COM ESTATÍSTICAS AVANÇADAS
+   + Estrutura padronizada baseada no script.js principal
    =========================================================== */
 
 /* ===========================================================
@@ -53,80 +53,52 @@ function today() {
   return new Date(t.getFullYear(), t.getMonth(), t.getDate());
 }
 
-// Exemplo de como deve ser a filtragem para a aba Feminino:
-function obterJogosFemininos(lista) {
-  return lista.filter(jogo => jogo.category === "feminino");
-}
-
-// Caso a aba utilize a propriedade 'comp', certifique-se de incluir todas as chaves femininas:
-function obterJogosFemininosPorComp(lista) {
-  const compsFemininas = ["brasileiro_fem", "copa-brasil-fem", "baiano-fem"];
-  return lista.filter(jogo => compsFemininas.includes(jogo.comp));
-}
-
 /* ===========================================================
-   2. DADOS E ESTADO — COM CATEGORIAS
+   2. DADOS E ESTADO — CATEGORIA FEMININA
    =========================================================== */
 
-const listaAtualizadaDeGames = [
-  // MASCULINO — BRASILEIRÃO · 1º TURNO
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "1ª Rodada", date: "28/01", team1: "corinthians", team2: "bahia", stadium: "Vila Belmiro", time: "20:00", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "2ª Rodada", date: "05/02", team1: "bahia", team2: "fluminense", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "3ª Rodada", date: "11/02", team1: "vasco", team2: "bahia", stadium: "São Januário", time: "21:30", score: "0 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "5ª Rodada", date: "11/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "20:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "6ª Rodada", date: "15/03", team1: "internacional", team2: "bahia", stadium: "Beira-Rio", time: "16:00", score: "0 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "7ª Rodada", date: "18/03", team1: "bahia", team2: "bragantino", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "8ª Rodada", date: "22/03", team1: "remo", team2: "bahia", stadium: "Mangueirão", time: "16:00", score: "4 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "9ª Rodada", date: "01/04", team1: "bahia", team2: "athletico-pr", stadium: "Arena Fonte Nova", time: "20:00", score: "3 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "10ª Rodada", date: "05/04", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "19:30", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "11ª Rodada", date: "11/04", team1: "mirassol", team2: "bahia", stadium: "Maião", time: "18:30", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "12ª Rodada", date: "19/04", team1: "flamengo", team2: "bahia", stadium: "Maracanã", time: "19:30", score: "2 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "13ª Rodada", date: "25/04", team1: "bahia", team2: "santos", stadium: "Arena Fonte Nova", time: "18:30", score: "2 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "14ª Rodada", date: "03/05", team1: "sao-paulo", team2: "bahia", stadium: "Estadio Cicero Sousa de Marques", time: "16:00", score: "2 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "15ª Rodada", date: "09/05", team1: "bahia", team2: "cruzeiro", stadium: "Arena Fonte Nova", time: "21:00", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "16ª Rodada", date: "17/05", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "16:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "17ª Rodada", date: "25/05", team1: "coritiba", team2: "bahia", stadium: "Couto Pereira", time: "20:00", score: "3 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "18ª Rodada", date: "30/05", team1: "bahia", team2: "botafogo", stadium: "Arena Fonte Nova", time: "17:30", score: "2 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "4ª Rodada", date: "17/07", team1: "bahia", team2: "chapecoense", stadium: "Arena Fonte Nova", time: "19:30", score: "2 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "19ª Rodada", date: "21/07", team1: "atletico-mg", team2: "bahia", stadium: "Arena MRV", time: "19:30", score: "1 x 1" },
+const listaAtualizadaDeGamesFeminino = [
+  // BRASILEIRÃO FEMININO
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "1ª Rodada", date: "14/02", team1: "bahia", team2: "cruzeiro", stadium: "Pituaçu", time: "18:00", score: "0 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "2ª Rodada", date: "22/02", team1: "sao-paulo", team2: "bahia", stadium: "CFA Laudo Natel (CT de Cotia)", time: "21:00", score: "2 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "3ª Rodada", date: "16/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "21:00", score: "3 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "4ª Rodada", date: "21/03", team1: "bahia", team2: "santos", stadium: "Arena Fonte Nova", time: "16:00", score: "3 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "5ª Rodada", date: "28/03", team1: "bragantino", team2: "bahia", stadium: "Benito Agnelo Castellano", time: "21:00", score: "1 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "6ª Rodada", date: "01/04", team1: "bahia", team2: "america-mg", stadium: "Arena Fonte Nova", time: "16:00", score: "3 x 1" },  
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "7ª Rodada", date: "20/04", team1: "flamengo", team2: "bahia", stadium: "Luso-Brasileiro", time: "21:30", score: "1 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "8ª Rodada", date: "28/04", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "18:00", score: "0 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "9ª Rodada", date: "02/05", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "10ª Rodada", date: "09/05", team1: "mixto", team2: "bahia", stadium: "Arena Pantanal", time: "18:00", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "11ª Rodada", date: "16/05", team1: "bahia", team2: "internacional", stadium: "Arena Pantanal", time: "16:00", score: "3 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05", team1: "fluminense", team2: "bahia", stadium: "Estádio Manoel Schwartz", time: "18:00", score: "3 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "13ª Rodada", date: "27/07", team1: "bahia", team2: "botafogo", stadium: "Superbet Arena", time: "19:00", score: "2 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "14ª Rodada", date: "02/08", team1: "ferroviaria", team2: "bahia", stadium: "Arena da Fonte Luminosa", time: "18:00", score: "1 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "16ª Rodada", date: "15/08", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Ida", date: "31/08", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Volta", date: "04/09", team1: "bahia", team2: "palmeiras", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1" },
 
-  // MASCULINO — AMISTOSOS
-  { id: cryptoId(), category: "masculino", comp: "amistoso", round: "Amistoso", date: "04/07", team1: "bahia", team2: "montevideo-city", stadium: "Arena Fonte Nova", time: "11:00", score: "4 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "amistoso", round: "Amistoso", date: "12/07", team1: "fluminense", team2: "bahia", stadium: "Maracanã", time: "16:00", score: "2 x 0" },
+  // COPA DO BRASIL FEMININA
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "3ª Fase", date: "27/05", team1: "planalto", team2: "bahia", stadium: "Aníbal Batista de Toledo", time: "19:30", score: "0 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Oitavas de final", date: "21/07", team1: "itabirito", team2: "bahia", stadium: "Arena do Jacaré", time: "20:00", score: "0 x 1" },
+    { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Ida)", date: "14/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:00", score: "x" },
 
-  // MASCULINO — BRASILEIRÃO · 2º TURNO
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "20ª Rodada", date: "26/07", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "16:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "21ª Rodada", date: "29/07", team1: "fluminense", team2: "bahia", stadium: "Maracanã", time: "21:30", score: "0 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "22ª Rodada", date: "09/08", team1: "bahia", team2: "vasco", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "23ª Rodada", date: "16/08", team1: "chapecoense", team2: "bahia", stadium: "Arena Condá", time: "11:00", score: "3 x 3" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "24ª Rodada", date: "23/08", team1: "vitoria", team2: "bahia", stadium: "Barradão", time: "16:00", score: "0 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "25ª Rodada", date: "30/08", team1: "bahia", team2: "internacional", stadium: "Arena Fonte Nova", time: "19:30", score: "3 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "26ª Rodada", date: "05/09", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "2x3" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "27ª Rodada", date: "14/09", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "20:00", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Allianz Parque", time: "21:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "x" },
+  // BAIANO - FEMININO
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "12/09", team1: "bahia", team2: "botafogo-ba", stadium: "A definir", time: "09:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "19/09", team1: "bahia", team2: "porto", stadium: "A definir", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "26/09", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "03/10", team1: "jacobina", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
 
-  // MASCULINO — LIBERTADORES
-  { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Ida)", date: "18/02", team1: "o-higgins", team2: "bahia", stadium: "El Teniente", time: "19:00", score: "1 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Volta)", date: "25/02", team1: "bahia", team2: "o-higgins", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 1 (3 x 4)" },
-
-  // MASCULINO — COPA DO BRASIL
-  { id: cryptoId(), category: "masculino", comp: "copadobrasil", round: "5ª Fase (Ida)", date: "22/04", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 3" },
-  { id: cryptoId(), category: "masculino", comp: "copadobrasil", round: "5ª Fase (Volta)", date: "13/05", team1: "remo", team2: "bahia", stadium: "Mangueirão", time: "21:30", score: "2 x 1" },
-
-  // MASCULINO — BAIANO
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
 ];
 
-let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
+let games = StorageUtils.get("bahia_fem_games", listaAtualizadaDeGamesFeminino);
 let editingGameId = null;
-
-// ✅ NOVO: Variáveis de Estado para Categorias
-let activeCategory = "masculino"; // "masculino" | "feminino"
+let activeCategory = "feminino";
 
 function saveGames() {
-  StorageUtils.set("bahia_games", games);
+  StorageUtils.set("bahia_fem_games", games);
 }
 
 /* ===========================================================
@@ -146,22 +118,19 @@ const teamLogos = {
   "cruzeiro": "img/cruzeiro.svg",
   "botafogo": "img/botafogo.png",
   "fluminense": "img/fluminense.png",
-  "athletico-pr": "img/athletico-pr.png",
-  "santos": "img/santos.png",
   "bragantino": "img/bragantino.png",
-  "vasco": "img/vasco.png",
-  "coritiba": "img/coritiba.png",
-  "chapecoense": "img/chapecoense.png",
-  "remo": "img/remo.png",
-  "mirassol": "img/mirassol.png",
-  "o-higgins": "img/o-higgins.png",
-  "montevideo-city": "img/montevideo-city.png",
-  "america-mg": "img/america-mg.svg",
+  "santos": "img/santos.png",
+  "america-mg": "img/america-mg.png",
   "ferroviaria": "img/ferroviaria.png",
-  "juventude": "img/juventude.svg",
-  "mixto": "img/mixto.svg",
+  "juventude": "img/juventude.png",
+  "mixto": "img/mixto.png",
   "itabirito": "img/itabirito.png",
-  "planalto": "img/planalto.jpg"
+  "planalto": "img/planalto.jpg",
+  "jacobina": "img/jacobina.png",
+  "jacuipense": "img/jacuipense.png",
+  "porto": "img/porto_sc.png",
+ "barcelona-ba": "img/barcelona-ba.png", // <--- Adicionado
+  "botafogo-ba": "img/botafogo-ba.png"  // <--- Adicionado
 };
 
 function getTeam(slug) {
@@ -172,53 +141,42 @@ function getTeam(slug) {
 }
 
 /* ===========================================================
-   4. COMPETIÇÕES — ADAPTADAS PARA CATEGORIAS
+   4. COMPETIÇÕES — FEMININO
    =========================================================== */
 
-const COMPS_MASCULINO = [
-  { id: "todos",       label: "Todos" },
-  { id: "brasileiro",  label: "Brasileiro Série A" },
-  { id: "libertadores", label: "Libertadores" },
-  { id: "copas",       label: "Copas", match: ["copadobrasil", "copadonordeste"] },
-  { id: "estadual",    label: "Baiano", match: ["baiano"] },
-  { id: "amistoso",    label: "Amistosos" },
-];
-
 const COMPS_FEMININO = [
-  { id: "todos",       label: "Todos" },
+  { id: "todos",           label: "Todos" },
   { id: "brasileiro_fem", label: "Brasileiro Série A Fem." },
-  { id: "copas_fem",   label: "Copas", match: ["copa-brasil-fem"] },
-  { id: "estadual_fem", label: "Baiano", match: ["baiano-fem"] },
-  { id: "amistoso_fem", label: "Amistosos" },
+  { id: "copas_fem",       label: "Copas", match: ["copa-brasil-fem"] },
+  { id: "estadual_fem",    label: "Baiano Fem.", match: ["baiano-fem"] },
+  { id: "amistoso_fem",    label: "Amistosos" }
 ];
 
 const posicoesCompeticao = {
-  "todos": "5º",
-  "brasileiro": "5º",
-  "brasileiro_fem": "2º",
-  "libertadores": "Caiu na 2ª Fase",
-  "copas": "Oitavas",
-  "estadual": "Campeão",
-  "amistoso": "-"
+  "todos": "6º",
+  "brasileiro_fem": "6º",
+  "copas_fem": "Quartas",
+  "estadual_fem": "-",
+  "amistoso_fem": "-"
 };
 
-// ✅ NOVO: Função para obter competições ativas
 function getActiveComps() {
-  return activeCategory === "feminino" ? COMPS_FEMININO : COMPS_MASCULINO;
+  return COMPS_FEMININO;
 }
 
 let activeTab = "todos";
 let activeSub = "todos";
 let activeMandoFilter = "todos";
 
+const mandos = [
+  { id: "todos", label: "Geral" },
+  { id: "casa", label: "Em Casa" },
+  { id: "fora", label: "Fora" }
+];
 
-
-// ✅ NOVO: Função gamesForTab com suporte a categorias
 function gamesForTab(tabId) {
-  // 1. Filtra pela categoria selecionada
-  let list = games.filter(g => (g.category || "masculino") === activeCategory);
+  let list = games.filter(g => (g.category || "feminino") === "feminino");
   
-  // 2. Aplica filtro da aba de competição
   if (tabId !== "todos") {
     const currentComps = getActiveComps();
     const comp = currentComps.find(c => c.id === tabId);
@@ -230,7 +188,6 @@ function gamesForTab(tabId) {
     }
   }
   
-  // 3. Aplica filtro de mando de campo
   if (activeMandoFilter === "casa") {
     list = list.filter(g => g.team1 === "bahia");
   } else if (activeMandoFilter === "fora") {
@@ -241,14 +198,9 @@ function gamesForTab(tabId) {
 }
 
 /* ===========================================================
-   5. ⭐ ESTATÍSTICAS AVANÇADAS — PRINCIPAL
+   5. ⭐ ESTATÍSTICAS AVANÇADAS
    =========================================================== */
 
-/**
- * Calcular estatísticas avançadas com todas as 13+ métricas
- * @param {string} filtroComp - Competição para filtro
- * @returns {object} Estatísticas completas ou null
- */
 function calcularEstatisticasAvancadas(filtroComp = 'todos') {
   const jogosFiltrados = gamesForTab(filtroComp);
   const jogados = jogosFiltrados.filter(g => g.score && g.score.trim().toLowerCase() !== "x");
@@ -256,7 +208,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
   if (jogados.length === 0) return null;
 
   const stats = {
-    // GERAIS
     totalJogados: 0,
     vitoria: 0,
     empate: 0,
@@ -265,7 +216,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     golsContra: 0,
     saldoGols: 0,
     
-    // EM CASA
     casa_jogados: 0,
     casa_vitoria: 0,
     casa_empate: 0,
@@ -275,7 +225,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     casa_pontos: 0,
     casa_aproveitamento: 0,
     
-    // FORA DE CASA
     fora_jogados: 0,
     fora_vitoria: 0,
     fora_empate: 0,
@@ -285,17 +234,14 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     fora_pontos: 0,
     fora_aproveitamento: 0,
     
-    // DEFESA E ATAQUE
     cleanSheets: 0,
     ataqueBranco: 0,
     ambasMarcam: 0,
     
-    // SEQUÊNCIAS
     ultimosJogos: [],
     maiorSequenciaVitorias: 0,
     maiorSequenciaInvencibilidade: 0,
     
-    // MÉDIAS
     mediaGolsPro: 0,
     mediaGolsContra: 0,
   };
@@ -310,7 +256,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
       const golsBahia = bahiaEmCasa ? s1 : s2;
       const golsAdv = bahiaEmCasa ? s2 : s1;
 
-      // RESULTADO
       let resultado = '';
       if (golsBahia > golsAdv) {
         stats.vitoria++;
@@ -324,11 +269,10 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
       }
 
       stats.ultimosJogos.push(resultado);
-      stats.totalJogado++;
+      stats.totalJogados++;
       stats.golsPro += golsBahia;
       stats.golsContra += golsAdv;
 
-      // CASA / FORA
       if (bahiaEmCasa) {
         stats.casa_jogados++;
         stats.casa_golsPro += golsBahia;
@@ -357,24 +301,20 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
         }
       }
 
-      // DEFESA E ATAQUE
       if (golsAdv === 0) stats.cleanSheets++;
       if (golsBahia === 0) stats.ataqueBranco++;
       if (golsBahia > 0 && golsAdv > 0) stats.ambasMarcam++;
     }
   });
 
-  // Manter apenas últimos 5
   if (stats.ultimosJogos.length > 5) {
     stats.ultimosJogos = stats.ultimosJogos.slice(-5);
   }
 
-  // Calcular derivadas
   stats.saldoGols = stats.golsPro - stats.golsContra;
-  stats.mediaGolsPro = stats.totalJogado ? (stats.golsPro / stats.totalJogado).toFixed(2) : 0;
-  stats.mediaGolsContra = stats.totalJogado ? (stats.golsContra / stats.totalJogado).toFixed(2) : 0;
+  stats.mediaGolsPro = stats.totalJogados ? (stats.golsPro / stats.totalJogados).toFixed(2) : 0;
+  stats.mediaGolsContra = stats.totalJogados ? (stats.golsContra / stats.totalJogados).toFixed(2) : 0;
 
-  // Aproveitamento
   stats.casa_aproveitamento = stats.casa_jogados
     ? ((stats.casa_vitoria * 3 + stats.casa_empate) / (stats.casa_jogados * 3) * 100).toFixed(1)
     : 0;
@@ -383,16 +323,12 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     ? ((stats.fora_vitoria * 3 + stats.fora_empate) / (stats.fora_jogados * 3) * 100).toFixed(1)
     : 0;
 
-  // Sequências
   stats.maiorSequenciaVitorias = calcularMaiorSequencia(stats.ultimosJogos, 'V');
   stats.maiorSequenciaInvencibilidade = calcularMaiorSequencia(stats.ultimosJogos, ['V', 'E']);
 
   return stats;
 }
 
-/**
- * Calcular maior sequência
- */
 function calcularMaiorSequencia(resultados, filtro) {
   if (resultados.length === 0) return 0;
   const filtroArray = Array.isArray(filtro) ? filtro : [filtro];
@@ -411,9 +347,6 @@ function calcularMaiorSequencia(resultados, filtro) {
   return maiorSeq;
 }
 
-/**
- * Renderizar Dashboard de Estatísticas Avançadas
- */
 function renderizarEstatisticasAvancadas() {
   const container = document.getElementById('dashboardEstatisticasAvancadas');
   if (!container) return;
@@ -430,14 +363,12 @@ function renderizarEstatisticasAvancadas() {
   }
 
   container.innerHTML = `
-    <!-- SEÇÃO 1: DESEMPENHO E MANDO DE CAMPO -->
     <div class="space-y-4">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-gold"></span>
         📊 Desempenho e Mando de Campo
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <!-- Em Casa -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">📍 Em Casa</p>
           <div class="space-y-1.5 text-xs">
@@ -456,7 +387,6 @@ function renderizarEstatisticasAvancadas() {
           </div>
         </div>
 
-        <!-- Fora de Casa -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">🛣️ Fora de Casa</p>
           <div class="space-y-1.5 text-xs">
@@ -475,7 +405,6 @@ function renderizarEstatisticasAvancadas() {
           </div>
         </div>
 
-        <!-- Defesa -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">🛡️ Defesa</p>
           <div class="space-y-1.5 text-xs">
@@ -490,7 +419,6 @@ function renderizarEstatisticasAvancadas() {
           </div>
         </div>
 
-        <!-- Ataque -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">⚽ Ataque</p>
           <div class="space-y-1.5 text-xs">
@@ -507,7 +435,6 @@ function renderizarEstatisticasAvancadas() {
       </div>
     </div>
 
-    <!-- SEÇÃO 2: GOLS E SALDO -->
     <div class="space-y-4 mt-6">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-gold"></span>
@@ -547,30 +474,18 @@ function renderizarEstatisticasAvancadas() {
       </div>
     </div>
 
-    <!-- SEÇÃO 3: SEQUÊNCIAS E FORMA RECENTE -->
     <div class="space-y-4 mt-6">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-gold"></span>
         📈 Sequências e Forma Recente
       </h3>
       
-      <!-- Últimos Jogos -->
       <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
         <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-3">Últimos ${stats.ultimosJogos.length} Jogos</p>
         <div class="flex justify-center gap-2">
-          ${stats.ultimosJogos.map((resultado, idx) => {
-            let corBg = '';
-            let corTexto = '';
-            if (resultado === 'V') {
-              corBg = 'bg-emerald-500/20 border-emerald-500/50';
-              corTexto = 'text-emerald-400';
-            } else if (resultado === 'E') {
-              corBg = 'bg-slate-500/20 border-slate-500/50';
-              corTexto = 'text-slate-300';
-            } else {
-              corBg = 'bg-red-500/20 border-red-500/50';
-              corTexto = 'text-red-400';
-            }
+          ${stats.ultimosJogos.map(resultado => {
+            let corBg = resultado === 'V' ? 'bg-emerald-500/20 border-emerald-500/50' : (resultado === 'E' ? 'bg-slate-500/20 border-slate-500/50' : 'bg-red-500/20 border-red-500/50');
+            let corTexto = resultado === 'V' ? 'text-emerald-400' : (resultado === 'E' ? 'text-slate-300' : 'text-red-400');
             return `
               <div class="w-10 h-10 rounded-lg border ${corBg} flex items-center justify-center" title="${resultado === 'V' ? 'Vitória' : resultado === 'E' ? 'Empate' : 'Derrota'}">
                 <span class="font-display font-bold text-sm ${corTexto}">${resultado}</span>
@@ -580,7 +495,6 @@ function renderizarEstatisticasAvancadas() {
         </div>
       </div>
 
-      <!-- Sequências -->
       <div class="grid grid-cols-2 gap-3">
         <div class="bg-emerald-900/20 border border-emerald-700/40 rounded-xl p-4">
           <p class="text-[10px] text-emerald-300 uppercase tracking-wider font-semibold mb-2">Maior Seq. Vitórias</p>
@@ -596,8 +510,6 @@ function renderizarEstatisticasAvancadas() {
       </div>
     </div>
   `;
-
-  console.log('✓ Estatísticas avançadas renderizadas');
 }
 
 /* ===========================================================
@@ -670,7 +582,7 @@ function renderHero() {
       <div class="flex flex-col items-center sm:items-start gap-2 shrink-0">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
-          <span class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Próximo Jogo</span>
+          <span class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Próximo Jogo (Feminino)</span>
         </div>
         <div id="heroCountdown" class="mt-1"></div>
       </div>
@@ -809,9 +721,9 @@ function renderDashboard() {
   const compLabel = getActiveComps().find(c => c.id === activeTab)?.label || "Geral";
 
   const titleEl = document.getElementById("dashboardTitle");
-  if (titleEl) titleEl.textContent = `Desempenho · ${compLabel}`;
+  if (titleEl) titleEl.textContent = `Desempenho (Feminino) · ${compLabel}`;
 
-  const isBrasileiro = activeTab === "brasileiro" || activeTab === "brasileiro_fem";
+  const isBrasileiro = activeTab === "brasileiro_fem" || activeTab === "todos";
 
   const saldoFormatado = s.saldoGols > 0 ? `+${s.saldoGols}` : s.saldoGols;
   const corSaldo = s.saldoGols > 0 ? "text-emerald-400" : (s.saldoGols < 0 ? "text-red-400" : "text-slate-300");
@@ -837,7 +749,6 @@ function renderDashboard() {
     `;
   }
 
-  // ✅ NOVO: Renderizar estatísticas avançadas
   renderizarEstatisticasAvancadas();
 }
 
@@ -1023,35 +934,7 @@ function initThemeToggle() {
 }
 
 /* ===========================================================
-   9. ⭐ GERENCIAMENTO DE CATEGORIAS (MASCULINO/FEMININO)
-   =========================================================== */
-
-function setCategory(category) {
-  activeCategory = category;
-  
-  // Atualizar visual dos botões
-  const btnM = document.getElementById("btnCategoryMasculino");
-  const btnF = document.getElementById("btnCategoryFeminino");
-  
-  if (category === "masculino") {
-    if (btnM) btnM.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-gold text-navy-950 shadow-md";
-    if (btnF) btnF.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white";
-  } else {
-    if (btnF) btnF.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-gold text-navy-950 shadow-md";
-    if (btnM) btnM.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white";
-  }
-  
-  // Reseta a aba para "todos"
-  activeTab = "todos";
-  activeSub = "todos";
-  activeMandoFilter = "todos";
-  
-  // Re-renderiza tudo
-  render();
-}
-
-/* ===========================================================
-   10. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
+   9. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
    =========================================================== */
 
 function deleteGame(id) {
@@ -1069,10 +952,10 @@ function editGame(id) {
   const modalTitle = document.getElementById("modalTitle");
   const submitLabel = document.getElementById("submitLabel");
 
-  if (modalTitle) modalTitle.textContent = "Editar jogo";
+  if (modalTitle) modalTitle.textContent = "Editar jogo (Feminino)";
   if (submitLabel) submitLabel.textContent = "Atualizar jogo";
 
-  if (document.getElementById("fComp")) document.getElementById("fComp").value = game.comp || "brasileiro";
+  if (document.getElementById("fComp")) document.getElementById("fComp").value = game.comp || "brasileiro_fem";
   if (document.getElementById("fRound")) document.getElementById("fRound").value = game.round || "";
   if (document.getElementById("fTime")) document.getElementById("fTime").value = game.time || "20:00";
   if (document.getElementById("fStadium")) document.getElementById("fStadium").value = game.stadium || "";
@@ -1105,7 +988,7 @@ function editGame(id) {
 }
 
 /* ===========================================================
-   11. RENDER GERAL E INICIALIZAÇÃO
+   10. RENDER GERAL E INICIALIZAÇÃO
    =========================================================== */
 
 function render() {
@@ -1148,7 +1031,6 @@ document.addEventListener("DOMContentLoaded", () => {
   render();
   initHamburgerMenu();
 
-  // Configuração dos Botões de Mando de Campo
   document.querySelectorAll(".mando-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".mando-btn").forEach(b => {
@@ -1161,7 +1043,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Modal de Adicionar/Editar Jogo
   const modal = document.getElementById("modalOverlay");
   const btnAdd = document.getElementById("btnAddGame");
   const btnAddMobile = document.getElementById("btnAddGameMobile");
@@ -1172,7 +1053,7 @@ document.addEventListener("DOMContentLoaded", () => {
     editingGameId = null;
     const modalTitle = document.getElementById("modalTitle");
     const submitLabel = document.getElementById("submitLabel");
-    if (modalTitle) modalTitle.textContent = "Adicionar jogo";
+    if (modalTitle) modalTitle.textContent = "Adicionar jogo (Feminino)";
     if (submitLabel) submitLabel.textContent = "Salvar jogo";
     if (gameForm) gameForm.reset();
     if (modal) modal.classList.remove("hidden");
@@ -1196,7 +1077,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const dateRaw = document.getElementById("fDate").value;
       const time = document.getElementById("fTime").value || "20:00";
       const rival = slugify(document.getElementById("fRival").value || "Adversario");
-      const stadium = document.getElementById("fStadium").value || "Fonte Nova";
+      const stadium = document.getElementById("fStadium").value || "Pituaçu";
       const score = document.getElementById("fScore").value.trim() || "x";
 
       let dateFmt = "01/01";
@@ -1226,7 +1107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         const newGame = {
           id: cryptoId(),
-          category: activeCategory, // ✅ Salvar categoria
+          category: "feminino",
           comp,
           round,
           date: dateFmt,
@@ -1247,4 +1128,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-console.log('✓ Script Bahia com Estatísticas Avançadas + Categorias carregado');
+console.log('✓ Script Bahia Feminino carregado com sucesso');

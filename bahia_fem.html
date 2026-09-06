@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendário Tricolor — EC Bahia 26</title>
+<title>Mulheres de Aço — EC Bahia 26</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,6 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        // Tons escuros de fundo baseados no Azul do Esquadrão
         navy: { 
           950: '#030B18', 
           900: '#071329', 
@@ -25,31 +24,26 @@ tailwind.config = {
           700: '#152C56', 
           600: '#1D3B70' 
         },
-        // Azul oficial do Bahia
         azul: { 
           DEFAULT: '#00468C', 
           600: '#003366', 
           400: '#0056F3' 
         },
-        // Vermelho oficial do Bahia
         vermelho: { 
           DEFAULT: '#E31C22', 
           600: '#B31217', 
           400: '#FF3B3B' 
         },
-        // Branco Tricolor
         branco: {
           DEFAULT: '#FFFFFF',
           100: '#F1F5F9',
           200: '#E2E8F0'
         },
-        // Dourado para títulos, conquistas e destaques
         ouro: { 
           DEFAULT: '#FFD700', 
           600: '#CCAC00',
           400: '#FFE033'
         },
-        // Mapeamentos mantidos para compatibilidade com o código legado
         garnet: { 
           DEFAULT: '#E31C22', 
           600: '#B31217', 
@@ -76,10 +70,9 @@ tailwind.config = {
 </head>
 <body class="font-body text-slate-200 min-h-screen pb-24 relative bg-navy-950 overflow-x-hidden">
 
-  <!-- Fundo fixo cobrindo toda a tela (Full Page) com a imagem da Arena Fonte Nova -->
+  <!-- Fundo fixo cobrindo toda a tela com a imagem da Arena Fonte Nova -->
   <div class="fixed inset-0 w-screen h-screen z-0 pointer-events-none">
     <img src="arena_fonte_nova.jpg" alt="Fonte nova" class="w-full h-full object-cover object-center">
-    <!-- Camadas de escurecimento e vinheta para legibilidade perfeita do conteúdo -->
     <div class="absolute inset-0 bg-navy-950/80"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/70 to-navy-950/60"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-garnet/15 via-transparent to-blaugrana/15"></div>
@@ -95,15 +88,15 @@ tailwind.config = {
       </div>
       <div>
         <p class="text-[10px] sm:text-[11px] tracking-[0.3em] text-gold uppercase font-semibold">Temporada 2026</p>
-        <h1 class="font-display text-xl sm:text-3xl font-semibold text-white tracking-wide -mt-0.5">Calendário Tricolor</h1>
+        <h1 class="font-display text-xl sm:text-3xl font-semibold text-white tracking-wide -mt-0.5">Mulheres de Aço</h1>
       </div>
     </div>
 
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex gap-6 text-sm font-medium">
       <a href="index.html" class="text-slate-400 hover:text-white transition-colors">Início</a>
-      <a href="calendario.html" class="text-gold hover:text-white border-b-2 border-amber-400 transition-colors">Calendário</a>
-      <a href="bahia_fem.html" class="text-slate-400 hover:text-white transition-colors">Bahia Fem.</a>
+      <a href="calendario.html" class="text-slate-400 hover:text-white transition-colors">Calendário</a>
+      <a href="bahia_fem.html" class="text-gold border-b-2 border-amber-400 transition-colors font-semibold">Mulheres de Aço</a>
       <a href="elenco.html" class="text-slate-400 hover:text-white transition-colors">Elenco</a>
       <a href="escalacao.html" class="text-slate-400 hover:text-white transition-colors">Escalação</a>
       <a href="titulos.html" class="text-slate-400 hover:text-white transition-colors font-semibold">Glórias</a>
@@ -129,8 +122,8 @@ tailwind.config = {
   <div id="mobileMenu" class="hidden md:hidden bg-navy-900 border-b border-navy-800 px-4 py-6 flex-col items-center justify-center text-center space-y-4">
     <nav class="flex flex-col gap-4 text-base font-medium">
       <a href="index.html" class="text-slate-300 hover:text-gold transition-colors py-1 border-b border-white/5">Início</a>
-      <a href="calendario.html" class="text-gold hover:text-white transition-colors py-1 border-b border-white/5">Calendário</a>
-      <a href="bahia_fem.html" class="text-slate-300 hover:text-gold transition-colors py-1 border-b border-white/5">Mulheres de Aço</a>
+      <a href="calendario.html" class="text-slate-300 hover:text-gold transition-colors py-1 border-b border-white/5">Calendário</a>
+      <a href="bahia_fem.html" class="text-gold hover:text-white transition-colors py-1 border-b border-white/5">Mulheres de Aço</a>
       <a href="elenco.html" class="text-slate-300 hover:text-gold transition-colors py-1 border-b border-white/5">Elenco</a>
       <a href="escalacao.html" class="text-slate-300 hover:text-gold transition-colors py-1 border-b border-white/5">Escalação</a>
       <a href="titulos.html" class="text-slate-300 hover:text-gold transition-colors py-1 border-b border-white/5">Glórias</a>
@@ -144,16 +137,14 @@ tailwind.config = {
   <!-- ===== SELETOR DE MODALIDADE ===== -->
   <div class="flex justify-center mb-6">
     <div class="inline-flex bg-navy-900/80 p-1 rounded-xl border border-white/10 gap-1">
-      <button 
-        id="btnCategoryMasculino" 
-        onclick="setCategory('masculino')" 
-        class="px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-gold text-navy-950 shadow-md">
-        Masculino
-      </button>
       <a 
-        href="bahia_fem.html" 
-        id="btnCategoryFeminino" 
+        href="calendario.html"
         class="px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white">
+        Masculino
+      </a>
+      <a 
+        href="bahia_fem.html"
+        class="px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-gold text-navy-950 shadow-md">
         Feminino (Mulheres de Aço)
       </a>
     </div>
@@ -164,7 +155,7 @@ tailwind.config = {
 
   <!-- ===== 2. DASHBOARD DE ESTATÍSTICAS ===== -->
   <section class="mt-6">
-    <h2 id="dashboardTitle" class="text-sm font-semibold tracking-wide text-slate-300 uppercase mb-3">Desempenho</h2>
+    <h2 id="dashboardTitle" class="text-sm font-semibold tracking-wide text-slate-300 uppercase mb-3">Desempenho — Feminino</h2>
     <div id="statGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4"></div>
   </section>
 
@@ -220,24 +211,22 @@ tailwind.config = {
 <div id="modalOverlay" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
   <div class="bg-navy-900/95 border border-white/10 rounded-2xl w-full max-w-md p-6 shadow-2xl rise-in backdrop-blur-lg">
     <div class="flex items-center justify-between mb-5">
-      <h3 id="modalTitle" class="font-display text-xl text-white">Novo jogo</h3>
+      <h3 id="modalTitle" class="font-display text-xl text-white">Novo jogo (Feminino)</h3>
       <button id="btnCloseModal" class="text-slate-400 hover:text-white text-2xl leading-none">&times;</button>
     </div>
     <form id="gameForm" class="space-y-3.5">
       <div>
         <label class="text-xs text-slate-300 mb-1 block">Competição</label>
         <select id="fComp" class="w-full bg-navy-950/80 border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-garnet text-white">
-          <option value="brasileiro">Brasileiro Serie A</option>
-          <option value="libertadores">Libertadores</option>
-          <option value="copadobrasil">Copa do Brasil</option>
-          <option value="copadonordeste">Copa do Nordeste </option>
-          <option value="estadual">Baiano</option>
+          <option value="brasileiro_fem">Brasileirão Feminino</option>
+          <option value="copa-brasil-fem">Copa do Brasil Feminina</option>
+          <option value="baiano-fem">Baiano Feminino</option>
           <option value="amistoso">Amistoso</option>
         </select>
       </div>
       <div>
         <label class="text-xs text-slate-300 mb-1 block">Fase / Rodada</label>
-        <input id="fRound" type="text" placeholder="Ex: Rodada 5ª ou Oitavas de Final" class="w-full bg-navy-950/80 border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-garnet placeholder:text-slate-500 text-white">
+        <input id="fRound" type="text" placeholder="Ex: 1ª Rodada ou Quartas de Final" class="w-full bg-navy-950/80 border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-garnet placeholder:text-slate-500 text-white">
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
@@ -262,7 +251,7 @@ tailwind.config = {
       </div>
       <div>
         <label class="text-xs text-slate-300 mb-1 block">Adversário</label>
-        <input id="fRival" type="text" placeholder="Ex: Palmeiras" class="w-full bg-navy-950/80 border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-garnet placeholder:text-slate-500 text-white">
+        <input id="fRival" type="text" placeholder="Ex: São Paulo" class="w-full bg-navy-950/80 border border-white/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-garnet placeholder:text-slate-500 text-white">
       </div>
       <div>
         <label class="text-xs text-slate-300 mb-1 block">Estádio</label>
@@ -281,9 +270,9 @@ tailwind.config = {
 </div>
 
 <footer class="relative z-10 text-center py-10 text-xs text-slate-400 border-t border-white/10 bg-navy-950/90 backdrop-blur-md mt-16">
-  EC Bahia &copy; 2026 — Calendário de Jogos Oficiais 
+  EC Bahia &copy; 2026 — Mulheres de Aço 
 </footer>
 
-<script src="script.js"></script>
+<script src="bahia_fem.js"></script>
 </body>
 </html>
