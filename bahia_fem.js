@@ -92,14 +92,6 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "26/09", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "21:00", score: "x" },
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "03/10", team1: "jacobina", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
 
-  // PRÓXIMOS JOGOS
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "12/09", team1: "bahia", team2: "botafogo-ba", stadium: "A definir", time: "09:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "19/09", team1: "bahia", team2: "porto", stadium: "A definir", time: "21:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "26/09", team1: "barcelona-de-ilheus", team2: "bahia", stadium: "A definir", time: "21:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "03/10", team1: "jacobina", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Ida)", date: "14/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:00", score: "x" }
-
 ];
 
 let games = StorageUtils.get("bahia_fem_games", listaAtualizadaDeGamesFeminino);
