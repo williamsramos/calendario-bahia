@@ -53,12 +53,10 @@ function today() {
   return new Date(t.getFullYear(), t.getMonth(), t.getDate());
 }
 
-// Exemplo de como deve ser a filtragem para a aba Feminino:
 function obterJogosFemininos(lista) {
   return lista.filter(jogo => jogo.category === "feminino");
 }
 
-// Caso a aba utilize a propriedade 'comp', certifique-se de incluir todas as chaves femininas:
 function obterJogosFemininosPorComp(lista) {
   const compsFemininas = ["brasileiro_fem", "copa-brasil-fem", "baiano-fem"];
   return lista.filter(jogo => compsFemininas.includes(jogo.comp));
@@ -106,6 +104,19 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Allianz Parque", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "16:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "25/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "19:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "19:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "04/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "19:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "22/11", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "16:00", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "29/11", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "16:00", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
+
+
+
+
+
 
   // MASCULINO — LIBERTADORES
   { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Ida)", date: "18/02", team1: "o-higgins", team2: "bahia", stadium: "El Teniente", time: "19:00", score: "1 x 0" },
@@ -119,10 +130,10 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
 ];
 
+
 let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
 let editingGameId = null;
 
-// ✅ NOVO: Variáveis de Estado para Categorias
 let activeCategory = "masculino"; // "masculino" | "feminino"
 
 function saveGames() {
@@ -155,13 +166,7 @@ const teamLogos = {
   "remo": "img/remo.png",
   "mirassol": "img/mirassol.png",
   "o-higgins": "img/o-higgins.png",
-  "montevideo-city": "img/montevideo-city.png",
-  "america-mg": "img/america-mg.svg",
-  "ferroviaria": "img/ferroviaria.png",
-  "juventude": "img/juventude.svg",
-  "mixto": "img/mixto.svg",
-  "itabirito": "img/itabirito.png",
-  "planalto": "img/planalto.jpg"
+  "montevideo-city": "img/montevideo-city.png"
 };
 
 function getTeam(slug) {
@@ -192,6 +197,12 @@ const COMPS_FEMININO = [
   { id: "amistoso_fem", label: "Amistosos" },
 ];
 
+const mandos = [
+  { id: "todos", label: "Todos os Mandos" },
+  { id: "casa", label: "Em Casa" },
+  { id: "fora", label: "Fora de Casa" }
+];
+
 const posicoesCompeticao = {
   "todos": "5º",
   "brasileiro": "5º",
@@ -202,7 +213,6 @@ const posicoesCompeticao = {
   "amistoso": "-"
 };
 
-// ✅ NOVO: Função para obter competições ativas
 function getActiveComps() {
   return activeCategory === "feminino" ? COMPS_FEMININO : COMPS_MASCULINO;
 }
@@ -211,14 +221,45 @@ let activeTab = "todos";
 let activeSub = "todos";
 let activeMandoFilter = "todos";
 
+/* ===========================================================
+   6. CONTROLE DE TEMPORADA E FILTRAGEM
+   =========================================================== */
 
+let activeSeason = "2026"; // "2026" | "2027"
 
-// ✅ NOVO: Função gamesForTab com suporte a categorias
+function setSeason(season) {
+  activeSeason = season;
+
+  // Atualiza visual dos botões do season-selector
+  document.querySelectorAll(".season-selector button").forEach(btn => {
+    if (btn.getAttribute("data-season") === season) {
+      btn.classList.add("bg-amber-400", "text-slate-950");
+      btn.classList.remove("text-slate-400");
+    } else {
+      btn.classList.remove("bg-amber-400", "text-slate-950");
+      btn.classList.add("text-slate-400");
+    }
+  });
+
+  renderApp();
+}
+
+// Filtra jogos considerando a temporada selecionada
 function gamesForTab(tabId) {
-  // 1. Filtra pela categoria selecionada
   let list = games.filter(g => (g.category || "masculino") === activeCategory);
+
+  // Filtro por ano/temporada com base na data do jogo (ex: datas com /01, /02 etc pertencem a 2026 ou 2027)
+  list = list.filter(g => {
+    if (!g.date) return true;
+    const parts = g.date.split("/");
+    const month = parts.length > 1 ? parseInt(parts[1], 10) : 1;
+    // No seu modelo, Janeiro a Junho/Julho podem transitar de ano, ou você pode filtrar diretamente pelo ano atribuído
+    const gameYear = month >= 7 ? "2026" : "2027"; 
+    // Se quiser usar uma propriedade explícita de ano no objeto jogo, ajuste aqui. 
+    // Por padrão, se a temporada selecionada for 2027 e não houver jogos cadastrados, exibe o card de aviso.
+    return activeSeason === "2026"; // Ajuste conforme sua regra de armazenamento de anos
+  });
   
-  // 2. Aplica filtro da aba de competição
   if (tabId !== "todos") {
     const currentComps = getActiveComps();
     const comp = currentComps.find(c => c.id === tabId);
@@ -230,7 +271,6 @@ function gamesForTab(tabId) {
     }
   }
   
-  // 3. Aplica filtro de mando de campo
   if (activeMandoFilter === "casa") {
     list = list.filter(g => g.team1 === "bahia");
   } else if (activeMandoFilter === "fora") {
@@ -240,15 +280,46 @@ function gamesForTab(tabId) {
   return list;
 }
 
+
+// Renderização principal atualizada com o tratamento de temporada vazia
+function renderApp() {
+  const currentGames = gamesForTab(activeTab);
+  const emptyCard = document.getElementById("empty-card");
+  const sectionProximos = document.getElementById("section-proximos");
+  const sectionRecentes = document.getElementById("section-recentes");
+
+  if (activeSeason === "2027" && currentGames.length === 0) {
+    if (emptyCard) emptyCard.classList.remove("hidden");
+    if (sectionProximos) sectionProximos.classList.add("hidden");
+    if (sectionRecentes) sectionRecentes.classList.add("hidden");
+  } else {
+    if (emptyCard) emptyCard.classList.add("hidden");
+    if (sectionProximos) sectionProximos.classList.remove("hidden");
+    if (sectionRecentes) sectionRecentes.classList.remove("hidden");
+    
+    // Chame aqui suas funções de renderização de listas, estatísticas e próximo jogo
+    // ex: renderStats(); renderHeroNext(); renderLists();
+  }
+}
+
+// Inicialização dos Event Listeners para o Seletor de Temporada
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".season-selector button").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const season = e.currentTarget.getAttribute("data-season");
+      setSeason(season);
+    });
+  });
+
+  // Render inicial
+  renderApp();
+});
+
+
 /* ===========================================================
    5. ⭐ ESTATÍSTICAS AVANÇADAS — PRINCIPAL
    =========================================================== */
 
-/**
- * Calcular estatísticas avançadas com todas as 13+ métricas
- * @param {string} filtroComp - Competição para filtro
- * @returns {object} Estatísticas completas ou null
- */
 function calcularEstatisticasAvancadas(filtroComp = 'todos') {
   const jogosFiltrados = gamesForTab(filtroComp);
   const jogados = jogosFiltrados.filter(g => g.score && g.score.trim().toLowerCase() !== "x");
@@ -256,7 +327,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
   if (jogados.length === 0) return null;
 
   const stats = {
-    // GERAIS
     totalJogados: 0,
     vitoria: 0,
     empate: 0,
@@ -265,7 +335,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     golsContra: 0,
     saldoGols: 0,
     
-    // EM CASA
     casa_jogados: 0,
     casa_vitoria: 0,
     casa_empate: 0,
@@ -275,7 +344,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     casa_pontos: 0,
     casa_aproveitamento: 0,
     
-    // FORA DE CASA
     fora_jogados: 0,
     fora_vitoria: 0,
     fora_empate: 0,
@@ -285,17 +353,14 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     fora_pontos: 0,
     fora_aproveitamento: 0,
     
-    // DEFESA E ATAQUE
     cleanSheets: 0,
     ataqueBranco: 0,
     ambasMarcam: 0,
     
-    // SEQUÊNCIAS
     ultimosJogos: [],
     maiorSequenciaVitorias: 0,
     maiorSequenciaInvencibilidade: 0,
     
-    // MÉDIAS
     mediaGolsPro: 0,
     mediaGolsContra: 0,
   };
@@ -310,7 +375,6 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
       const golsBahia = bahiaEmCasa ? s1 : s2;
       const golsAdv = bahiaEmCasa ? s2 : s1;
 
-      // RESULTADO
       let resultado = '';
       if (golsBahia > golsAdv) {
         stats.vitoria++;
@@ -324,11 +388,10 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
       }
 
       stats.ultimosJogos.push(resultado);
-      stats.totalJogado++;
+      stats.totalJogados++;
       stats.golsPro += golsBahia;
       stats.golsContra += golsAdv;
 
-      // CASA / FORA
       if (bahiaEmCasa) {
         stats.casa_jogados++;
         stats.casa_golsPro += golsBahia;
@@ -357,24 +420,20 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
         }
       }
 
-      // DEFESA E ATAQUE
       if (golsAdv === 0) stats.cleanSheets++;
       if (golsBahia === 0) stats.ataqueBranco++;
       if (golsBahia > 0 && golsAdv > 0) stats.ambasMarcam++;
     }
   });
 
-  // Manter apenas últimos 5
   if (stats.ultimosJogos.length > 5) {
     stats.ultimosJogos = stats.ultimosJogos.slice(-5);
   }
 
-  // Calcular derivadas
   stats.saldoGols = stats.golsPro - stats.golsContra;
-  stats.mediaGolsPro = stats.totalJogado ? (stats.golsPro / stats.totalJogado).toFixed(2) : 0;
-  stats.mediaGolsContra = stats.totalJogado ? (stats.golsContra / stats.totalJogado).toFixed(2) : 0;
+  stats.mediaGolsPro = stats.totalJogados ? (stats.golsPro / stats.totalJogados).toFixed(2) : 0;
+  stats.mediaGolsContra = stats.totalJogados ? (stats.golsContra / stats.totalJogados).toFixed(2) : 0;
 
-  // Aproveitamento
   stats.casa_aproveitamento = stats.casa_jogados
     ? ((stats.casa_vitoria * 3 + stats.casa_empate) / (stats.casa_jogados * 3) * 100).toFixed(1)
     : 0;
@@ -383,16 +442,12 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     ? ((stats.fora_vitoria * 3 + stats.fora_empate) / (stats.fora_jogados * 3) * 100).toFixed(1)
     : 0;
 
-  // Sequências
   stats.maiorSequenciaVitorias = calcularMaiorSequencia(stats.ultimosJogos, 'V');
   stats.maiorSequenciaInvencibilidade = calcularMaiorSequencia(stats.ultimosJogos, ['V', 'E']);
 
   return stats;
 }
 
-/**
- * Calcular maior sequência
- */
 function calcularMaiorSequencia(resultados, filtro) {
   if (resultados.length === 0) return 0;
   const filtroArray = Array.isArray(filtro) ? filtro : [filtro];
@@ -411,9 +466,6 @@ function calcularMaiorSequencia(resultados, filtro) {
   return maiorSeq;
 }
 
-/**
- * Renderizar Dashboard de Estatísticas Avançadas
- */
 function renderizarEstatisticasAvancadas() {
   const container = document.getElementById('dashboardEstatisticasAvancadas');
   if (!container) return;
@@ -430,14 +482,12 @@ function renderizarEstatisticasAvancadas() {
   }
 
   container.innerHTML = `
-    <!-- SEÇÃO 1: DESEMPENHO E MANDO DE CAMPO -->
     <div class="space-y-4">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-gold"></span>
         📊 Desempenho e Mando de Campo
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <!-- Em Casa -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">📍 Em Casa</p>
           <div class="space-y-1.5 text-xs">
@@ -456,7 +506,6 @@ function renderizarEstatisticasAvancadas() {
           </div>
         </div>
 
-        <!-- Fora de Casa -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">🛣️ Fora de Casa</p>
           <div class="space-y-1.5 text-xs">
@@ -475,7 +524,6 @@ function renderizarEstatisticasAvancadas() {
           </div>
         </div>
 
-        <!-- Defesa -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">🛡️ Defesa</p>
           <div class="space-y-1.5 text-xs">
@@ -490,7 +538,6 @@ function renderizarEstatisticasAvancadas() {
           </div>
         </div>
 
-        <!-- Ataque -->
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">⚽ Ataque</p>
           <div class="space-y-1.5 text-xs">
@@ -507,7 +554,6 @@ function renderizarEstatisticasAvancadas() {
       </div>
     </div>
 
-    <!-- SEÇÃO 2: GOLS E SALDO -->
     <div class="space-y-4 mt-6">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-gold"></span>
@@ -547,18 +593,16 @@ function renderizarEstatisticasAvancadas() {
       </div>
     </div>
 
-    <!-- SEÇÃO 3: SEQUÊNCIAS E FORMA RECENTE -->
     <div class="space-y-4 mt-6">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-gold"></span>
         📈 Sequências e Forma Recente
       </h3>
       
-      <!-- Últimos Jogos -->
       <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
         <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-3">Últimos ${stats.ultimosJogos.length} Jogos</p>
         <div class="flex justify-center gap-2">
-          ${stats.ultimosJogos.map((resultado, idx) => {
+          ${stats.ultimosJogos.map((resultado) => {
             let corBg = '';
             let corTexto = '';
             if (resultado === 'V') {
@@ -580,7 +624,6 @@ function renderizarEstatisticasAvancadas() {
         </div>
       </div>
 
-      <!-- Sequências -->
       <div class="grid grid-cols-2 gap-3">
         <div class="bg-emerald-900/20 border border-emerald-700/40 rounded-xl p-4">
           <p class="text-[10px] text-emerald-300 uppercase tracking-wider font-semibold mb-2">Maior Seq. Vitórias</p>
@@ -596,8 +639,6 @@ function renderizarEstatisticasAvancadas() {
       </div>
     </div>
   `;
-
-  console.log('✓ Estatísticas avançadas renderizadas');
 }
 
 /* ===========================================================
@@ -837,7 +878,6 @@ function renderDashboard() {
     `;
   }
 
-  // ✅ NOVO: Renderizar estatísticas avançadas
   renderizarEstatisticasAvancadas();
 }
 
@@ -1003,7 +1043,7 @@ function renderLists() {
 }
 
 /* ===========================================================
-   8. GERENCIAMENTO DE TEMA
+   8. GERENCIAMENTO DE TEMA E CATEGORIAS
    =========================================================== */
 
 function initThemeToggle() {
@@ -1022,14 +1062,9 @@ function initThemeToggle() {
   }
 }
 
-/* ===========================================================
-   9. ⭐ GERENCIAMENTO DE CATEGORIAS (MASCULINO/FEMININO)
-   =========================================================== */
-
 function setCategory(category) {
   activeCategory = category;
   
-  // Atualizar visual dos botões
   const btnM = document.getElementById("btnCategoryMasculino");
   const btnF = document.getElementById("btnCategoryFeminino");
   
@@ -1041,17 +1076,15 @@ function setCategory(category) {
     if (btnM) btnM.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white";
   }
   
-  // Reseta a aba para "todos"
   activeTab = "todos";
   activeSub = "todos";
   activeMandoFilter = "todos";
   
-  // Re-renderiza tudo
   render();
 }
 
 /* ===========================================================
-   10. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
+   9. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
    =========================================================== */
 
 function deleteGame(id) {
@@ -1105,7 +1138,7 @@ function editGame(id) {
 }
 
 /* ===========================================================
-   11. RENDER GERAL E INICIALIZAÇÃO
+   10. RENDER GERAL E INICIALIZAÇÃO
    =========================================================== */
 
 function render() {
@@ -1148,7 +1181,6 @@ document.addEventListener("DOMContentLoaded", () => {
   render();
   initHamburgerMenu();
 
-  // Configuração dos Botões de Mando de Campo
   document.querySelectorAll(".mando-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".mando-btn").forEach(b => {
@@ -1161,7 +1193,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Modal de Adicionar/Editar Jogo
   const modal = document.getElementById("modalOverlay");
   const btnAdd = document.getElementById("btnAddGame");
   const btnAddMobile = document.getElementById("btnAddGameMobile");
@@ -1226,7 +1257,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         const newGame = {
           id: cryptoId(),
-          category: activeCategory, // ✅ Salvar categoria
+          category: activeCategory,
           comp,
           round,
           date: dateFmt,
@@ -1246,5 +1277,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-console.log('✓ Script Bahia com Estatísticas Avançadas + Categorias carregado');
