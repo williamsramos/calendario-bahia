@@ -1,4 +1,3 @@
-
 /* ===========================================================
    Calendário Tricolor EC Bahia (Feminino) — COM ESTATÍSTICAS AVANÇADAS
    + Estrutura padronizada baseada no script.js principal
@@ -14,7 +13,7 @@ function cryptoId() {
 
 function slugify(str) {
   if (!str) return '';
-  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  return str.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
             .replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
@@ -39,14 +38,17 @@ const StorageUtils = {
 
 function parseDate(dstr) {
   if (!dstr) return new Date();
-  const [d, m] = dstr.split("/").map(Number);
-  const year = m >= 7 ? 2026 : 2027; 
+  const parts = dstr.split("/");
+  const d = Number(parts[0]);
+  const m = Number(parts[1]);
+  const y = parts[2] ? Number(parts[2]) : (m >= 7 ? 2026 : 2027);
+  const year = y < 100 ? 2000 + y : y;
   return new Date(year, m - 1, d);
 }
 
 function fmtLongDate(dstr) {
   const dt = parseDate(dstr);
-  return dt.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short" }).replace(".", "");
+  return dt.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short", year: "numeric" }).replace(".", "");
 }
 
 function today() {
@@ -60,39 +62,42 @@ function today() {
 
 const listaAtualizadaDeGamesFeminino = [
   // BRASILEIRÃO FEMININO
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "1ª Rodada", date: "14/02", team1: "bahia", team2: "cruzeiro", stadium: "Pituaçu", time: "18:00", score: "0 x 2" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "2ª Rodada", date: "22/02", team1: "sao-paulo", team2: "bahia", stadium: "CFA Laudo Natel (CT de Cotia)", time: "21:00", score: "2 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "3ª Rodada", date: "16/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "21:00", score: "3 x 2" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "4ª Rodada", date: "21/03", team1: "bahia", team2: "santos", stadium: "Arena Fonte Nova", time: "16:00", score: "3 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "5ª Rodada", date: "28/03", team1: "bragantino", team2: "bahia", stadium: "Benito Agnelo Castellano", time: "21:00", score: "1 x 2" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "6ª Rodada", date: "01/04", team1: "bahia", team2: "america-mg", stadium: "Arena Fonte Nova", time: "16:00", score: "3 x 1" },  
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "7ª Rodada", date: "20/04", team1: "flamengo", team2: "bahia", stadium: "Luso-Brasileiro", time: "21:30", score: "1 x 3" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "8ª Rodada", date: "28/04", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "18:00", score: "0 x 2" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "9ª Rodada", date: "02/05", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "10ª Rodada", date: "09/05", team1: "mixto", team2: "bahia", stadium: "Arena Pantanal", time: "18:00", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "11ª Rodada", date: "16/05", team1: "bahia", team2: "internacional", stadium: "Arena Pantanal", time: "16:00", score: "3 x 0" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05", team1: "fluminense", team2: "bahia", stadium: "Estádio Manoel Schwartz", time: "18:00", score: "3 x 3" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "13ª Rodada", date: "27/07", team1: "bahia", team2: "botafogo", stadium: "Superbet Arena", time: "19:00", score: "2 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "14ª Rodada", date: "02/08", team1: "ferroviaria", team2: "bahia", stadium: "Arena da Fonte Luminosa", time: "18:00", score: "1 x 0" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "16ª Rodada", date: "15/08", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Ida", date: "31/08", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Volta", date: "04/09", team1: "bahia", team2: "palmeiras", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "1ª Rodada", date: "14/02/26", team1: "bahia", team2: "cruzeiro", stadium: "Pituaçu", time: "18:00", score: "0 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "2ª Rodada", date: "22/02/26", team1: "sao-paulo", team2: "bahia", stadium: "CFA Laudo Natel (CT de Cotia)", time: "21:00", score: "2 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "3ª Rodada", date: "16/03/26", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "21:00", score: "3 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "4ª Rodada", date: "21/03/26", team1: "bahia", team2: "santos", stadium: "Arena Fonte Nova", time: "16:00", score: "3 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "5ª Rodada", date: "28/03/26", team1: "bragantino", team2: "bahia", stadium: "Benito Agnelo Castellano", time: "21:00", score: "1 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "6ª Rodada", date: "01/04/26", team1: "bahia", team2: "america-mg", stadium: "Arena Fonte Nova", time: "16:00", score: "3 x 1" },  
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "7ª Rodada", date: "20/04/26", team1: "flamengo", team2: "bahia", stadium: "Luso-Brasileiro", time: "21:30", score: "1 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "8ª Rodada", date: "28/04/26", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "18:00", score: "0 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "9ª Rodada", date: "02/05/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "10ª Rodada", date: "09/05/26", team1: "mixto", team2: "bahia", stadium: "Arena Pantanal", time: "18:00", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "11ª Rodada", date: "16/05/26", team1: "bahia", team2: "internacional", stadium: "Arena Pantanal", time: "16:00", score: "3 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05/26", team1: "fluminense", team2: "bahia", stadium: "Estádio Manoel Schwartz", time: "18:00", score: "3 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "13ª Rodada", date: "27/07/26", team1: "bahia", team2: "botafogo", stadium: "Superbet Arena", time: "19:00", score: "2 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "14ª Rodada", date: "02/08/26", team1: "ferroviaria", team2: "bahia", stadium: "Arena da Fonte Luminosa", time: "18:00", score: "1 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08/26", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "16ª Rodada", date: "15/08/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1 (4 x 5)" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Ida", date: "15/09/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "21:30", score: " x " },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Volta", date: "21/09/26", team1: "corinthians", team2: "bahia", stadium: "Neo Quimica", time: "21:30", score: " x " },
 
   // COPA DO BRASIL FEMININA
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "3ª Fase", date: "27/05", team1: "planalto", team2: "bahia", stadium: "Aníbal Batista de Toledo", time: "19:30", score: "0 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Oitavas de final", date: "21/07", team1: "itabirito", team2: "bahia", stadium: "Arena do Jacaré", time: "20:00", score: "0 x 1" },
-    { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Ida)", date: "14/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "3ª Fase", date: "27/05/26", team1: "planalto", team2: "bahia", stadium: "Aníbal Batista de Toledo", time: "19:30", score: "0 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Oitavas de final", date: "21/07/26", team1: "itabirito", team2: "bahia", stadium: "Arena do Jacaré", time: "20:00", score: "0 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Ida)", date: "a definir", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Volta)", date: "a definir", team1: "sao-paulo", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
 
   // BAIANO - FEMININO
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "12/09", team1: "bahia", team2: "botafogo-ba", stadium: "A definir", time: "09:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "19/09", team1: "bahia", team2: "porto", stadium: "A definir", time: "21:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "26/09", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "21:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "03/10", team1: "jacobina", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09/26", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "15:00", score: "0x5" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "12/09/26", team1: "bahia", team2: "botafogo-ba", stadium: "A definir", time: "09:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "19/09/26", team1: "bahia", team2: "porto", stadium: "A definir", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "26/09/26", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "03/10/26", team1: "jacobina", team2: "bahia", stadium: "A definir", time: "15:00", score: "x" },
+]
 
-];
 
 let games = StorageUtils.get("bahia_fem_games", listaAtualizadaDeGamesFeminino);
 let editingGameId = null;
@@ -130,8 +135,8 @@ const teamLogos = {
   "jacobina": "img/jacobina.png",
   "jacuipense": "img/jacuipense.png",
   "porto": "img/porto_sc.png",
-  "barcelona-ba": "img/barcelona-ba.png", // <--- Adicionado
-  "botafogo-ba": "img/botafogo-ba.png"  // <--- Adicionado
+  "barcelona-ba": "img/barcelona-ba.png",
+  "botafogo-ba": "img/botafogo-ba.png"
 };
 
 function getTeam(slug) {
@@ -169,6 +174,11 @@ let activeTab = "todos";
 let activeSub = "todos";
 let activeMandoFilter = "todos";
 
+const mandos = [
+  { id: "todos", label: "Geral" },
+  { id: "casa", label: "Em Casa" },
+  { id: "fora", label: "Fora" }
+];
 
 function gamesForTab(tabId) {
   let list = games.filter(g => (g.category || "feminino") === "feminino");
@@ -529,7 +539,7 @@ function startCountdown(nextGameDate, timeStr) {
     const diff = targetTime - now;
 
     if (diff <= 0) {
-      timerEl.innerHTML = `<span class="text-gold font-bold">Jogo em andamento ou encerrado!</span>`;
+      timerEl.innerHTML = `<span class="text-gold font-bold">Jogo não iniciado ou em andamento ou encerrado!</span>`;
       clearInterval(countdownInterval);
       return;
     }
@@ -1123,4 +1133,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
