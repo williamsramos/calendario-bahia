@@ -81,7 +81,7 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1 (4 x 5)" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Ida", date: "15/09/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "21:30", score: " x " },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Ida", date: "15/09/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "21:30", score: " 0 x 1 " },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Volta", date: "21/09/26", team1: "corinthians", team2: "bahia", stadium: "Neo Quimica", time: "21:30", score: " x " },
 
   // COPA DO BRASIL FEMININA
