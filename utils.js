@@ -138,25 +138,25 @@ const LocalStorage = {
 // 📊 Matriz com os dados atualizados da classificação da Serie A - 2026
 const dadosClassificacao = [
   { pos: 1, clube: "Flamengo", slug: "flamengo", pts: 57, pj: 27, vit: 17, e: 6, der: 4, gm: 53, gc: 22, sg: 31, ultimas: ["D", "V", "V", "V", "V"], proximo: "bragantino" },
-  { pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 56, pj: 27, vit: 16, e: 8, der: 3, gm: 47, gc: 21, sg: 26, ultimas: ["V", "D", "V", "E", "E"], proximo: "gremio" },
-  { pos: 3, clube: "Athletico-PR", slug: "athletico-pr", pts: 46, pj: 27, vit: 13, e: 7, der: 7, gm: 41, gc: 31, sg: 10, ultimas: ["E", "V", "V", "E", "D"], proximo: "bahia" },
-  { pos: 4, clube: "Bahia", slug: "bahia", pts: 46, pj: 27, vit: 12, e: 10, der: 5, gm: 42, gc: 33, sg: 9, ultimas: ["E", "E", "V", "V", "V"], proximo: "athletico-pr" },
-  { pos: 5, clube: "Fluminense", slug: "fluminense", pts: 45, pj: 27, vit: 12, e: 9, der: 6, gm: 41, gc: 35, sg: 6, ultimas: ["E", "V", "V", "E", "V"], proximo: "corinthians" },
-  { pos: 6, clube: "Cruzeiro", slug: "cruzeiro", pts: 42, pj: 27, vit: 12, e: 6, der: 9, gm: 39, gc: 39, sg: 0, ultimas: ["V", "V", "V", "D", "V"], proximo: "vitoria" },
-  { pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 39, pj: 26, vit: 11, e: 6, der: 9, gm: 35, gc: 31, sg: 4, ultimas: ["V", "E", "V", "D", "E"], proximo: "chapecoense" },
-  { pos: 8, clube: "Coritiba", slug: "coritiba", pts: 38, pj: 27, vit: 10, e: 8, der: 9, gm: 37, gc: 38, sg: -1, ultimas: ["V", "E", "V", "V", "E"], proximo: "vasco" },
-  { pos: 9, clube: "Bragantino", slug: "bragantino", pts: 36, pj: 26, vit: 10, e: 6, der: 10, gm: 32, gc: 29, sg: 3, ultimas: ["E", "V", "D", "D", "D"], proximo: "flamengo" },
-  { pos: 10, clube: "Santos", slug: "santos", pts: 35, pj: 26, vit: 9, e: 8, der: 9, gm: 39, gc: 39, sg: 0, ultimas: ["D", "V", "E", "V", "E"], proximo: "remo" },
-  { pos: 11, clube: "Botafogo", slug: "botafogo", pts: 35, pj: 27, vit: 9, e: 8, der: 10, gm: 41, gc: 43, sg: -2, ultimas: ["E", "D", "D", "D", "V"], proximo: "mirassol" },
+  { pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 56, pj: 27, vit: 16, e: 8, der: 3, gm: 47, gc: 21, sg: 26, ultimas: ["D", "V", "E", "E", "V"], proximo: "gremio" },
+  { pos: 3, clube: "Athletico-PR", slug: "athletico-pr", pts: 46, pj: 27, vit: 13, e: 7, der: 7, gm: 41, gc: 31, sg: 10, ultimas: ["E", "V", "E", "D", "E"], proximo: "bahia" },
+  { pos: 4, clube: "Bahia", slug: "bahia", pts: 46, pj: 27, vit: 12, e: 10, der: 5, gm: 42, gc: 33, sg: 9, ultimas: ["E", "V", "V", "V", "V"], proximo: "athletico-pr" },
+  { pos: 5, clube: "Fluminense", slug: "fluminense", pts: 45, pj: 27, vit: 12, e: 9, der: 6, gm: 41, gc: 35, sg: 6, ultimas: ["V", "V", "E", "V", "D"], proximo: "corinthians" },
+  { pos: 6, clube: "Cruzeiro", slug: "cruzeiro", pts: 42, pj: 27, vit: 12, e: 6, der: 9, gm: 39, gc: 39, sg: 0, ultimas: ["V", "V", "D", "V", "D"], proximo: "vitoria" },
+  { pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 39, pj: 26, vit: 11, e: 6, der: 9, gm: 35, gc: 31, sg: 4, ultimas: ["V", "E", "V", "D", "V"], proximo: "chapecoense" },
+  { pos: 8, clube: "Coritiba", slug: "coritiba", pts: 38, pj: 27, vit: 10, e: 8, der: 9, gm: 37, gc: 38, sg: -1, ultimas: ["E", "V", "V", "D", "E"], proximo: "vasco" },
+  { pos: 9, clube: "Bragantino", slug: "bragantino", pts: 36, pj: 26, vit: 10, e: 6, der: 10, gm: 32, gc: 29, sg: 3, ultimas: ["E", "V", "D", "D", "E"], proximo: "flamengo" },
+  { pos: 10, clube: "Santos", slug: "santos", pts: 35, pj: 26, vit: 9, e: 8, der: 9, gm: 39, gc: 39, sg: 0, ultimas: ["V", "E", "V", "V", "V"], proximo: "remo" },
+  { pos: 11, clube: "Botafogo", slug: "botafogo", pts: 35, pj: 27, vit: 9, e: 8, der: 10, gm: 41, gc: 43, sg: -2, ultimas: ["D", "D", "E", "E", "V"], proximo: "mirassol" },
   { pos: 12, clube: "São Paulo", slug: "sao-paulo", pts: 33, pj: 26, vit: 9, e: 6, der: 11, gm: 31, gc: 30, sg: 1, ultimas: ["E", "D", "V", "V", "D"], proximo: "internacional" },
-  { pos: 13, clube: "Vitória", slug: "vitoria", pts: 33, pj: 27, vit: 9, e: 6, der: 12, gm: 27, gc: 39, sg: -12, ultimas: ["D", "V", "D", "D", "E"], proximo: "cruzeiro" },
-  { pos: 14, clube: "Corinthians", slug: "corinthians", pts: 32, pj: 27, vit: 8, e: 8, der: 11, gm: 28, gc: 29, sg: -1, ultimas: ["V", "D", "D", "D", "E"], proximo: "fluminense" },
-  { pos: 15, clube: "Mirassol", slug: "mirassol", pts: 29, pj: 27, vit: 7, e: 8, der: 12, gm: 31, gc: 42, sg: -11, ultimas: ["D", "E", "E", "D", "V"], proximo: "botafogo" },
-  { pos: 16, clube: "Grêmio", slug: "gremio", pts: 28, pj: 27, vit: 7, e: 7, der: 13, gm: 30, gc: 38, sg: -8, ultimas: ["E", "V", "D", "D", "E"], proximo: "palmeiras" },
-  { pos: 17, clube: "Vasco da Gama", slug: "vasco", pts: 28, pj: 26, vit: 7, e: 7, der: 12, gm: 29, gc: 41, sg: -12, ultimas: ["D", "D", "V", "D", "E"], proximo: "coritiba" },
-  { pos: 18, clube: "Internacional", slug: "internacional", pts: 28, pj: 27, vit: 6, e: 10, der: 11, gm: 30, gc: 35, sg: -5, ultimas: ["E", "E", "E", "D", "E"], proximo: "sao-paulo" },
-  { pos: 19, clube: "Remo", slug: "remo", pts: 23, pj: 27, vit: 5, e: 8, der: 14, gm: 31, gc: 45, sg: -14, ultimas: ["E", "D", "D", "D", "E"], proximo: "santos" },
-  { pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 17, pj: 26, vit: 3, e: 8, der: 15, gm: 28, gc: 52, sg: -24, ultimas: ["E", "D", "E", "V", "E"], proximo: "atletico-mg" }
+  { pos: 13, clube: "Vitória", slug: "vitoria", pts: 33, pj: 27, vit: 9, e: 6, der: 12, gm: 27, gc: 39, sg: -12, ultimas: ["V", "D", "D", "V", "E"], proximo: "cruzeiro" },
+  { pos: 14, clube: "Corinthians", slug: "corinthians", pts: 32, pj: 27, vit: 8, e: 8, der: 11, gm: 28, gc: 29, sg: -1, ultimas: ["D", "D", "D", "D", "D"], proximo: "fluminense" },
+  { pos: 15, clube: "Mirassol", slug: "mirassol", pts: 29, pj: 27, vit: 7, e: 8, der: 12, gm: 31, gc: 42, sg: -11, ultimas: ["E", "E", "D", "V", "E"], proximo: "botafogo" },
+  { pos: 16, clube: "Grêmio", slug: "gremio", pts: 28, pj: 27, vit: 7, e: 7, der: 13, gm: 30, gc: 38, sg: -8, ultimas: ["D", "V", "D", "D", "D"], proximo: "palmeiras" },
+  { pos: 17, clube: "Vasco da Gama", slug: "vasco", pts: 28, pj: 26, vit: 7, e: 7, der: 12, gm: 29, gc: 41, sg: -12, ultimas: ["D", "D", "V", "D", "V"], proximo: "coritiba" },
+  { pos: 18, clube: "Internacional", slug: "internacional", pts: 28, pj: 27, vit: 6, e: 10, der: 11, gm: 30, gc: 35, sg: -5, ultimas: ["E", "E", "D", "D", "V"], proximo: "sao-paulo" },
+  { pos: 19, clube: "Remo", slug: "remo", pts: 23, pj: 27, vit: 5, e: 8, der: 14, gm: 31, gc: 45, sg: -14, ultimas: ["E", "D", "D", "D", "D"], proximo: "santos" },
+  { pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 17, pj: 26, vit: 3, e: 8, der: 15, gm: 28, gc: 52, sg: -24, ultimas: ["E", "V", "D", "V", "D"], proximo: "atletico-mg" }
 ];
 
 // Rodada 29
