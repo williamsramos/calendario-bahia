@@ -101,7 +101,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "25ª Rodada", date: "30/08", team1: "bahia", team2: "internacional", stadium: "Arena Fonte Nova", time: "19:30", score: "3 x 2" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "26ª Rodada", date: "05/09", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "2x3" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "27ª Rodada", date: "14/09", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "20:00", score: "2x1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "2x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Allianz Parque", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "16:30", score: "x" },
@@ -112,11 +112,6 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "22/11", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "16:00", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "29/11", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "16:00", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
-
-
-
-
-
 
   // MASCULINO — LIBERTADORES
   { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Ida)", date: "18/02", team1: "o-higgins", team2: "bahia", stadium: "El Teniente", time: "19:00", score: "1 x 0" },
