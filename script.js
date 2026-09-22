@@ -4,7 +4,7 @@
    =========================================================== */
 
 /* ===========================================================
-   1. FUNÇÕES UTILITÁRIAS (UTILS INTEGRADO)
+   1. FUNÇÕES UTILITÁRIAS
    =========================================================== */
 
 function cryptoId() { 
@@ -36,10 +36,13 @@ const StorageUtils = {
   }
 };
 
+/**
+ * Formatação de datas fixada para a temporada 2026
+ */
 function parseDate(dstr) {
   if (!dstr) return new Date();
   const [d, m] = dstr.split("/").map(Number);
-  const year = m >= 7 ? 2026 : 2027; 
+  const year = 2026;
   return new Date(year, m - 1, d);
 }
 
@@ -63,7 +66,7 @@ function obterJogosFemininosPorComp(lista) {
 }
 
 /* ===========================================================
-   2. DADOS E ESTADO — COM CATEGORIAS
+   2. DADOS E ESTADO — TEMPORADA 2026
    =========================================================== */
 
 const listaAtualizadaDeGames = [
@@ -114,22 +117,21 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
 
   // MASCULINO — LIBERTADORES
-  { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Ida)", date: "18/02", team1: "o-higgins", team2: "bahia", stadium: "El Teniente", time: "19:00", score: "1 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Volta)", date: "25/02", team1: "bahia", team2: "o-higgins", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 1 (3 x 4)" },
+  { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Ida)", date: "18/02", year: "2026", team1: "o-higgins", team2: "bahia", stadium: "El Teniente", time: "19:00", score: "1 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Volta)", date: "25/02", year: "2026", team1: "bahia", team2: "o-higgins", stadium: "Arena Fonte Nova (Pen. 3 x 4)", time: "19:00", score: "2 x 1" },
 
   // MASCULINO — COPA DO BRASIL
-  { id: cryptoId(), category: "masculino", comp: "copadobrasil", round: "5ª Fase (Ida)", date: "22/04", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 3" },
-  { id: cryptoId(), category: "masculino", comp: "copadobrasil", round: "5ª Fase (Volta)", date: "13/05", team1: "remo", team2: "bahia", stadium: "Mangueirão", time: "21:30", score: "2 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "copadobrasil", round: "5ª Fase (Ida)", date: "22/04", year: "2026", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 3" },
+  { id: cryptoId(), category: "masculino", comp: "copadobrasil", round: "5ª Fase (Volta)", date: "13/05", year: "2026", team1: "remo", team2: "bahia", stadium: "Mangueirão", time: "21:30", score: "2 x 1" },
 
   // MASCULINO — BAIANO
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", year: "2026", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
 ];
-
 
 let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
 let editingGameId = null;
-
-let activeCategory = "masculino"; // "masculino" | "feminino"
+let activeCategory = "masculino";
+let activeSeason = "2026";
 
 function saveGames() {
   StorageUtils.set("bahia_games", games);
@@ -172,7 +174,7 @@ function getTeam(slug) {
 }
 
 /* ===========================================================
-   4. COMPETIÇÕES — ADAPTADAS PARA CATEGORIAS
+   4. COMPETIÇÕES
    =========================================================== */
 
 const COMPS_MASCULINO = [
@@ -202,7 +204,7 @@ const posicoesCompeticao = {
   "todos": "5º",
   "brasileiro": "5º",
   "libertadores": "Caiu na 2ª Fase",
-  "copas": "Oitavas",
+  "copas": "Caiu nas oitavas",
   "estadual": "Campeão",
   "amistoso": "-"
 };
@@ -216,102 +218,87 @@ let activeSub = "todos";
 let activeMandoFilter = "todos";
 
 /* ===========================================================
-   6. CONTROLE DE TEMPORADA E FILTRAGEM
+   5. FILTRAGEM DE JOGOS
    =========================================================== */
 
-let activeSeason = "2026"; // "2026" | "2027"
+function gamesForTab(tabId) {
+  // 1. Filtra pela categoria ativa (masculino / feminino)
+  let list = games.filter(g => (g.category || "masculino") === activeCategory);
+
+  // 2. Filtra por Aba / Competição
+  if (tabId !== "todos") {
+    const currentComps = typeof getActiveComps === "function" ? getActiveComps() : COMPS_MASCULINO;
+    const comp = currentComps.find(c => c.id === tabId);
+
+    if (comp && comp.match) {
+      list = list.filter(g => comp.match.includes(g.comp));
+    } else {
+      list = list.filter(g => g.comp === tabId || (tabId === "estadual" && g.comp === "baiano"));
+    }
+  }
+
+  // 3. Filtra por Mando de Campo
+  if (typeof activeMandoFilter !== "undefined") {
+    if (activeMandoFilter === "casa") {
+      list = list.filter(g => g.team1 === "bahia");
+    } else if (activeMandoFilter === "fora") {
+      list = list.filter(g => g.team2 === "bahia");
+    }
+  }
+
+  return list;
+}
+
+function renderApp() {
+  const emptyCard = document.getElementById("empty-card");
+  const heroNext = document.getElementById("heroNext");
+  const dashboardSection = document.getElementById("dashboardSection");
+  const progressWrap = document.getElementById("progressWrap");
+  const tabsNav = document.getElementById("tabsNav");
+  const subFilterBar = document.getElementById("subFilterBar");
+  const listsWrap = document.getElementById("listsWrap");
+  const btnAdd = document.getElementById("btnAddGame");
+  const btnAddMobile = document.getElementById("btnAddGameMobile");
+
+  // Temporada 2027 (ou qualquer temporada sem tabela divulgada): mostra apenas o aviso
+  const isFutureSeason = activeSeason !== "2026";
+
+  if (emptyCard) emptyCard.classList.toggle("hidden", !isFutureSeason);
+  if (heroNext) heroNext.classList.toggle("hidden", isFutureSeason);
+  if (dashboardSection) dashboardSection.classList.toggle("hidden", isFutureSeason);
+  if (progressWrap) progressWrap.classList.toggle("hidden", isFutureSeason);
+  if (tabsNav) tabsNav.classList.toggle("hidden", isFutureSeason);
+  if (subFilterBar) subFilterBar.classList.toggle("hidden", isFutureSeason);
+  if (listsWrap) listsWrap.classList.toggle("hidden", isFutureSeason);
+  // style.display (em vez de classList) porque esses botões já usam classes
+  // responsivas (hidden sm:flex) que a classe "hidden" sozinha não sobrepõe
+  if (btnAdd) btnAdd.style.display = isFutureSeason ? "none" : "";
+  if (btnAddMobile) btnAddMobile.style.display = isFutureSeason ? "none" : "";
+
+  if (isFutureSeason) {
+    if (countdownInterval) clearInterval(countdownInterval);
+    return;
+  }
+
+  render();
+}
 
 function setSeason(season) {
   activeSeason = season;
 
-  // Atualiza visual dos botões do season-selector
-  document.querySelectorAll(".season-selector button").forEach(btn => {
-    if (btn.getAttribute("data-season") === season) {
-      btn.classList.add("bg-amber-400", "text-slate-950");
-      btn.classList.remove("text-slate-400");
-    } else {
-      btn.classList.remove("bg-amber-400", "text-slate-950");
-      btn.classList.add("text-slate-400");
-    }
-  });
+  const btn2026 = document.getElementById("btnSeason2026");
+  const btn2027 = document.getElementById("btnSeason2027");
+  const activeClass = "flex-1 py-1 text-xs font-bold rounded-lg bg-amber-400 text-slate-950 transition-all";
+  const inactiveClass = "flex-1 py-1 text-xs font-bold rounded-lg text-slate-400 transition-all";
+
+  if (btn2026) btn2026.className = season === "2026" ? activeClass : inactiveClass;
+  if (btn2027) btn2027.className = season === "2027" ? activeClass : inactiveClass;
 
   renderApp();
 }
-
-// Filtra jogos considerando a temporada selecionada
-function gamesForTab(tabId) {
-  let list = games.filter(g => (g.category || "masculino") === activeCategory);
-
-  // Filtro por ano/temporada com base na data do jogo (ex: datas com /01, /02 etc pertencem a 2026 ou 2027)
-  list = list.filter(g => {
-    if (!g.date) return true;
-    const parts = g.date.split("/");
-    const month = parts.length > 1 ? parseInt(parts[1], 10) : 1;
-    // No seu modelo, Janeiro a Junho/Julho podem transitar de ano, ou você pode filtrar diretamente pelo ano atribuído
-    const gameYear = month >= 7 ? "2026" : "2027"; 
-    // Se quiser usar uma propriedade explícita de ano no objeto jogo, ajuste aqui. 
-    // Por padrão, se a temporada selecionada for 2027 e não houver jogos cadastrados, exibe o card de aviso.
-    return activeSeason === "2026"; // Ajuste conforme sua regra de armazenamento de anos
-  });
-  
-  if (tabId !== "todos") {
-    const currentComps = getActiveComps();
-    const comp = currentComps.find(c => c.id === tabId);
-    
-    if (comp && comp.match) {
-      list = list.filter(g => comp.match.includes(g.comp));
-    } else {
-      list = list.filter(g => g.comp === tabId);
-    }
-  }
-  
-  if (activeMandoFilter === "casa") {
-    list = list.filter(g => g.team1 === "bahia");
-  } else if (activeMandoFilter === "fora") {
-    list = list.filter(g => g.team2 === "bahia");
-  }
-  
-  return list;
-}
-
-
-// Renderização principal atualizada com o tratamento de temporada vazia
-function renderApp() {
-  const currentGames = gamesForTab(activeTab);
-  const emptyCard = document.getElementById("empty-card");
-  const sectionProximos = document.getElementById("section-proximos");
-  const sectionRecentes = document.getElementById("section-recentes");
-
-  if (activeSeason === "2027" && currentGames.length === 0) {
-    if (emptyCard) emptyCard.classList.remove("hidden");
-    if (sectionProximos) sectionProximos.classList.add("hidden");
-    if (sectionRecentes) sectionRecentes.classList.add("hidden");
-  } else {
-    if (emptyCard) emptyCard.classList.add("hidden");
-    if (sectionProximos) sectionProximos.classList.remove("hidden");
-    if (sectionRecentes) sectionRecentes.classList.remove("hidden");
-    
-    // Chame aqui suas funções de renderização de listas, estatísticas e próximo jogo
-    // ex: renderStats(); renderHeroNext(); renderLists();
-  }
-}
-
-// Inicialização dos Event Listeners para o Seletor de Temporada
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".season-selector button").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const season = e.currentTarget.getAttribute("data-season");
-      setSeason(season);
-    });
-  });
-
-  // Render inicial
-  renderApp();
-});
-
 
 /* ===========================================================
-   5. ⭐ ESTATÍSTICAS AVANÇADAS — PRINCIPAL
+   6. ESTATÍSTICAS AVANÇADAS
    =========================================================== */
 
 function calcularEstatisticasAvancadas(filtroComp = 'todos') {
@@ -636,7 +623,7 @@ function renderizarEstatisticasAvancadas() {
 }
 
 /* ===========================================================
-   6. CONTADOR REGRESSIVO E HERO
+   7. CONTADOR REGRESSIVO E HERO
    =========================================================== */
 
 let countdownInterval = null;
@@ -647,7 +634,7 @@ function startCountdown(nextGameDate, timeStr) {
   if (!timerEl) return;
 
   const [d, m] = nextGameDate.split("/").map(Number);
-  const year = m >= 7 ? 2026 : 2027;
+  const year = 2026;
   const [hh, mm] = (timeStr || "20:00").split(":").map(Number);
   const targetTime = new Date(year, m - 1, d, hh, mm, 0).getTime();
 
@@ -730,7 +717,7 @@ function renderHero() {
 }
 
 /* ===========================================================
-   7. DASHBOARD DE ESTATÍSTICAS BÁSICAS
+   8. DASHBOARD DE ESTATÍSTICAS BÁSICAS
    =========================================================== */
 
 function computeStats(list) {
@@ -1037,7 +1024,7 @@ function renderLists() {
 }
 
 /* ===========================================================
-   8. GERENCIAMENTO DE TEMA E CATEGORIAS
+   9. GERENCIAMENTO DE TEMA E CATEGORIAS
    =========================================================== */
 
 function initThemeToggle() {
@@ -1074,11 +1061,11 @@ function setCategory(category) {
   activeSub = "todos";
   activeMandoFilter = "todos";
   
-  render();
+  renderApp();
 }
 
 /* ===========================================================
-   9. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
+   10. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
    =========================================================== */
 
 function deleteGame(id) {
@@ -1107,8 +1094,7 @@ function editGame(id) {
 
   if (game.date && game.date.includes("/") && document.getElementById("fDate")) {
     const [d, m] = game.date.split("/");
-    const y = Number(m) >= 7 ? 2026 : 2027;
-    document.getElementById("fDate").value = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    document.getElementById("fDate").value = `2026-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
   }
 
   const emCasa = game.team1 === "bahia";
@@ -1132,7 +1118,7 @@ function editGame(id) {
 }
 
 /* ===========================================================
-   10. RENDER GERAL E INICIALIZAÇÃO
+   11. RENDER GERAL E INICIALIZAÇÃO
    =========================================================== */
 
 function render() {
@@ -1172,7 +1158,7 @@ function initHamburgerMenu() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initThemeToggle();
-  render();
+  renderApp();
   initHamburgerMenu();
 
   document.querySelectorAll(".mando-btn").forEach(btn => {

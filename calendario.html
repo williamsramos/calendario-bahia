@@ -17,7 +17,6 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        // Tons escuros de fundo baseados no Azul do Esquadrão
         navy: { 
           950: '#030B18', 
           900: '#071329', 
@@ -25,31 +24,26 @@ tailwind.config = {
           700: '#152C56', 
           600: '#1D3B70' 
         },
-        // Azul oficial do Bahia
         azul: { 
           DEFAULT: '#00468C', 
           600: '#003366', 
           400: '#0056F3' 
         },
-        // Vermelho oficial do Bahia
         vermelho: { 
           DEFAULT: '#E31C22', 
           600: '#B31217', 
           400: '#FF3B3B' 
         },
-        // Branco Tricolor
         branco: {
           DEFAULT: '#FFFFFF',
           100: '#F1F5F9',
           200: '#E2E8F0'
         },
-        // Dourado para títulos, conquistas e destaques
         ouro: { 
           DEFAULT: '#FFD700', 
           600: '#CCAC00',
           400: '#FFE033'
         },
-        // Mapeamentos mantidos para compatibilidade com o código legado
         garnet: { 
           DEFAULT: '#E31C22', 
           600: '#B31217', 
@@ -159,11 +153,28 @@ tailwind.config = {
     </div>
   </div>
 
+      <!-- 2. SELETOR DE TEMPORADA -->
+     <div class="season-selector flex items-center justify-center p-1 bg-slate-900/60 rounded-xl border border-slate-700/40 w-48 mx-auto shadow-md">
+      <button id="btnSeason2026" data-season="2026" onclick="setSeason('2026')" class="flex-1 py-1 text-xs font-bold rounded-lg bg-amber-400 text-slate-950 transition-all">
+        2026
+      </button>
+      <button id="btnSeason2027" data-season="2027" onclick="setSeason('2027')" class="flex-1 py-1 text-xs font-bold rounded-lg text-slate-400 transition-all">
+        2027
+      </button>
+    </div> 
+
   <!-- ===== 1. DESTAQUE INTELIGENTE DO PRÓXIMO JOGO ===== -->
   <div id="heroNext" class="mt-2"></div>
 
+  <!-- ===== 1b. AVISO "SEM JOGOS" (temporada futura vazia) ===== -->
+  <div id="empty-card" class="hidden mt-4 p-6 bg-slate-900/80 rounded-2xl border border-slate-700/50 text-center shadow-xl">
+    <span class="text-2xl">🗓️</span>
+    <p class="mt-2 font-semibold text-slate-200">Temporada 2027 ainda não começou</p>
+    <p class="text-xs text-slate-400 mt-1">Assim que a tabela for divulgada, os jogos aparecem aqui automaticamente.</p>
+  </div>
+
   <!-- ===== 2. DASHBOARD DE ESTATÍSTICAS ===== -->
-  <section class="mt-6">
+  <section id="dashboardSection" class="mt-6">
     <h2 id="dashboardTitle" class="text-sm font-semibold tracking-wide text-slate-300 uppercase mb-3">Desempenho</h2>
     <div id="statGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4"></div>
   </section>
@@ -180,7 +191,7 @@ tailwind.config = {
   </section>
 
   <!-- ===== TABS ===== -->
-  <nav class="mt-8">
+  <nav id="tabsNav" class="mt-8">
     <div id="tabBar" class="flex items-center gap-6 overflow-x-auto scrollbar-thin border-b border-white/10 pb-3.5"></div>
   </nav>
 
@@ -188,7 +199,7 @@ tailwind.config = {
   <div class="mt-5 flex items-center gap-2" id="subFilterBar"></div>
 
   <!-- ===== LISTAS ===== -->
-  <div class="mt-6">
+  <div id="listsWrap" class="mt-6">
 
     <section id="section-proximos">
       <h2 class="flex items-center gap-2 text-sm font-semibold tracking-wide text-slate-300 uppercase mb-4">
@@ -231,7 +242,7 @@ tailwind.config = {
           <option value="libertadores">Libertadores</option>
           <option value="copadobrasil">Copa do Brasil</option>
           <option value="copadonordeste">Copa do Nordeste </option>
-          <option value="estadual">Baiano</option>
+          <option value="baiano">Baiano</option>
           <option value="amistoso">Amistoso</option>
         </select>
       </div>

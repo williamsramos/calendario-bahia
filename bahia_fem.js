@@ -81,9 +81,9 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
   //  BRASILEIRÃO FEMININO 2ª fase
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1 (4 x 5)" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente (pen. 4 x 5)", time: "21:30", score: "1 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Semifinal - Ida", date: "15/09/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "21:30", score: " 0 x 1 " },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Semifinal - Volta", date: "21/09/26", team1: "corinthians", team2: "bahia", stadium: "Neo Quimica", time: "21:30", score: " 1x0 (agr. 2x0) " },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Semifinal - Volta", date: "21/09/26", team1: "corinthians", team2: "bahia", stadium: "Neo Quimica (agr. 2x0)", time: "21:30", score: " 1x0" },
 
   // COPA DO BRASIL FEMININA
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "3ª Fase", date: "27/05/26", team1: "planalto", team2: "bahia", stadium: "Aníbal Batista de Toledo", time: "19:30", score: "0 x 1" },
