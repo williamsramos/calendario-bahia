@@ -79,6 +79,7 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08/26", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "16ª Rodada", date: "15/08/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
+  
   //  BRASILEIRÃO FEMININO 2ª fase
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente (pen. 4 x 5)", time: "21:30", score: "1 x 1" },
