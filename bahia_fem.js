@@ -79,10 +79,11 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08/26", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "16ª Rodada", date: "15/08/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1 (4 x 5)" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Ida", date: "15/09/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "21:30", score: " 0 x 1 " },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "Semifinal - Volta", date: "21/09/26", team1: "corinthians", team2: "bahia", stadium: "Neo Quimica", time: "21:30", score: " x " },
+  //  BRASILEIRÃO FEMININO 2ª fase
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Volta", date: "04/09/26", team1: "palmeiras", team2: "bahia", stadium: "Estádio Nelo Bracalente", time: "21:30", score: "1 x 1 (4 x 5)" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Semifinal - Ida", date: "15/09/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "21:30", score: " 0 x 1 " },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Semifinal - Volta", date: "21/09/26", team1: "corinthians", team2: "bahia", stadium: "Neo Quimica", time: "21:30", score: " 1x0 (agr. 2x0) " },
 
   // COPA DO BRASIL FEMININA
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "3ª Fase", date: "27/05/26", team1: "planalto", team2: "bahia", stadium: "Aníbal Batista de Toledo", time: "19:30", score: "0 x 1" },
@@ -153,6 +154,7 @@ function getTeam(slug) {
 const COMPS_FEMININO = [
   { id: "todos",           label: "Todos" },
   { id: "brasileiro_fem", label: "Brasileiro Série A Fem." },
+  { id: "brasileiro_fem_2ªfase", label: "Brasileiro Série A Fem. 2ª Fase" },
   { id: "copas_fem",       label: "Copas", match: ["copa-brasil-fem"] },
   { id: "estadual_fem",    label: "Baiano Fem.", match: ["baiano-fem"] },
   { id: "amistoso_fem",    label: "Amistosos" }
@@ -161,6 +163,7 @@ const COMPS_FEMININO = [
 const posicoesCompeticao = {
   "todos": "6º",
   "brasileiro_fem": "6º",
+  "brasileiro_fem_2ªfase": "eliminada nas semifinais",
   "copas_fem": "Quartas",
   "estadual_fem": "-",
   "amistoso_fem": "-"
