@@ -107,7 +107,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "2x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Allianz Parque", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "x" },
+   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "x" },
@@ -126,6 +126,21 @@ const listaAtualizadaDeGames = [
 
   // MASCULINO — BAIANO
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", year: "2026", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
+
+  // ==========================================
+  // JOGOS DA TEMPORADA 2027
+  // ==========================================
+
+  // MASCULINO — BAIANO
+
+  // MASCULINO — COPA DO BRASIL
+
+  // MASCULINO — LIBERTADORES
+
+  // MASCULINO — BRASILEIRÃO · 1º TURNO
+
+  // MASCULINO — BRASILEIRÃO · 2º TURNO
+
 ];
 
 let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
@@ -186,13 +201,16 @@ const COMPS_MASCULINO = [
   { id: "amistoso",    label: "Amistosos" },
 ];
 
-const COMPS_FEMININO = [
-  { id: "todos",       label: "Todos" },
-  { id: "brasileiro_fem", label: "Brasileiro Série A Fem." },
-  { id: "copas_fem",   label: "Copas", match: ["copa-brasil-fem"] },
-  { id: "estadual_fem", label: "Baiano", match: ["baiano-fem"] },
-  { id: "amistoso_fem", label: "Amistosos" },
-];
+// const COMPS_MASCULINO = [
+//   { id: "todos",          label: "Todos" },
+//   { id: "brasileiro 27",  label: "Brasileiro Série A 27", match: ["brasileiro", "brasileiro 27"] },
+//   { id: "libertadores 27", label: "Libertadores 27",      match: ["libertadores", "libertadores 27"] },
+//   { id: "copas 27",       label: "Copas",                 match: ["copadobrasil", "copadobrasil 27", "copadonordeste", "copadonordeste 27"] },
+//   { id: "baiano 27",      label: "Baiano",                match: ["baiano", "baiano 27"] },
+//   { id: "amistoso",       label: "Amistosos",             match: ["amistoso"] },
+// ];
+
+
 
 const mandos = [
   { id: "todos", label: "Todos os Mandos" },
