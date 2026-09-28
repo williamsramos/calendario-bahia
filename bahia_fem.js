@@ -72,8 +72,8 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "8ª Rodada", date: "28/04/26", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "18:00", score: "0 x 2" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "9ª Rodada", date: "02/05/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "10ª Rodada", date: "09/05/26", team1: "mixto", team2: "bahia", stadium: "Arena Pantanal", time: "18:00", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "11ª Rodada", date: "16/05/26", team1: "bahia", team2: "internacional", stadium: "Arena Pantanal", time: "16:00", score: "3 x 0" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05/26", team1: "fluminense", team2: "bahia", stadium: "Estádio Manoel Schwartz", time: "18:00", score: "3 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "11ª Rodada", date: "16/05/26", team1: "bahia", team2: "internacional", stadium: "Arena Cajueiro", time: "16:00", score: "3 x 0" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05/26", team1: "fluminense", team2: "bahia", stadium: "Luso-Brasileiro", time: "18:00", score: "3 x 3" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "13ª Rodada", date: "27/07/26", team1: "bahia", team2: "botafogo", stadium: "Superbet Arena", time: "19:00", score: "2 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "14ª Rodada", date: "02/08/26", team1: "ferroviaria", team2: "bahia", stadium: "Arena da Fonte Luminosa", time: "18:00", score: "1 x 0" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08/26", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
@@ -94,10 +94,10 @@ const listaAtualizadaDeGamesFeminino = [
 
   // BAIANO - FEMININO
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09/26", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "15:00", score: "0x5" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "a definir", team1: "bahia", team2: "botafogo-ba", stadium: "CT Evaristo", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "a definir", team1: "bahia", team2: "botafogo-ba", stadium: "CT Evaristo", time: "15:00", score: "7x2" },
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "a definir", team1: "bahia", team2: "porto", stadium: "CT Evaristo", time: "a definir", score: "x" },
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "a definir", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "a definir", team1: "jacobina", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "a definir", team1: "bahia", team2: "jacpbina", stadium: "CT Evaristo", time: "a definir", score: "x" },
 ]
 
 
