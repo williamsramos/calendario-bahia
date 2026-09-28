@@ -73,12 +73,12 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "9ª Rodada", date: "02/05/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "10ª Rodada", date: "09/05/26", team1: "mixto", team2: "bahia", stadium: "Arena Pantanal", time: "18:00", score: "1 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "11ª Rodada", date: "16/05/26", team1: "bahia", team2: "internacional", stadium: "Arena Cajueiro", time: "16:00", score: "3 x 0" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05/26", team1: "fluminense", team2: "bahia", stadium: "Luso-Brasileiro", time: "18:00", score: "3 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "12ª Rodada", date: "23/05/26", team1: "fluminense", team2: "bahia", stadium: "Luso-Brasileiro", time: "16:00", score: "3 x 3" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "13ª Rodada", date: "27/07/26", team1: "bahia", team2: "botafogo", stadium: "Superbet Arena", time: "19:00", score: "2 x 1" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "14ª Rodada", date: "02/08/26", team1: "ferroviaria", team2: "bahia", stadium: "Arena da Fonte Luminosa", time: "18:00", score: "1 x 0" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08/26", team1: "atletico-mg", team2: "bahia", stadium: "A definir", time: "15:00", score: "0 x 3" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "15ª Rodada", date: "08/08/26", team1: "atletico-mg", team2: "bahia", stadium: "Gregorão", time: "15:00", score: "0 x 3" },
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "16ª Rodada", date: "15/08/26", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
-  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 2" },
+  { id: cryptoId(), category: "feminino", comp: "brasileiro_fem", round: "17ª Rodada", date: "22/08/26", team1: "juventude", team2: "bahia", stadium: "Alfredo Jaconi", time: "19:00", score: "2 x 2" },
   
   //  BRASILEIRÃO FEMININO 2ª fase
   { id: cryptoId(), category: "feminino", comp: "brasileiro_fem_2ªfase", round: "Quartas - Ida", date: "31/08/26", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "21:30", score: "1 x 1" },
