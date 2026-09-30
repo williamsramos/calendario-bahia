@@ -93,11 +93,11 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Volta)", date: "22/10/26", team1: "sao-paulo", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
 
   // BAIANO - FEMININO
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09/26", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "15:00", score: "0x5" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "a definir", team1: "bahia", team2: "botafogo-ba", stadium: "CT Evaristo", time: "15:00", score: "7x2" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "a definir", team1: "bahia", team2: "porto", stadium: "CT Evaristo", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "a definir", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "a definir", team1: "bahia", team2: "jacpbina", stadium: "CT Evaristo", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09", team1: "jacuipense", team2: "bahia", stadium: "CT Went'n Wild", time: "15:00", score: "0x5" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "24/09/26", team1: "bahia", team2: "botafogo-ba", stadium: "CT Evaristo", time: "15:00", score: "7x2" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "01/10", team1: "bahia", team2: "porto", stadium: "CT Evaristo", time: "9:00", score: "3x0" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "03/10/26", team1: "barcelona-ba", team2: "bahia", stadium: "Mario Pessoa", time: "15:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "07/10/26", team1: "bahia", team2: "jacobina", stadium: "CT Evaristo", time: "15:00", score: "x" },
 ]
 
 
