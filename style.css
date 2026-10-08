@@ -1,10 +1,6 @@
-   /* ===========================================================
-   FC Barcelona Portal — Estilos Globais
-   Tailwind config centralizado + estilos customizados
-   =========================================================== */
-
 /* ===========================================================
-   Calendário tricolor — estilos customizados
+   EC Bahia Portal — Estilos Globais
+   Tailwind config centralizado em utils.js + estilos customizados
    =========================================================== */
 
 :root {
@@ -12,6 +8,7 @@
   --navy-900: #0B1220;
   --navy-800: #111C33;
   --navy-700: #16213B;
+  --navy-600: #1D3B70;
   --bahia: #E31C22;
   --tricolor: #00468C;
   --gold: #FFC72C;
@@ -58,13 +55,11 @@ body {
 
 /* ---------- Correção responsiva para nomes de times em telas mobile ---------- */
 @media (max-width: 640px) {
-  /* Reduz padding interno do ticket para ganhar espaço */
   .ticket .flex-1.px-3 {
     padding-left: 8px !important;
     padding-right: 8px !important;
   }
-  
-  /* Força limite estrito para o nome do time não quebrar o layout */
+
   .team-name-label {
     max-width: 72px !important;
     white-space: nowrap;
@@ -104,7 +99,7 @@ body {
   border: 1px solid #1D2C4D;
 }
 .progress-fill {
-  background: linear-gradient(90deg, #A50044, #FFC72C);
+  background: linear-gradient(90deg, #E31C22, #FFC72C);
   transition: width 0.5s ease;
 }
 
@@ -121,7 +116,7 @@ body {
   position: absolute;
   left: 0; right: 0; bottom: -13px;
   height: 3px;
-  background: linear-gradient(90deg, #A50044, #FFC72C);
+  background: linear-gradient(90deg, #E31C22, #FFC72C);
   border-radius: 2px;
 }
 
@@ -142,7 +137,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   opacity: .6;
 }
 
-/* Toast Notifications */
+/* ---------- Toast Notifications ---------- */
 .toast-container {
   position: fixed;
   bottom: 20px;
@@ -167,17 +162,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   animation: slideInRight 0.3s ease;
 }
 
-.toast.error {
-  background: linear-gradient(135deg, #8A0039 0%, #6B0030 100%);
-}
-
-.toast.warning {
-  background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
-}
-
-.toast.info {
-  background: linear-gradient(135deg, #004D98 0%, #00357A 100%);
-}
+.toast.error   { background: linear-gradient(135deg, #8A0039 0%, #6B0030 100%); }
+.toast.warning { background: linear-gradient(135deg, #D97706 0%, #B45309 100%); }
+.toast.info    { background: linear-gradient(135deg, #004D98 0%, #00357A 100%); }
 
 .toast::before {
   content: "✓";
@@ -185,26 +172,20 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   font-size: 16px;
 }
 
-.toast.error::before { content: "✕"; }
+.toast.error::before   { content: "✕"; }
 .toast.warning::before { content: "⚠"; }
 
 @keyframes slideInRight {
-  from {
-    transform: translateX(400px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  from { transform: translateX(400px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
 }
 
-/* Smooth transitions */
+/* ---------- Transições suaves ---------- */
 a, button, input, select, textarea {
   transition: all 0.2s ease;
 }
 
-/* Scrollbar styling */
+/* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -223,9 +204,9 @@ a, button, input, select, textarea {
   background: var(--navy-600);
 }
 
-/* Card principal da partida */
+/* ---------- Card principal da partida ---------- */
 .match-card {
-  background-color: #0f172a; /* navy-900 */
+  background-color: #0f172a;
   border: 1px solid #1e293b;
   border-radius: 1rem;
   padding: 1rem;
@@ -234,7 +215,6 @@ a, button, input, select, textarea {
   gap: 1rem;
 }
 
-/* Informações do topo (Rodada, Data e Estádio) */
 .match-header {
   display: flex;
   justify-content: space-between;
@@ -243,7 +223,6 @@ a, button, input, select, textarea {
   color: #94a3b8;
 }
 
-/* Área central onde ficam os times e o placar */
 .match-body {
   display: flex;
   align-items: center;
@@ -252,7 +231,6 @@ a, button, input, select, textarea {
   width: 100%;
 }
 
-/* Estrutura de cada time */
 .match-team {
   display: flex;
   align-items: center;
@@ -270,7 +248,6 @@ a, button, input, select, textarea {
   text-align: left;
 }
 
-/* Nomes dos times */
 .team-name {
   font-weight: 600;
   font-size: 0.875rem;
@@ -280,7 +257,6 @@ a, button, input, select, textarea {
   text-overflow: ellipsis;
 }
 
-/* Placar / Inputs */
 .match-score {
   display: flex;
   align-items: center;
@@ -299,12 +275,11 @@ a, button, input, select, textarea {
   font-weight: bold;
 }
 
-/* Ajustes finos para telas menores (Móbile) */
 @media (max-width: 640px) {
   .team-name {
     font-size: 0.75rem;
   }
-  
+
   .score-input {
     width: 2rem;
     height: 2rem;
