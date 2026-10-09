@@ -105,7 +105,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "26ª Rodada", date: "05/09", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "2x3" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "27ª Rodada", date: "14/09", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "20:00", score: "2x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "2x1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Allianz Parque", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Nubank Parque", time: "21:30", score: "1x0" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "x" },
    { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "x" },
@@ -219,8 +219,8 @@ const mandos = [
 ];
 
 const posicoesCompeticao = {
-  "todos": "5º",
-  "brasileiro": "5º",
+  "todos": "6º",
+  "brasileiro": "6º",
   "libertadores": "Caiu na 2ª Fase",
   "copas": "Caiu nas oitavas",
   "estadual": "Campeão",

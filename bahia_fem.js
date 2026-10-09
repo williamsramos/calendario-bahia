@@ -96,8 +96,9 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09", team1: "jacuipense", team2: "bahia", stadium: "CT Went'n Wild", time: "15:00", score: "0x5" },
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "24/09/26", team1: "bahia", team2: "botafogo-ba", stadium: "CT Evaristo", time: "15:00", score: "7x2" },
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "3ª Rodada", date: "01/10", team1: "bahia", team2: "porto", stadium: "CT Evaristo", time: "9:00", score: "3x0" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "03/10/26", team1: "barcelona-ba", team2: "bahia", stadium: "Mario Pessoa", time: "15:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "07/10/26", team1: "bahia", team2: "jacobina", stadium: "CT Evaristo", time: "15:00", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "4ª Rodada", date: "03/10/26", team1: "barcelona-ba", team2: "bahia", stadium: "Mario Pessoa", time: "15:00", score: "1x11" },
+  { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "5ª Rodada", date: "07/10/26", team1: "bahia", team2: "jacobina", stadium: "CT Evaristo", time: "15:00", score: "2x2" },
+    { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "Quartas de Final", date: "11/10/26", team1: "bahia", team2: "jacuipense", stadium: "CT Evaristo", time: "15:00", score: "x" },
 ]
 
 
@@ -166,7 +167,8 @@ const posicoesCompeticao = {
   "brasileiro_fem": "6º",
   "brasileiro_fem_2ªfase": "eliminada nas semifinais",
   "copas_fem": "Quartas",
-  "estadual_fem": "-",
+  "estadual_fem": "2º",
+  // "estadual_fem": "-",
   "amistoso_fem": "-"
 };
 
