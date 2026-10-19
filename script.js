@@ -219,8 +219,8 @@ const mandos = [
 ];
 
 const posicoesCompeticao = {
-  "todos": "6º",
-  "brasileiro": "6º",
+  "todos": "7º",
+  "brasileiro": "7º",
   "libertadores": "Caiu na 2ª Fase",
   "copas": "Caiu nas oitavas",
   "estadual": "Campeão",
