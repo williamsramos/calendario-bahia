@@ -37,17 +37,16 @@ const StorageUtils = {
 };
 
 /**
- * Formatação de datas fixada para a temporada 2026
+ * Formatação de datas (ano opcional; padrão 2026)
  */
-function parseDate(dstr) {
+function parseDate(dstr, year) {
   if (!dstr) return new Date();
   const [d, m] = dstr.split("/").map(Number);
-  const year = 2026;
-  return new Date(year, m - 1, d);
+  return new Date(Number(year) || 2026, m - 1, d);
 }
 
-function fmtLongDate(dstr) {
-  const dt = parseDate(dstr);
+function fmtLongDate(dstr, year) {
+  const dt = parseDate(dstr, year);
   return dt.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short" }).replace(".", "");
 }
 
@@ -108,7 +107,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Nubank Parque", time: "21:30", score: "1x0" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "1x0" },
    { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "0x3" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "1x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "19:30", score: "x" },
@@ -132,6 +131,17 @@ const listaAtualizadaDeGames = [
   // ==========================================
 
   // MASCULINO — BAIANO
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "1ª rodada", date: "10/01", year: "2027", team1: "bahia", team2: "ssafc", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "2ª rodada", date: "13/01", year: "2027", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "3ª rodada", date: "17/01", year: "2027", team1: "jequie", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "4ª rodada", date: "20/01", year: "2027", team1: "bahia", team2: "juazeirense", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "5ª rodada", date: "24/01", year: "2027", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "6ª rodada", date: "31/01", year: "2027", team1: "porto", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "7ª rodada", date: "07/02", year: "2027", team1: "bahia", team2: "galicia", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "fluminense-de-feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+    //  Fase final - semifinal 27 ou 28/02 e final 07/03
+
 
   // MASCULINO — COPA DO BRASIL
 
@@ -144,6 +154,18 @@ const listaAtualizadaDeGames = [
 ];
 
 let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
+
+// Jogos da temporada 2027 que estão no código mas ainda não existem no
+// localStorage do usuário (evita que dados salvos "escondam" os jogos novos).
+(function mergeJogos2027() {
+  const chave = g => [g.category || "masculino", g.comp, g.round, g.date, g.year || "2026"].join("|");
+  const existentes = new Set(games.map(chave));
+  const novos = listaAtualizadaDeGames.filter(g => g.year === "2027" && !existentes.has(chave(g)));
+  if (novos.length) {
+    games = games.concat(novos);
+    StorageUtils.set("bahia_games", games);
+  }
+})();
 let editingGameId = null;
 let activeCategory = "masculino";
 let activeSeason = "2026";
@@ -178,7 +200,15 @@ const teamLogos = {
   "remo": "img/remo.png",
   "mirassol": "img/mirassol.png",
   "o-higgins": "img/o-higgins.png",
-  "montevideo-city": "img/montevideo-city.png"
+  "montevideo-city": "img/montevideo-city.png",
+  "porto": "img/porto_sc.png",
+  "barcelona-ba": "img/barcelona-ba.png",
+  "jacuipense": "img/jacuipense.png",
+  "fluminense-de-feira": "img/fluminense-de-feira.png",
+  "galicia": "img/galicia.png", 
+  "jequie": "img/jequie.png",
+  "ssafc": "img/ssa_fc.png",
+  "juazeirense" : "img/juazeirense.png"
 };
 
 function getTeam(slug) {
@@ -241,7 +271,8 @@ let activeMandoFilter = "todos";
 
 function gamesForTab(tabId) {
   // 1. Filtra pela categoria ativa (masculino / feminino)
-  let list = games.filter(g => (g.category || "masculino") === activeCategory);
+  let list = games.filter(g => (g.category || "masculino") === activeCategory)
+                  .filter(g => (g.year || "2026") === activeSeason);
 
   // 2. Filtra por Aba / Competição
   if (tabId !== "todos") {
@@ -279,7 +310,8 @@ function renderApp() {
   const btnAddMobile = document.getElementById("btnAddGameMobile");
 
   // Temporada 2027 (ou qualquer temporada sem tabela divulgada): mostra apenas o aviso
-  const isFutureSeason = activeSeason !== "2026";
+  const hasSeasonGames = games.some(g => (g.year || "2026") === activeSeason);
+  const isFutureSeason = !hasSeasonGames;
 
   if (emptyCard) emptyCard.classList.toggle("hidden", !isFutureSeason);
   if (heroNext) heroNext.classList.toggle("hidden", isFutureSeason);
@@ -646,14 +678,14 @@ function renderizarEstatisticasAvancadas() {
 
 let countdownInterval = null;
 
-function startCountdown(nextGameDate, timeStr) {
+function startCountdown(nextGameDate, timeStr, gameYear) {
   if (countdownInterval) clearInterval(countdownInterval);
   const timerEl = document.getElementById("heroCountdown");
   if (!timerEl) return;
 
   const [d, m] = nextGameDate.split("/").map(Number);
-  const year = 2026;
-  const [hh, mm] = (timeStr || "20:00").split(":").map(Number);
+  const year = Number(gameYear) || 2026;
+  const [hh, mm] = ((/^\d{1,2}:\d{2}$/.test(timeStr || "") ? timeStr : "20:00")).split(":").map(Number);
   const targetTime = new Date(year, m - 1, d, hh, mm, 0).getTime();
 
   function update() {
@@ -687,7 +719,7 @@ function startCountdown(nextGameDate, timeStr) {
 function getNextGame() {
   return gamesForTab(activeTab === 'todos' ? 'todos' : activeTab)
     .filter(g => !g.score || g.score.trim().toLowerCase() === "x")
-    .sort((a, b) => parseDate(a.date) - parseDate(b.date))[0] || null;
+    .sort((a, b) => parseDate(a.date, a.year) - parseDate(b.date, b.year))[0] || null;
 }
 
 function renderHero() {
@@ -726,12 +758,12 @@ function renderHero() {
         </div>
       </div>
       <div class="text-center sm:text-right shrink-0">
-        <p class="font-mono text-xs text-slate-400">${fmtLongDate(next.date)} · ${next.time || "--:--"}</p>
+        <p class="font-mono text-xs text-slate-400">${fmtLongDate(next.date, next.year)} · ${next.time || "--:--"}</p>
         <p class="text-[11px] text-slate-500 mt-0.5">${next.stadium || "Estádio a definir"}</p>
       </div>
     </div>`;
 
-  startCountdown(next.date, next.time);
+  startCountdown(next.date, next.time, next.year);
 }
 
 /* ===========================================================
@@ -971,9 +1003,9 @@ function renderCard(g, isNext) {
   return `
   <div class="ticket ${isNext ? "border-gold" : "border-white/10"} bg-navy-900/60 backdrop-blur-md rise-in rounded-xl overflow-hidden flex border group mb-3">
     <div class="w-20 sm:w-28 shrink-0 flex flex-col items-center justify-center py-4 bg-navy-950/50">
-      <span class="font-mono text-[10px] text-slate-400 uppercase">${fmtLongDate(g.date).split(" ")[0]}</span>
+      <span class="font-mono text-[10px] text-slate-400 uppercase">${fmtLongDate(g.date, g.year).split(" ")[0]}</span>
       <span class="font-display text-xl sm:text-2xl text-white font-semibold leading-none mt-0.5">${g.date.split("/")[0]}</span>
-      <span class="font-mono text-[10px] text-slate-400 uppercase mt-0.5">${fmtLongDate(g.date).split(" ").slice(1).join(" ")}</span>
+      <span class="font-mono text-[10px] text-slate-400 uppercase mt-0.5">${fmtLongDate(g.date, g.year).split(" ").slice(1).join(" ")}</span>
     </div>
     <div class="flex-1 px-3 sm:px-5 py-4 min-w-0 flex flex-col justify-between">
       <div class="flex items-center justify-between">
@@ -1112,7 +1144,7 @@ function editGame(id) {
 
   if (game.date && game.date.includes("/") && document.getElementById("fDate")) {
     const [d, m] = game.date.split("/");
-    document.getElementById("fDate").value = `2026-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    document.getElementById("fDate").value = `${game.year || "2026"}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
   }
 
   const emCasa = game.team1 === "bahia";
@@ -1229,9 +1261,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const score = document.getElementById("fScore").value.trim() || "x";
 
       let dateFmt = "01/01";
+      let yearFmt = activeSeason;
       if (dateRaw) {
         const parts = dateRaw.split("-");
         dateFmt = `${parts[2]}/${parts[1]}`;
+        yearFmt = parts[0];
       }
 
       const mandoBtn = document.querySelector(".mando-btn.active");
@@ -1245,6 +1279,7 @@ document.addEventListener("DOMContentLoaded", () => {
             comp,
             round,
             date: dateFmt,
+            year: yearFmt,
             time,
             team1: emCasa ? "bahia" : rival,
             team2: emCasa ? rival : "bahia",
@@ -1259,6 +1294,7 @@ document.addEventListener("DOMContentLoaded", () => {
           comp,
           round,
           date: dateFmt,
+          year: yearFmt,
           time,
           team1: emCasa ? "bahia" : rival,
           team2: emCasa ? rival : "bahia",
