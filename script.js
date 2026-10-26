@@ -139,7 +139,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "6ª rodada", date: "31/01", year: "2027", team1: "porto", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "7ª rodada", date: "07/02", year: "2027", team1: "bahia", team2: "galicia", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "fluminense-de-feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "Fluminense-De-Feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
     //  Fase final - semifinal 27 ou 28/02 e final 07/03
 
 
@@ -204,7 +204,7 @@ const teamLogos = {
   "porto": "img/porto_sc.png",
   "barcelona-ba": "img/barcelona-ba.png",
   "jacuipense": "img/jacuipense.png",
-  "fluminense-de-feira": "img/fluminense-de-feira.png",
+  "Fluminense-De-Feira": "img/fluminense-de-feira.png",
   "galicia": "img/galicia.png", 
   "jequie": "img/jequie.png",
   "ssafc": "img/ssa_fc.png",
