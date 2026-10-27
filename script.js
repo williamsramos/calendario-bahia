@@ -131,15 +131,15 @@ const listaAtualizadaDeGames = [
   // ==========================================
 
   // MASCULINO — BAIANO
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "1ª rodada", date: "10/01", year: "2027", team1: "bahia", team2: "ssafc", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "2ª rodada", date: "13/01", year: "2027", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "3ª rodada", date: "17/01", year: "2027", team1: "jequie", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "4ª rodada", date: "20/01", year: "2027", team1: "bahia", team2: "juazeirense", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "5ª rodada", date: "24/01", year: "2027", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "6ª rodada", date: "31/01", year: "2027", team1: "porto", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "7ª rodada", date: "07/02", year: "2027", team1: "bahia", team2: "galicia", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "1ª rodada", date: "10/01", year: "2027", team1: "bahia", team2: "ssafc", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "2ª rodada", date: "13/01", year: "2027", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "3ª rodada", date: "17/01", year: "2027", team1: "jequie", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "4ª rodada", date: "20/01", year: "2027", team1: "bahia", team2: "juazeirense", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "5ª rodada", date: "24/01", year: "2027", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "6ª rodada", date: "31/01", year: "2027", team1: "porto", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "7ª rodada", date: "07/02", year: "2027", team1: "bahia", team2: "galicia", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
     //  Fase final - semifinal 27 ou 28/02 e final 07/03
 
 
@@ -158,13 +158,18 @@ let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
 // Jogos da temporada 2027 que estão no código mas ainda não existem no
 // localStorage do usuário (evita que dados salvos "escondam" os jogos novos).
 (function mergeJogos2027() {
-  const chave = g => [g.category || "masculino", g.comp, g.round, g.date, g.year || "2026"].join("|");
+  const semSufixo = c => String(c || "").replace(/ 27$/, "");
+  // jogos masculinos de 2027 já salvos passam a usar comp com sufixo " 27"
+  games.forEach(g => {
+    if (g.year === "2027" && (g.category || "masculino") === "masculino" && g.comp && !/ 27$/.test(g.comp)) {
+      g.comp = g.comp + " 27";
+    }
+  });
+  const chave = g => [g.category || "masculino", semSufixo(g.comp), g.round, g.date, g.year || "2026"].join("|");
   const existentes = new Set(games.map(chave));
   const novos = listaAtualizadaDeGames.filter(g => g.year === "2027" && !existentes.has(chave(g)));
-  if (novos.length) {
-    games = games.concat(novos);
-    StorageUtils.set("bahia_games", games);
-  }
+  games = games.concat(novos);
+  StorageUtils.set("bahia_games", games);
 })();
 let editingGameId = null;
 let activeCategory = "masculino";
@@ -231,14 +236,16 @@ const COMPS_MASCULINO = [
   { id: "amistoso",    label: "Amistosos" },
 ];
 
-// const COMPS_MASCULINO = [
-//   { id: "todos",          label: "Todos" },
-//   { id: "brasileiro 27",  label: "Brasileiro Série A 27", match: ["brasileiro", "brasileiro 27"] },
-//   { id: "libertadores 27", label: "Libertadores 27",      match: ["libertadores", "libertadores 27"] },
-//   { id: "copas 27",       label: "Copas",                 match: ["copadobrasil", "copadobrasil 27", "copadonordeste", "copadonordeste 27"] },
-//   { id: "baiano 27",      label: "Baiano",                match: ["baiano", "baiano 27"] },
-//   { id: "amistoso",       label: "Amistosos",             match: ["amistoso"] },
-// ];
+// Competições da temporada 2027 (mesmos ids da 2026, para as abas, estatísticas
+// e filtros continuarem funcionando; o "match" aceita também comp com sufixo " 27").
+const COMPS_MASCULINO_2027 = [
+  { id: "todos",        label: "Todos" },
+  { id: "brasileiro 27",   label: "Brasileiro Série A 27", match: [ "brasileiro 27"] },
+  { id: "libertadores 27", label: "Libertadores 27",       match: [ "libertadores 27"] },
+  { id: "copas 27",        label: "Copas",                 match: [ "copadobrasil 27",  "copadonordeste 27"] },
+  { id: "estadual 27",     label: "Baiano",                match: [ "baiano 27"] },
+  { id: "amistoso 27",     label: "Amistosos",             match: [ "amistoso 27"] },
+];
 
 
 
@@ -247,6 +254,8 @@ const mandos = [
   { id: "casa", label: "Em Casa" },
   { id: "fora", label: "Fora de Casa" }
 ];
+
+
 
 const posicoesCompeticao = {
   "todos": "7º",
@@ -257,8 +266,19 @@ const posicoesCompeticao = {
   "amistoso": "-"
 };
 
+// Posição/campanha por competição — usada SOMENTE na temporada 2027
+const posicoesCompeticao2027 = {
+  "todos": "-",
+  "brasileiro 27": "-",
+  "libertadores 27": "-",
+  "copas 27": "-",
+  "estadual 27": "-",
+  "amistoso 27": "-"
+};
+
 function getActiveComps() {
-  return activeCategory === "feminino" ? COMPS_FEMININO : COMPS_MASCULINO;
+  if (activeCategory === "feminino") return COMPS_FEMININO;
+  return activeSeason === "2027" ? COMPS_MASCULINO_2027 : COMPS_MASCULINO;
 }
 
 let activeTab = "todos";
@@ -336,6 +356,7 @@ function renderApp() {
 
 function setSeason(season) {
   activeSeason = season;
+  activeTab = "todos"; // os ids das abas mudam entre 2026 e 2027
 
   const btn2026 = document.getElementById("btnSeason2026");
   const btn2027 = document.getElementById("btnSeason2027");
@@ -830,7 +851,7 @@ function computeStats(list) {
   const saldoGols = gp - gc;
   const mediaGolsPro = totalJogados ? (gp / totalJogados).toFixed(2) : "0.00";
   const aproveitamento = totalJogados ? Math.round((pontos / (totalJogados * 3)) * 100) : 0;
-  const posicao = posicoesCompeticao[activeTab] || "-";
+  const posicao = (activeSeason === "2027" ? posicoesCompeticao2027 : posicoesCompeticao)[activeTab] || "-";
 
   const totalCasa = vCasa + eCasa + dCasa;
   pontosCasa = (vCasa * 3) + eCasa;
@@ -884,7 +905,7 @@ function renderDashboard() {
   const titleEl = document.getElementById("dashboardTitle");
   if (titleEl) titleEl.textContent = `Desempenho · ${compLabel}`;
 
-  const isBrasileiro = activeTab === "brasileiro" || activeTab === "brasileiro_fem";
+  const isBrasileiro = activeTab === "brasileiro" || activeTab === "brasileiro 27" || activeTab === "brasileiro_fem";
 
   const saldoFormatado = s.saldoGols > 0 ? `+${s.saldoGols}` : s.saldoGols;
   const corSaldo = s.saldoGols > 0 ? "text-emerald-400" : (s.saldoGols < 0 ? "text-red-400" : "text-slate-300");
@@ -1478,7 +1499,7 @@ function editGame(id) {
   if (modalTitle) modalTitle.textContent = "Editar jogo";
   if (submitLabel) submitLabel.textContent = "Atualizar jogo";
 
-  if (document.getElementById("fComp")) document.getElementById("fComp").value = game.comp || "brasileiro";
+  if (document.getElementById("fComp")) document.getElementById("fComp").value = (game.comp || "brasileiro").replace(/ 27$/, "");
   if (document.getElementById("fRound")) document.getElementById("fRound").value = game.round || "";
   if (document.getElementById("fTime")) document.getElementById("fTime").value = game.time || "20:00";
   if (document.getElementById("fStadium")) document.getElementById("fStadium").value = game.stadium || "";
@@ -1596,7 +1617,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameForm.addEventListener("submit", (e) => {
       e.preventDefault();
       
-      const comp = document.getElementById("fComp").value;
+      let comp = document.getElementById("fComp").value;
       const round = document.getElementById("fRound").value || "Rodada";
       const dateRaw = document.getElementById("fDate").value;
       const time = document.getElementById("fTime").value || "20:00";
@@ -1610,6 +1631,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const parts = dateRaw.split("-");
         dateFmt = `${parts[2]}/${parts[1]}`;
         yearFmt = parts[0];
+      }
+      if (yearFmt === "2027" && activeCategory === "masculino" && !/ 27$/.test(comp)) {
+        comp = comp + " 27";
       }
 
       const mandoBtn = document.querySelector(".mando-btn.active");
