@@ -198,7 +198,7 @@ const teamLogos = {
   "porto": "img/porto_sc.png",
   "barcelona-ba": "img/barcelona-ba.png",
   "jacuipense": "img/jacuipense.png",
-  "flu de feira": "img/fluminense-de-feira.png",
+  "flu de feira": "img/flu-de-feira.png",
   "galicia": "img/galicia.png", 
   "jequie": "img/jequie.png",
   "ssafc": "img/ssa_fc.png",
