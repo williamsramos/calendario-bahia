@@ -1147,6 +1147,17 @@ const CLUBES_INTERESSE = [
   "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
 ];
 
+// Lista exclusiva de clubes de interesse para 2027
+const CLUBES_INTERESSE_2027 = [
+  "athletico-pr", "atletico-mg", "botafogo", "bragantino", "chapecoense", "corinthians",
+  "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional",
+  "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
+];
+
+function obterClubesInteresse() {
+  return interesseAno() === "2027" ? CLUBES_INTERESSE_2027 : CLUBES_INTERESSE;
+}
+
 function normalizarJogoInteresse(j) {
   const m = (j.data || "").match(/\d{2}\/\d{2}/);
   const mr = /^r(\d+)_/.exec(j.id || "");
@@ -1319,7 +1330,8 @@ function garantirModalInteresse() {
   let ov = document.getElementById("modalInteresse");
   if (ov) return ov;
 
-  const opts = CLUBES_INTERESSE.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
+  const clubesAtuais = obterClubesInteresse();
+  const opts = clubesAtuais.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
   const rodadasSelect = [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
   const optsRodada = rodadasSelect.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
   const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
@@ -1404,6 +1416,12 @@ function garantirModalInteresse() {
 function abrirModalInteresse(id) {
   const ov = garantirModalInteresse();
   const q = sel => ov.querySelector("#" + sel);
+  
+  const clubesAtuais = obterClubesInteresse();
+  const opts = clubesAtuais.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
+  q("iMandante").innerHTML = opts;
+  q("iVisitante").innerHTML = opts;
+
   const j = id ? listaInteresse().find(x => x.id === id) : null;
   const rodadas = rodadasDisponiveisInteresse();
   jogoInteresseEditando = j ? j.id : null;
@@ -1412,8 +1430,8 @@ function abrirModalInteresse(id) {
   q("iErro").textContent = "";
   q("iRodada").innerHTML = rodadas.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
   q("iRodada").value = String(j ? j.rodada : (interesseAno() === "2027" ? rodadas[0] : RODADAS_INTERESSE[RODADAS_INTERESSE.length - 1]));
-  q("iMandante").value = j ? j.mandante : CLUBES_INTERESSE[0];
-  q("iVisitante").value = j ? j.visitante : CLUBES_INTERESSE[1];
+  q("iMandante").value = j ? j.mandante : clubesAtuais[0];
+  q("iVisitante").value = j ? j.visitante : clubesAtuais[1];
   q("iHora").value = j ? j.hora : "";
   q("iEstadio").value = j ? j.estadio : "";
   q("iGolsM").value = j ? j.m : "";
