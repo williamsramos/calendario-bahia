@@ -106,7 +106,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "2x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Nubank Parque", time: "21:30", score: "1x0" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "1x0" },
-   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "0x3" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "0x3" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "1x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "x" },
@@ -139,18 +139,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "6ª rodada", date: "31/01", year: "2027", team1: "porto", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "7ª rodada", date: "07/02", year: "2027", team1: "bahia", team2: "galicia", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
-    //  Fase final - semifinal 27 ou 28/02 e final 07/03
-
-
-  // MASCULINO — COPA DO BRASIL
-
-  // MASCULINO — LIBERTADORES
-
-  // MASCULINO — BRASILEIRÃO · 1º TURNO
-
-  // MASCULINO — BRASILEIRÃO · 2º TURNO
-
+  { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" }
 ];
 
 let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
@@ -159,7 +148,6 @@ let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
 // localStorage do usuário (evita que dados salvos "escondam" os jogos novos).
 (function mergeJogos2027() {
   const semSufixo = c => String(c || "").replace(/ 27$/, "");
-  // jogos masculinos de 2027 já salvos passam a usar comp com sufixo " 27"
   games.forEach(g => {
     if (g.year === "2027" && (g.category || "masculino") === "masculino" && g.comp && !/ 27$/.test(g.comp)) {
       g.comp = g.comp + " 27";
@@ -171,6 +159,7 @@ let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
   games = games.concat(novos);
   StorageUtils.set("bahia_games", games);
 })();
+
 let editingGameId = null;
 let activeCategory = "masculino";
 let activeSeason = "2026";
@@ -236,26 +225,20 @@ const COMPS_MASCULINO = [
   { id: "amistoso",    label: "Amistosos" },
 ];
 
-// Competições da temporada 2027 (mesmos ids da 2026, para as abas, estatísticas
-// e filtros continuarem funcionando; o "match" aceita também comp com sufixo " 27").
 const COMPS_MASCULINO_2027 = [
   { id: "todos",        label: "Todos" },
   { id: "brasileiro 27",   label: "Brasileiro Série A 27", match: [ "brasileiro 27"] },
   { id: "libertadores 27", label: "Libertadores 27",       match: [ "libertadores 27"] },
-  { id: "copas 27",        label: "Copas 27",                 match: [ "copadobrasil 27",  "copadonordeste 27"] },
-  { id: "estadual 27",     label: "Baiano 27",                match: [ "baiano 27"] },
+  { id: "copas 27",        label: "Copas",                 match: [ "copadobrasil 27",  "copadonordeste 27"] },
+  { id: "estadual 27",     label: "Baiano",                match: [ "baiano 27"] },
   { id: "amistoso 27",     label: "Amistosos",             match: [ "amistoso 27"] },
 ];
-
-
 
 const mandos = [
   { id: "todos", label: "Todos os Mandos" },
   { id: "casa", label: "Em Casa" },
   { id: "fora", label: "Fora de Casa" }
 ];
-
-
 
 const posicoesCompeticao = {
   "todos": "7º",
@@ -266,7 +249,6 @@ const posicoesCompeticao = {
   "amistoso": "-"
 };
 
-// Posição/campanha por competição — usada SOMENTE na temporada 2027
 const posicoesCompeticao2027 = {
   "todos": "-",
   "brasileiro 27": "-",
@@ -291,11 +273,9 @@ let searchTerm = "";
    =========================================================== */
 
 function gamesForTab(tabId) {
-  // 1. Filtra pela categoria ativa (masculino / feminino)
   let list = games.filter(g => (g.category || "masculino") === activeCategory)
                   .filter(g => (g.year || "2026") === activeSeason);
 
-  // 2. Filtra por Aba / Competição
   if (tabId !== "todos") {
     const currentComps = typeof getActiveComps === "function" ? getActiveComps() : COMPS_MASCULINO;
     const comp = currentComps.find(c => c.id === tabId);
@@ -307,7 +287,6 @@ function gamesForTab(tabId) {
     }
   }
 
-  // 3. Filtra por Mando de Campo
   if (typeof activeMandoFilter !== "undefined") {
     if (activeMandoFilter === "casa") {
       list = list.filter(g => g.team1 === "bahia");
@@ -330,7 +309,6 @@ function renderApp() {
   const btnAdd = document.getElementById("btnAddGame");
   const btnAddMobile = document.getElementById("btnAddGameMobile");
 
-  // Temporada 2027 (ou qualquer temporada sem tabela divulgada): mostra apenas o aviso
   const hasSeasonGames = games.some(g => (g.year || "2026") === activeSeason);
   const isFutureSeason = !hasSeasonGames;
 
@@ -341,8 +319,7 @@ function renderApp() {
   if (tabsNav) tabsNav.classList.toggle("hidden", isFutureSeason);
   if (subFilterBar) subFilterBar.classList.toggle("hidden", isFutureSeason);
   if (listsWrap) listsWrap.classList.toggle("hidden", isFutureSeason);
-  // style.display (em vez de classList) porque esses botões já usam classes
-  // responsivas (hidden sm:flex) que a classe "hidden" sozinha não sobrepõe
+
   if (btnAdd) btnAdd.style.display = isFutureSeason ? "none" : "";
   if (btnAddMobile) btnAddMobile.style.display = isFutureSeason ? "none" : "";
 
@@ -356,7 +333,7 @@ function renderApp() {
 
 function setSeason(season) {
   activeSeason = season;
-  activeTab = "todos"; // os ids das abas mudam entre 2026 e 2027
+  activeTab = "todos";
 
   const btn2026 = document.getElementById("btnSeason2026");
   const btn2027 = document.getElementById("btnSeason2027");
@@ -1140,13 +1117,10 @@ function initBuscaJogos() {
 
 /* ===========================================================
    8.2 JOGOS DA RODADA QUE INTERESSAM AO BAHIA
-   Troque este bloco a cada rodada (rodada + lista de jogos).
-   O bloco só aparece enquanto o próximo jogo do Bahia for desta rodada.
    =========================================================== */
 
-// Mantenha a rodada entre aspas (ex.: "33-34"). Para uma rodada só: "34".
 const rodadaInteresse = {
-  rodada: "33 a 38",
+  rodada: "33-34",
   jogos: [
     { id: "r33_j1", mandante: "fluminense", visitante: "internacional", data: "Quarta-feira, 28/10", hora: "19:30", estadio: "Maracanã" },
     { id: "r33_j2", mandante: "santos", visitante: "palmeiras", data: "Quarta-feira, 28/10", hora: "19:30", estadio: "Vila Belmiro" },
@@ -1189,7 +1163,6 @@ function normalizarJogoInteresse(j) {
   };
 }
 
-// Os jogos editados ficam salvos no navegador, separados por rodada
 const CHAVE_INTERESSE = `bahia_jogos_interesse_r${RODADAS_INTERESSE.join("-")}`;
 
 function carregarJogosInteresse() {
@@ -1197,7 +1170,6 @@ function carregarJogosInteresse() {
   const salvo = StorageUtils.get(CHAVE_INTERESSE, null);
   if (salvo) return salvo.map(normalizarJogoInteresse);
 
-  // Aproveita as edições feitas quando só existia a rodada 33
   const antigo = StorageUtils.get("bahia_jogos_interesse_r33", null);
   if (!antigo) return seed;
 
@@ -1219,7 +1191,6 @@ function carregarJogosInteresse() {
 let jogosInteresse = carregarJogosInteresse();
 let jogoInteresseEditando = null;
 
-// Temporada 2027: lista própria (começa vazia) e guardada separada da de 2026
 const CHAVE_INTERESSE_2027 = "bahia_jogos_interesse_2027";
 let jogosInteresse2027 = (StorageUtils.get(CHAVE_INTERESSE_2027, []) || []).map(normalizarJogoInteresse);
 
@@ -1236,7 +1207,6 @@ function definirListaInteresse(lista) {
   else jogosInteresse = lista;
 }
 
-// 2027: da 1ª à 38ª rodada. 2026: rodada(s) atual(is) + 35 à 38.
 function rodadasDisponiveisInteresse() {
   if (interesseAno() === "2027") return Array.from({ length: 38 }, (_, i) => i + 1);
   return [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
@@ -1314,11 +1284,9 @@ function renderJogosInteresse() {
     listsWrap.appendChild(sec);
   }
 
-  const prox = proximoJogoBrasileiroDoBahia();
-  const naRodada = !!prox && RODADAS_INTERESSE.some(r => prox.round === `${r}ª Rodada`);
-
+  // Força a exibição no mobile/Vercel sempre que estiver na categoria Masculino e sem busca ativa
   const e2027 = interesseAno() === "2027";
-  if (searchTerm.trim() || activeCategory !== "masculino" || (!e2027 && !naRodada)) {
+  if (searchTerm.trim() || activeCategory !== "masculino") {
     sec.classList.add("hidden");
     sec.innerHTML = "";
     return;
@@ -1352,7 +1320,6 @@ function garantirModalInteresse() {
   if (ov) return ov;
 
   const opts = CLUBES_INTERESSE.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
-  // Mostra as rodadas da rodada atual + da 35 à 38 já disponíveis para escolher
   const rodadasSelect = [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
   const optsRodada = rodadasSelect.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
   const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
