@@ -242,8 +242,8 @@ const COMPS_MASCULINO_2027 = [
   { id: "todos",        label: "Todos" },
   { id: "brasileiro 27",   label: "Brasileiro Série A 27", match: [ "brasileiro 27"] },
   { id: "libertadores 27", label: "Libertadores 27",       match: [ "libertadores 27"] },
-  { id: "copas 27",        label: "Copas",                 match: [ "copadobrasil 27",  "copadonordeste 27"] },
-  { id: "estadual 27",     label: "Baiano",                match: [ "baiano 27"] },
+  { id: "copas 27",        label: "Copas 27",                 match: [ "copadobrasil 27",  "copadonordeste 27"] },
+  { id: "estadual 27",     label: "Baiano 27",                match: [ "baiano 27"] },
   { id: "amistoso 27",     label: "Amistosos",             match: [ "amistoso 27"] },
 ];
 
@@ -1219,8 +1219,32 @@ function carregarJogosInteresse() {
 let jogosInteresse = carregarJogosInteresse();
 let jogoInteresseEditando = null;
 
+// Temporada 2027: lista própria (começa vazia) e guardada separada da de 2026
+const CHAVE_INTERESSE_2027 = "bahia_jogos_interesse_2027";
+let jogosInteresse2027 = (StorageUtils.get(CHAVE_INTERESSE_2027, []) || []).map(normalizarJogoInteresse);
+
+function interesseAno() {
+  return activeSeason === "2027" ? "2027" : "2026";
+}
+
+function listaInteresse() {
+  return interesseAno() === "2027" ? jogosInteresse2027 : jogosInteresse;
+}
+
+function definirListaInteresse(lista) {
+  if (interesseAno() === "2027") jogosInteresse2027 = lista;
+  else jogosInteresse = lista;
+}
+
+// 2027: da 1ª à 38ª rodada. 2026: rodada(s) atual(is) + 35 à 38.
+function rodadasDisponiveisInteresse() {
+  if (interesseAno() === "2027") return Array.from({ length: 38 }, (_, i) => i + 1);
+  return [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
+}
+
 function salvarJogosInteresse() {
-  StorageUtils.set(CHAVE_INTERESSE, jogosInteresse);
+  if (interesseAno() === "2027") StorageUtils.set(CHAVE_INTERESSE_2027, jogosInteresse2027);
+  else StorageUtils.set(CHAVE_INTERESSE, jogosInteresse);
 }
 
 function proximoJogoBrasileiroDoBahia() {
@@ -1234,7 +1258,7 @@ function renderCardInteresse(j) {
   const t1 = getTeam(j.mandante), t2 = getTeam(j.visitante);
   const temPlacar = j.m !== "" && j.v !== "";
   const centro = temPlacar ? `${j.m} x ${j.v}` : (j.hora || "--:--");
-  const longa = j.date ? fmtLongDate(j.date, "2026") : "";
+  const longa = j.date ? fmtLongDate(j.date, interesseAno()) : "";
   const diaSemana = longa.split(" ")[0] || "";
   const mes = longa.split(" ").slice(1).join(" ");
   const dia = j.date ? j.date.split("/")[0] : "--";
@@ -1293,30 +1317,32 @@ function renderJogosInteresse() {
   const prox = proximoJogoBrasileiroDoBahia();
   const naRodada = !!prox && RODADAS_INTERESSE.some(r => prox.round === `${r}ª Rodada`);
 
-  if (searchTerm.trim() || activeCategory !== "masculino" || activeSeason !== "2026" || !naRodada) {
+  const e2027 = interesseAno() === "2027";
+  if (searchTerm.trim() || activeCategory !== "masculino" || (!e2027 && !naRodada)) {
     sec.classList.add("hidden");
     sec.innerHTML = "";
     return;
   }
 
-  const outros = jogosInteresse
+  const ano = interesseAno();
+  const outros = listaInteresse()
     .filter(j => j.mandante !== "bahia" && j.visitante !== "bahia")
     .sort((a, b) => {
-      const da = a.date ? parseDate(a.date, "2026") : 0, db = b.date ? parseDate(b.date, "2026") : 0;
+      const da = a.date ? parseDate(a.date, ano) : 0, db = b.date ? parseDate(b.date, ano) : 0;
       return (da - db) || String(a.hora).localeCompare(String(b.hora));
     });
 
   sec.classList.remove("hidden");
   sec.innerHTML = `
     <div class="flex items-center justify-between mb-3">
-      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">${rotuloRodadas()} · jogos que interessam ao Bahia</h3>
+      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">${e2027 ? "Brasileiro 2027" : rotuloRodadas()} · jogos que interessam ao Bahia</h3>
       <button onclick="abrirModalInteresse()" class="text-[11px] font-semibold text-gold hover:text-white transition-colors">+ Adicionar jogo</button>
     </div>
     ${outros.length ? outros.map(renderCardInteresse).join("") : '<p class="text-xs text-slate-500">Nenhum jogo cadastrado.</p>'}`;
 }
 
 function removerJogoInteresse(id) {
-  jogosInteresse = jogosInteresse.filter(j => j.id !== id);
+  definirListaInteresse(listaInteresse().filter(j => j.id !== id));
   salvarJogosInteresse();
   renderJogosInteresse();
 }
@@ -1326,7 +1352,9 @@ function garantirModalInteresse() {
   if (ov) return ov;
 
   const opts = CLUBES_INTERESSE.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
-  const optsRodada = RODADAS_INTERESSE.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
+  // Mostra as rodadas da rodada atual + da 35 à 38 já disponíveis para escolher
+  const rodadasSelect = [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
+  const optsRodada = rodadasSelect.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
   const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
   const rotulo = "block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1";
 
@@ -1394,8 +1422,9 @@ function garantirModalInteresse() {
       v: q("iGolsV").value
     };
 
-    const i = jogosInteresse.findIndex(x => x.id === jogoInteresseEditando);
-    if (i !== -1) jogosInteresse[i] = jogo; else jogosInteresse.push(jogo);
+    const lista = listaInteresse();
+    const i = lista.findIndex(x => x.id === jogoInteresseEditando);
+    if (i !== -1) lista[i] = jogo; else lista.push(jogo);
 
     salvarJogosInteresse();
     fecharModalInteresse();
@@ -1408,12 +1437,14 @@ function garantirModalInteresse() {
 function abrirModalInteresse(id) {
   const ov = garantirModalInteresse();
   const q = sel => ov.querySelector("#" + sel);
-  const j = id ? jogosInteresse.find(x => x.id === id) : null;
+  const j = id ? listaInteresse().find(x => x.id === id) : null;
+  const rodadas = rodadasDisponiveisInteresse();
   jogoInteresseEditando = j ? j.id : null;
 
   q("iTitulo").textContent = j ? "Editar jogo" : "Adicionar jogo";
   q("iErro").textContent = "";
-  q("iRodada").value = String(j ? j.rodada : RODADAS_INTERESSE[RODADAS_INTERESSE.length - 1]);
+  q("iRodada").innerHTML = rodadas.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
+  q("iRodada").value = String(j ? j.rodada : (interesseAno() === "2027" ? rodadas[0] : RODADAS_INTERESSE[RODADAS_INTERESSE.length - 1]));
   q("iMandante").value = j ? j.mandante : CLUBES_INTERESSE[0];
   q("iVisitante").value = j ? j.visitante : CLUBES_INTERESSE[1];
   q("iHora").value = j ? j.hora : "";
@@ -1422,7 +1453,7 @@ function abrirModalInteresse(id) {
   q("iGolsV").value = j ? j.v : "";
   if (j && j.date) {
     const [d, m] = j.date.split("/");
-    q("iData").value = `2026-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+    q("iData").value = `${interesseAno()}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
   } else {
     q("iData").value = "";
   }
