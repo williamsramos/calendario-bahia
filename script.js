@@ -264,6 +264,7 @@ function getActiveComps() {
 let activeTab = "todos";
 let activeSub = "todos";
 let activeMandoFilter = "todos";
+let searchTerm = "";
 
 /* ===========================================================
    5. FILTRAGEM DE JOGOS
@@ -1045,7 +1046,7 @@ function renderCard(g, isNext) {
 }
 
 function renderLists() {
-  const list = gamesForTab(activeTab);
+  const list = gamesForTab(activeTab).filter(jogoCombinaComBusca);
   const nextGame = getNextGame();
 
   const recentes = list.filter(g => g.score && g.score.trim().toLowerCase() !== "x");
@@ -1071,6 +1072,347 @@ function renderLists() {
     const totalVisible = (activeSub === "recentes" ? recentes.length : activeSub === "proximos" ? proximos.length : list.length);
     emptyState.classList.toggle("hidden", totalVisible > 0);
   }
+
+  renderJogosInteresse();
+}
+
+/* ===========================================================
+   8.1 BUSCA DE JOGOS DO BAHIA
+   =========================================================== */
+
+function normalizarTexto(str) {
+  return String(str || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+function jogoCombinaComBusca(g) {
+  const termos = normalizarTexto(searchTerm).split(/\s+/).filter(Boolean);
+  if (!termos.length) return true;
+
+  const compObj = getActiveComps().find(c => c.id === g.comp || (c.match && c.match.includes(g.comp)));
+  const texto = normalizarTexto([
+    getTeam(g.team1).name, g.team1,
+    getTeam(g.team2).name, g.team2,
+    compObj ? compObj.label : g.comp,
+    g.round, g.stadium, g.date, g.score
+  ].join(" "));
+
+  return termos.every(t => texto.includes(t));
+}
+
+function initBuscaJogos() {
+  const listsWrap = document.getElementById("listsWrap");
+  if (!listsWrap || document.getElementById("buscaJogos")) return;
+
+  const box = document.createElement("div");
+  box.className = "mb-4";
+  box.innerHTML = `
+    <input id="buscaJogos" type="search" autocomplete="off"
+      placeholder="Buscar jogo do Bahia (adversário, rodada, estádio, data...)"
+      class="w-full px-4 py-2.5 rounded-xl bg-navy-950/50 border border-slate-700/60 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-gold transition-colors">`;
+  listsWrap.insertBefore(box, listsWrap.firstChild);
+
+  document.getElementById("buscaJogos").addEventListener("input", (e) => {
+    searchTerm = e.target.value;
+    renderLists();
+  });
+}
+
+/* ===========================================================
+   8.2 JOGOS DA RODADA QUE INTERESSAM AO BAHIA
+   Troque este bloco a cada rodada (rodada + lista de jogos).
+   O bloco só aparece enquanto o próximo jogo do Bahia for desta rodada.
+   =========================================================== */
+
+// Mantenha a rodada entre aspas (ex.: "33-34"). Para uma rodada só: "34".
+const rodadaInteresse = {
+  rodada: "33-34",
+  jogos: [
+    { id: "r33_j1", mandante: "fluminense", visitante: "internacional", data: "Quarta-feira, 28/10", hora: "19:30", estadio: "Maracanã" },
+    { id: "r33_j2", mandante: "santos", visitante: "palmeiras", data: "Quarta-feira, 28/10", hora: "19:30", estadio: "Vila Belmiro" },
+    { id: "r33_j3", mandante: "atletico-mg", visitante: "cruzeiro", data: "Quinta-feira, 29/10", hora: "19:30", estadio: "Arena MRV" },
+    { id: "r33_j4", mandante: "gremio", visitante: "athletico-pr", data: "Quinta-feira, 29/10", hora: "21:30", estadio: "Arena do Grêmio" },
+    { id: "r34_j5", mandante: "bragantino", visitante: "santos", data: "Segunda-feira, 02/11", hora: "20:00", estadio: "Cícero Souza Marques" },
+    { id: "r34_j6", mandante: "athletico-pr", visitante: "vasco", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Arena da Baixada" },
+    { id: "r34_j7", mandante: "botafogo", visitante: "atletico-mg", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "Nilton Santos" },
+    { id: "r34_j8", mandante: "vitoria", visitante: "fluminense", data: "Sexta-feira, 06/11", hora: "20:00", estadio: "Barradão" }
+  ]
+};
+
+const RODADAS_INTERESSE = String(rodadaInteresse.rodada).match(/\d+/g).map(Number);
+
+function rotuloRodadas() {
+  const r = RODADAS_INTERESSE;
+  if (r.length === 1) return `Rodada ${r[0]}`;
+  return `Rodadas ${r.slice(0, -1).join(", ")} e ${r[r.length - 1]}`;
+}
+
+const CLUBES_INTERESSE = [
+  "athletico-pr", "atletico-mg", "botafogo", "bragantino", "chapecoense", "corinthians",
+  "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional",
+  "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
+];
+
+function normalizarJogoInteresse(j) {
+  const m = (j.data || "").match(/\d{2}\/\d{2}/);
+  const mr = /^r(\d+)_/.exec(j.id || "");
+  return {
+    id: j.id || cryptoId(),
+    rodada: Number(j.rodada) || (mr ? Number(mr[1]) : RODADAS_INTERESSE[0]),
+    mandante: j.mandante,
+    visitante: j.visitante,
+    date: j.date || (m ? m[0] : ""),
+    hora: j.hora || "",
+    estadio: j.estadio || "",
+    m: j.m != null ? String(j.m) : "",
+    v: j.v != null ? String(j.v) : ""
+  };
+}
+
+// Os jogos editados ficam salvos no navegador, separados por rodada
+const CHAVE_INTERESSE = `bahia_jogos_interesse_r${RODADAS_INTERESSE.join("-")}`;
+
+function carregarJogosInteresse() {
+  const seed = rodadaInteresse.jogos.map(normalizarJogoInteresse);
+  const salvo = StorageUtils.get(CHAVE_INTERESSE, null);
+  if (salvo) return salvo.map(normalizarJogoInteresse);
+
+  // Aproveita as edições feitas quando só existia a rodada 33
+  const antigo = StorageUtils.get("bahia_jogos_interesse_r33", null);
+  if (!antigo) return seed;
+
+  const chave = j => j.mandante + "|" + j.visitante;
+  const porChave = new Map(antigo.map(j => [chave(j), j]));
+  const mesclado = seed.map(j => {
+    const a = porChave.get(chave(j));
+    return a ? { ...j, ...a, id: j.id, rodada: j.rodada } : j;
+  });
+  const naSeed = new Set(seed.map(chave));
+  antigo.forEach(a => {
+    if (!naSeed.has(chave(a)) && a.mandante !== "bahia" && a.visitante !== "bahia") {
+      mesclado.push(normalizarJogoInteresse({ ...a, rodada: a.rodada || 33 }));
+    }
+  });
+  return mesclado;
+}
+
+let jogosInteresse = carregarJogosInteresse();
+let jogoInteresseEditando = null;
+
+function salvarJogosInteresse() {
+  StorageUtils.set(CHAVE_INTERESSE, jogosInteresse);
+}
+
+function proximoJogoBrasileiroDoBahia() {
+  return games
+    .filter(g => (g.category || "masculino") === "masculino" && (g.year || "2026") === "2026" && g.comp === "brasileiro")
+    .filter(g => !g.score || g.score.trim().toLowerCase() === "x")
+    .sort((a, b) => parseDate(a.date, a.year) - parseDate(b.date, b.year))[0] || null;
+}
+
+function renderCardInteresse(j) {
+  const t1 = getTeam(j.mandante), t2 = getTeam(j.visitante);
+  const temPlacar = j.m !== "" && j.v !== "";
+  const centro = temPlacar ? `${j.m} x ${j.v}` : (j.hora || "--:--");
+  const longa = j.date ? fmtLongDate(j.date, "2026") : "";
+  const diaSemana = longa.split(" ")[0] || "";
+  const mes = longa.split(" ").slice(1).join(" ");
+  const dia = j.date ? j.date.split("/")[0] : "--";
+
+  return `
+  <div class="ticket border-white/10 bg-navy-900/60 backdrop-blur-md rise-in rounded-xl overflow-hidden flex border group mb-3">
+    <div class="w-20 sm:w-28 shrink-0 flex flex-col items-center justify-center py-4 bg-navy-950/50">
+      <span class="font-mono text-[10px] text-slate-400 uppercase">${diaSemana}</span>
+      <span class="font-display text-xl sm:text-2xl text-white font-semibold leading-none mt-0.5">${dia}</span>
+      <span class="font-mono text-[10px] text-slate-400 uppercase mt-0.5">${mes}</span>
+    </div>
+    <div class="flex-1 px-3 sm:px-5 py-4 min-w-0 flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <p class="text-[10px] sm:text-[11px] font-semibold text-gold uppercase tracking-wider truncate mr-1">
+          Brasileiro Série A <span class="text-slate-400 font-normal">• ${j.rodada}ª Rodada</span>
+        </p>
+        <div class="flex items-center gap-1 opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+          <button onclick="abrirModalInteresse('${j.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar jogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button onclick="removerJogoInteresse('${j.id}')" class="text-slate-500 hover:text-red-400 p-1" title="Remover jogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between my-2">
+        <div class="flex items-center gap-2 flex-1 min-w-0">
+          <img src="${t1.logo}" alt="${t1.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0">
+          <span class="font-display text-xs sm:text-sm text-slate-200 truncate">${t1.name}</span>
+        </div>
+        <div class="px-3 py-1 rounded bg-navy-950 font-mono text-sm font-bold text-white shrink-0 border border-white/5 flex items-center justify-center">${centro}</div>
+        <div class="flex items-center gap-2 flex-1 min-w-0 justify-end">
+          <span class="font-display text-xs sm:text-sm text-slate-200 truncate text-right">${t2.name}</span>
+          <img src="${t2.logo}" alt="${t2.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0">
+        </div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 font-mono">${j.estadio || "Estádio não informado"}${temPlacar && j.hora ? " · " + j.hora : ""}</p>
+    </div>
+  </div>`;
+}
+
+function renderJogosInteresse() {
+  const listsWrap = document.getElementById("listsWrap");
+  if (!listsWrap) return;
+
+  let sec = document.getElementById("jogosInteresse");
+  if (!sec) {
+    sec = document.createElement("section");
+    sec.id = "jogosInteresse";
+    sec.className = "mt-6";
+    listsWrap.appendChild(sec);
+  }
+
+  const prox = proximoJogoBrasileiroDoBahia();
+  const naRodada = !!prox && RODADAS_INTERESSE.some(r => prox.round === `${r}ª Rodada`);
+
+  if (searchTerm.trim() || activeCategory !== "masculino" || activeSeason !== "2026" || !naRodada) {
+    sec.classList.add("hidden");
+    sec.innerHTML = "";
+    return;
+  }
+
+  const outros = jogosInteresse
+    .filter(j => j.mandante !== "bahia" && j.visitante !== "bahia")
+    .sort((a, b) => {
+      const da = a.date ? parseDate(a.date, "2026") : 0, db = b.date ? parseDate(b.date, "2026") : 0;
+      return (da - db) || String(a.hora).localeCompare(String(b.hora));
+    });
+
+  sec.classList.remove("hidden");
+  sec.innerHTML = `
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">${rotuloRodadas()} · jogos que interessam ao Bahia</h3>
+      <button onclick="abrirModalInteresse()" class="text-[11px] font-semibold text-gold hover:text-white transition-colors">+ Adicionar jogo</button>
+    </div>
+    ${outros.length ? outros.map(renderCardInteresse).join("") : '<p class="text-xs text-slate-500">Nenhum jogo cadastrado.</p>'}`;
+}
+
+function removerJogoInteresse(id) {
+  jogosInteresse = jogosInteresse.filter(j => j.id !== id);
+  salvarJogosInteresse();
+  renderJogosInteresse();
+}
+
+function garantirModalInteresse() {
+  let ov = document.getElementById("modalInteresse");
+  if (ov) return ov;
+
+  const opts = CLUBES_INTERESSE.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
+  const optsRodada = RODADAS_INTERESSE.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
+  const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
+  const rotulo = "block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1";
+
+  ov = document.createElement("div");
+  ov.id = "modalInteresse";
+  ov.style.display = "none";
+  ov.className = "fixed inset-0 z-50 items-center justify-center p-4 bg-black/70";
+  ov.innerHTML = `
+    <form class="w-full max-w-md rounded-2xl border border-white/10 bg-navy-900 p-5 max-h-full overflow-y-auto">
+      <h3 id="iTitulo" class="font-display text-lg text-white mb-4">Editar jogo</h3>
+      <div class="mb-3"><label class="${rotulo}">Rodada</label><select id="iRodada" class="${campo}">${optsRodada}</select></div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="${rotulo}">Mandante</label><select id="iMandante" class="${campo}">${opts}</select></div>
+        <div><label class="${rotulo}">Visitante</label><select id="iVisitante" class="${campo}">${opts}</select></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="${rotulo}">Data</label><input id="iData" type="date" class="${campo}"></div>
+        <div><label class="${rotulo}">Hora</label><input id="iHora" type="time" class="${campo}"></div>
+      </div>
+      <div class="mb-3"><label class="${rotulo}">Estádio</label><input id="iEstadio" type="text" class="${campo}"></div>
+      <div class="mb-2">
+        <label class="${rotulo}">Resultado (deixe vazio se não jogou)</label>
+        <div class="flex items-center gap-2">
+          <input id="iGolsM" type="text" inputmode="numeric" maxlength="2" placeholder="-" class="${campo} text-center">
+          <span class="text-slate-500">x</span>
+          <input id="iGolsV" type="text" inputmode="numeric" maxlength="2" placeholder="-" class="${campo} text-center">
+        </div>
+      </div>
+      <p id="iErro" class="text-xs text-red-400 min-h-[1rem] mb-2"></p>
+      <div class="flex gap-2">
+        <button type="button" id="iCancelar" class="flex-1 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 bg-navy-950/50 text-slate-300 hover:text-white">Cancelar</button>
+        <button type="submit" class="flex-1 py-2 rounded-xl text-xs font-semibold bg-gold text-navy-950">Salvar jogo</button>
+      </div>
+    </form>`;
+  document.body.appendChild(ov);
+
+  ov.addEventListener("click", (e) => { if (e.target === ov) fecharModalInteresse(); });
+  ov.querySelector("#iCancelar").addEventListener("click", fecharModalInteresse);
+  ["iGolsM", "iGolsV"].forEach(id => {
+    ov.querySelector("#" + id).addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/\D/g, "").slice(0, 2);
+    });
+  });
+
+  ov.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = id => ov.querySelector("#" + id);
+    const mandante = q("iMandante").value, visitante = q("iVisitante").value;
+
+    if (mandante === visitante) {
+      q("iErro").textContent = "Escolha dois times diferentes.";
+      return;
+    }
+    q("iErro").textContent = "";
+
+    const raw = q("iData").value;
+    const date = raw ? `${raw.split("-")[2]}/${raw.split("-")[1]}` : "";
+    const jogo = {
+      id: jogoInteresseEditando || cryptoId(),
+      rodada: Number(q("iRodada").value),
+      mandante, visitante, date,
+      hora: q("iHora").value,
+      estadio: q("iEstadio").value.trim(),
+      m: q("iGolsM").value,
+      v: q("iGolsV").value
+    };
+
+    const i = jogosInteresse.findIndex(x => x.id === jogoInteresseEditando);
+    if (i !== -1) jogosInteresse[i] = jogo; else jogosInteresse.push(jogo);
+
+    salvarJogosInteresse();
+    fecharModalInteresse();
+    renderJogosInteresse();
+  });
+
+  return ov;
+}
+
+function abrirModalInteresse(id) {
+  const ov = garantirModalInteresse();
+  const q = sel => ov.querySelector("#" + sel);
+  const j = id ? jogosInteresse.find(x => x.id === id) : null;
+  jogoInteresseEditando = j ? j.id : null;
+
+  q("iTitulo").textContent = j ? "Editar jogo" : "Adicionar jogo";
+  q("iErro").textContent = "";
+  q("iRodada").value = String(j ? j.rodada : RODADAS_INTERESSE[RODADAS_INTERESSE.length - 1]);
+  q("iMandante").value = j ? j.mandante : CLUBES_INTERESSE[0];
+  q("iVisitante").value = j ? j.visitante : CLUBES_INTERESSE[1];
+  q("iHora").value = j ? j.hora : "";
+  q("iEstadio").value = j ? j.estadio : "";
+  q("iGolsM").value = j ? j.m : "";
+  q("iGolsV").value = j ? j.v : "";
+  if (j && j.date) {
+    const [d, m] = j.date.split("/");
+    q("iData").value = `2026-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  } else {
+    q("iData").value = "";
+  }
+
+  ov.style.display = "flex";
+}
+
+function fecharModalInteresse() {
+  jogoInteresseEditando = null;
+  const ov = document.getElementById("modalInteresse");
+  if (ov) ov.style.display = "none";
 }
 
 /* ===========================================================
@@ -1209,6 +1551,8 @@ function initHamburgerMenu() {
 document.addEventListener("DOMContentLoaded", () => {
   initThemeToggle();
   renderApp();
+  initBuscaJogos();
+  renderJogosInteresse();
   initHamburgerMenu();
 
   document.querySelectorAll(".mando-btn").forEach(btn => {
