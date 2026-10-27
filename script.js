@@ -1146,7 +1146,7 @@ function initBuscaJogos() {
 
 // Mantenha a rodada entre aspas (ex.: "33-34"). Para uma rodada só: "34".
 const rodadaInteresse = {
-  rodada: "33-34",
+  rodada: "33 a 38",
   jogos: [
     { id: "r33_j1", mandante: "fluminense", visitante: "internacional", data: "Quarta-feira, 28/10", hora: "19:30", estadio: "Maracanã" },
     { id: "r33_j2", mandante: "santos", visitante: "palmeiras", data: "Quarta-feira, 28/10", hora: "19:30", estadio: "Vila Belmiro" },
