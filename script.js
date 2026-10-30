@@ -108,7 +108,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "1x0" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "0x3" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "1x1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "3x2" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "19:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "22/11", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "16:00", score: "x" },
@@ -247,6 +247,22 @@ const posicoesCompeticao = {
   "copas": "Caiu nas oitavas",
   "estadual": "Campeão",
   "amistoso": "-"
+};
+
+/* Resumo de FIM DA TEMPORADA 2026 (aparece no lugar do "Próximo Jogo" quando
+   todos os jogos de 2026 já tiverem placar).
+   - posicao: deixe "" para usar a posição do Brasileiro em posicoesCompeticao.
+   - vaga: escreva o resultado exato quando estiver confirmado, por exemplo:
+       "Libertadores 2027 — fase de grupos"
+       "Libertadores 2027 — fase preliminar"
+       "Sul-Americana 2027"
+       "Sem vaga em competição continental"
+       "Rebaixado para a Série B"
+     Se deixar "", o app sugere pelo regulamento base (G-4 grupos, 5º preliminar),
+     mas isso pode mudar conforme as finais continentais e a Copa do Brasil. */
+const fimTemporada2026 = {
+  posicao: "",
+  vaga: ""
 };
 
 const posicoesCompeticao2027 = {
@@ -721,9 +737,65 @@ function getNextGame() {
     .sort((a, b) => parseDate(a.date, a.year) - parseDate(b.date, b.year))[0] || null;
 }
 
+function jogoJaDisputado(g) {
+  return !!g.score && g.score.trim().toLowerCase() !== "x";
+}
+
+// Todos os jogos masculinos de 2026 já têm placar
+function temporada2026Encerrada() {
+  const lista = games.filter(g => (g.category || "masculino") === "masculino" && (g.year || "2026") === "2026");
+  return lista.length > 0 && lista.every(jogoJaDisputado);
+}
+
+function vagaFimTemporada2026(pos) {
+  if (fimTemporada2026.vaga) return { texto: fimTemporada2026.vaga, provisorio: false };
+  if (!pos) return { texto: "Vaga a confirmar", provisorio: true };
+  if (pos <= 4) return { texto: "Libertadores 2027 — fase de grupos", provisorio: true };
+  if (pos === 5) return { texto: "Libertadores 2027 — fase preliminar", provisorio: true };
+  if (pos >= 17) return { texto: "Rebaixado para a Série B", provisorio: false };
+  return { texto: "Sem vaga na Libertadores pelo regulamento base", provisorio: true };
+}
+
+function renderResumoFimTemporada(box) {
+  if (countdownInterval) clearInterval(countdownInterval);
+
+  const posTxt = fimTemporada2026.posicao || posicoesCompeticao["brasileiro"] || "-";
+  const posNum = parseInt(posTxt, 10) || 0;
+  const vaga = vagaFimTemporada2026(posNum);
+
+  let cor = "text-slate-300";
+  if (/sem vaga|rebaix|a confirmar/i.test(vaga.texto)) cor = /rebaix/i.test(vaga.texto) ? "text-red-400" : "text-slate-300";
+  else if (/libertadores/i.test(vaga.texto)) cor = "text-emerald-400";
+  else if (/sul-americana/i.test(vaga.texto)) cor = "text-blue-400";
+
+  box.classList.remove("hidden");
+  box.innerHTML = `
+    <div class="ticket next-game rise-in rounded-2xl border border-navy-600/60 px-4 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 bg-navy-900/80 backdrop-blur-md">
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="w-2.5 h-2.5 rounded-full bg-gold"></span>
+        <span class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Fim da temporada 2026</span>
+      </div>
+      <div class="flex items-center gap-4 flex-1 justify-center w-full min-w-0">
+        <div class="text-center">
+          <p class="text-[10px] uppercase tracking-wider text-slate-400 mb-1">Posição final · Brasileiro Série A</p>
+          <p class="font-display text-4xl sm:text-5xl font-semibold text-gold leading-none">${posTxt}</p>
+        </div>
+      </div>
+      <div class="text-center sm:text-right shrink-0 max-w-xs">
+        <p class="font-display text-sm sm:text-base font-semibold ${cor}">${vaga.texto}</p>
+        ${vaga.provisorio ? '<p class="text-[11px] text-slate-500 mt-1">Pode mudar conforme a redistribuição de vagas das finais continentais.</p>' : ""}
+      </div>
+    </div>`;
+}
+
 function renderHero() {
   const box = document.getElementById("heroNext");
   if (!box) return;
+
+  if (activeSeason === "2026" && activeCategory === "masculino" && temporada2026Encerrada()) {
+    renderResumoFimTemporada(box);
+    return;
+  }
 
   const next = getNextGame();
   if (!next) { 
@@ -1072,6 +1144,7 @@ function renderLists() {
   }
 
   renderJogosInteresse();
+  renderClassificacao();
 }
 
 /* ===========================================================
@@ -1449,6 +1522,250 @@ function abrirModalInteresse(id) {
 function fecharModalInteresse() {
   jogoInteresseEditando = null;
   const ov = document.getElementById("modalInteresse");
+  if (ov) ov.style.display = "none";
+}
+
+/* ===========================================================
+   8.3 CLASSIFICAÇÃO — TEMPORADA 2027
+   Tabela editável (aparece só em 2027). O Baiano já vem com os 10 times
+   dos jogos cadastrados; o Brasileiro começa vazio (clubes ainda não definidos).
+   Pontos, jogos e saldo são calculados sozinhos a partir de V / E / D / GP / GC.
+   =========================================================== */
+
+const CHAVE_CLASSIFICACAO_2027 = "bahia_classificacao_2027";
+const COMPS_CLASSIFICACAO_2027 = [
+  { id: "estadual 27",   label: "Baiano" },
+  { id: "brasileiro 27", label: "Brasileiro Série A" },
+];
+
+let classifComp = "estadual 27";
+let classifEditando = null;
+
+function novaLinhaClassificacao(slug) {
+  return { id: "c_" + slug, time: slug, v: 0, e: 0, d: 0, gp: 0, gc: 0 };
+}
+
+function carregarClassificacao2027() {
+  const salvo = StorageUtils.get(CHAVE_CLASSIFICACAO_2027, null) || {};
+  if (!Array.isArray(salvo["estadual 27"])) {
+    const times = [...new Set(
+      games.filter(g => g.year === "2027" && g.comp === "baiano 27").flatMap(g => [g.team1, g.team2])
+    )];
+    salvo["estadual 27"] = times.map(novaLinhaClassificacao);
+  }
+  if (!Array.isArray(salvo["brasileiro 27"])) salvo["brasileiro 27"] = [];
+  return salvo;
+}
+
+let classificacao2027 = carregarClassificacao2027();
+
+function salvarClassificacao2027() {
+  StorageUtils.set(CHAVE_CLASSIFICACAO_2027, classificacao2027);
+}
+
+// Texto digitado -> slug (reaproveita a chave de teamLogos quando já existe)
+function resolverSlugTime(texto) {
+  const alvo = slugify(texto);
+  const achada = Object.keys(teamLogos).find(k => slugify(k) === alvo);
+  return achada || alvo;
+}
+
+function tabelaOrdenada(compId) {
+  return (classificacao2027[compId] || [])
+    .map(l => ({ ...l, j: l.v + l.e + l.d, p: l.v * 3 + l.e, sg: l.gp - l.gc }))
+    .sort((a, b) =>
+      (b.p - a.p) || (b.v - a.v) || (b.sg - a.sg) || (b.gp - a.gp) ||
+      getTeam(a.time).name.localeCompare(getTeam(b.time).name));
+}
+
+function setClassifComp(id) {
+  classifComp = id;
+  renderClassificacao();
+}
+
+function renderClassificacao() {
+  const listsWrap = document.getElementById("listsWrap");
+  if (!listsWrap) return;
+
+  const visivel = activeSeason === "2027" && activeCategory === "masculino" && !searchTerm.trim();
+  let sec = document.getElementById("classificacao2027");
+
+  if (!visivel) {
+    if (sec) { sec.classList.add("hidden"); sec.innerHTML = ""; }
+    return;
+  }
+
+  if (!sec) {
+    sec = document.createElement("section");
+    sec.id = "classificacao2027";
+    sec.className = "mt-6";
+    const ref = document.getElementById("jogosInteresse");
+    if (ref) listsWrap.insertBefore(sec, ref); else listsWrap.appendChild(sec);
+  }
+
+  const linhas = tabelaOrdenada(classifComp);
+  const pills = COMPS_CLASSIFICACAO_2027.map(c => `
+    <button onclick="setClassifComp('${c.id}')" class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+      classifComp === c.id ? "bg-navy-800 text-gold border-gold" : "border-navy-700/50 text-slate-400 hover:text-slate-200"
+    }">${c.label}</button>`).join("");
+
+  const th = "px-2 py-2 text-center font-semibold";
+  const corpo = linhas.map((l, i) => {
+    const t = getTeam(l.time);
+    const ehBahia = l.time === "bahia";
+    const sg = l.sg > 0 ? `+${l.sg}` : l.sg;
+    return `
+      <tr class="border-t border-white/5 group ${ehBahia ? "bg-navy-800/60 text-gold" : "text-slate-200"}">
+        <td class="px-2 py-2 text-center font-mono">${i + 1}</td>
+        <td class="px-2 py-2">
+          <div class="flex items-center gap-2 min-w-[8rem]">
+            <img src="${t.logo}" alt="${t.name}" class="w-5 h-5 object-contain shrink-0">
+            <span class="font-display truncate">${t.name}</span>
+          </div>
+        </td>
+        <td class="${th} font-bold">${l.p}</td>
+        <td class="${th}">${l.j}</td>
+        <td class="${th}">${l.v}</td>
+        <td class="${th}">${l.e}</td>
+        <td class="${th}">${l.d}</td>
+        <td class="${th}">${l.gp}</td>
+        <td class="${th}">${l.gc}</td>
+        <td class="${th}">${sg}</td>
+        <td class="px-2 py-2 text-right whitespace-nowrap">
+          <button onclick="abrirModalClassificacao('${l.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button onclick="removerLinhaClassificacao('${l.id}')" class="text-slate-500 hover:text-red-400 p-1" title="Remover time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+          </button>
+        </td>
+      </tr>`;
+  }).join("");
+
+  sec.classList.remove("hidden");
+  sec.innerHTML = `
+    <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
+      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Classificação 2027</h3>
+      <button onclick="abrirModalClassificacao()" class="text-[11px] font-semibold text-gold hover:text-white transition-colors">+ Adicionar time</button>
+    </div>
+    <div class="flex items-center gap-2 mb-3">${pills}</div>
+    ${linhas.length ? `
+    <div class="overflow-x-auto rounded-xl border border-white/10 bg-navy-900/60">
+      <table class="w-full text-xs sm:text-sm">
+        <thead>
+          <tr class="text-[10px] uppercase tracking-wider text-slate-400">
+            <th class="px-2 py-2 text-center">#</th>
+            <th class="px-2 py-2 text-left">Time</th>
+            <th class="${th}">P</th><th class="${th}">J</th><th class="${th}">V</th><th class="${th}">E</th>
+            <th class="${th}">D</th><th class="${th}">GP</th><th class="${th}">GC</th><th class="${th}">SG</th>
+            <th class="px-2 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>${corpo}</tbody>
+      </table>
+    </div>` : '<p class="text-xs text-slate-500">Nenhum time na tabela. Use "+ Adicionar time".</p>'}`;
+}
+
+function removerLinhaClassificacao(id) {
+  classificacao2027[classifComp] = (classificacao2027[classifComp] || []).filter(l => l.id !== id);
+  salvarClassificacao2027();
+  renderClassificacao();
+}
+
+function garantirModalClassificacao() {
+  let ov = document.getElementById("modalClassificacao");
+  if (ov) return ov;
+
+  const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
+  const rotulo = "block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1";
+  const opcoes = Object.keys(teamLogos).map(k => `<option value="${getTeam(k).name}"></option>`).join("");
+  const num = (id, nome) => `<div><label class="${rotulo}">${nome}</label><input id="${id}" type="text" inputmode="numeric" maxlength="3" placeholder="0" class="${campo} text-center"></div>`;
+
+  ov = document.createElement("div");
+  ov.id = "modalClassificacao";
+  ov.style.display = "none";
+  ov.className = "fixed inset-0 z-50 items-center justify-center p-4 bg-black/70";
+  ov.innerHTML = `
+    <form class="w-full max-w-md rounded-2xl border border-white/10 bg-navy-900 p-5 max-h-full overflow-y-auto">
+      <h3 id="cTitulo" class="font-display text-lg text-white mb-4">Adicionar time</h3>
+      <div class="mb-3">
+        <label class="${rotulo}">Time</label>
+        <input id="cTime" type="text" list="cTimes" autocomplete="off" class="${campo}">
+        <datalist id="cTimes">${opcoes}</datalist>
+      </div>
+      <div class="grid grid-cols-3 gap-3 mb-3">${num("cV", "Vitórias")}${num("cE", "Empates")}${num("cD", "Derrotas")}</div>
+      <div class="grid grid-cols-2 gap-3 mb-3">${num("cGP", "Gols pró")}${num("cGC", "Gols contra")}</div>
+      <p class="text-[11px] text-slate-500 mb-2">Pontos, jogos e saldo são calculados automaticamente.</p>
+      <p id="cErro" class="text-xs text-red-400 min-h-[1rem] mb-2"></p>
+      <div class="flex gap-2">
+        <button type="button" id="cCancelar" class="flex-1 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 bg-navy-950/50 text-slate-300 hover:text-white">Cancelar</button>
+        <button type="submit" class="flex-1 py-2 rounded-xl text-xs font-semibold bg-gold text-navy-950">Salvar</button>
+      </div>
+    </form>`;
+  document.body.appendChild(ov);
+
+  ov.addEventListener("click", (e) => { if (e.target === ov) fecharModalClassificacao(); });
+  ov.querySelector("#cCancelar").addEventListener("click", fecharModalClassificacao);
+  ["cV", "cE", "cD", "cGP", "cGC"].forEach(id => {
+    ov.querySelector("#" + id).addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/\D/g, "").slice(0, 3);
+    });
+  });
+
+  ov.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = id => ov.querySelector("#" + id);
+    const nome = q("cTime").value.trim();
+
+    if (!nome) { q("cErro").textContent = "Informe o time."; return; }
+
+    const slug = resolverSlugTime(nome);
+    const lista = classificacao2027[classifComp] || (classificacao2027[classifComp] = []);
+    if (lista.some(l => l.time === slug && l.id !== classifEditando)) {
+      q("cErro").textContent = "Esse time já está na tabela.";
+      return;
+    }
+    q("cErro").textContent = "";
+
+    const n = id => Math.max(0, parseInt(q(id).value, 10) || 0);
+    const linha = {
+      id: classifEditando || ("c_" + cryptoId()),
+      time: slug,
+      v: n("cV"), e: n("cE"), d: n("cD"), gp: n("cGP"), gc: n("cGC")
+    };
+
+    const i = lista.findIndex(l => l.id === classifEditando);
+    if (i !== -1) lista[i] = linha; else lista.push(linha);
+
+    salvarClassificacao2027();
+    fecharModalClassificacao();
+    renderClassificacao();
+  });
+
+  return ov;
+}
+
+function abrirModalClassificacao(id) {
+  const ov = garantirModalClassificacao();
+  const q = sel => ov.querySelector("#" + sel);
+  const l = id ? (classificacao2027[classifComp] || []).find(x => x.id === id) : null;
+  classifEditando = l ? l.id : null;
+
+  q("cTitulo").textContent = l ? "Editar time" : "Adicionar time";
+  q("cErro").textContent = "";
+  q("cTime").value = l ? getTeam(l.time).name : "";
+  q("cV").value = l ? l.v : "";
+  q("cE").value = l ? l.e : "";
+  q("cD").value = l ? l.d : "";
+  q("cGP").value = l ? l.gp : "";
+  q("cGC").value = l ? l.gc : "";
+
+  ov.style.display = "flex";
+}
+
+function fecharModalClassificacao() {
+  classifEditando = null;
+  const ov = document.getElementById("modalClassificacao");
   if (ov) ov.style.display = "none";
 }
 
