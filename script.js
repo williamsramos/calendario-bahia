@@ -126,10 +126,10 @@ const listaAtualizadaDeGames = [
   // MASCULINO — BAIANO
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", year: "2026", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
 
-  // ==========================================
+   // ==========================================
   // JOGOS DA TEMPORADA 2027
   // ==========================================
-
+ 
   // MASCULINO — BAIANO
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "1ª rodada", date: "10/01", year: "2027", team1: "bahia", team2: "ssafc", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "2ª rodada", date: "13/01", year: "2027", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
@@ -141,9 +141,9 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" }
 ];
-
+ 
 let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
-
+ 
 // Jogos da temporada 2027 que estão no código mas ainda não existem no
 // localStorage do usuário (evita que dados salvos "escondam" os jogos novos).
 (function mergeJogos2027() {
@@ -159,19 +159,51 @@ let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
   games = games.concat(novos);
   StorageUtils.set("bahia_games", games);
 })();
-
+ 
+/* ===========================================================
+   AJUSTES DE JOGOS JÁ SALVOS NO NAVEGADOR
+   O site guarda os jogos no localStorage de cada aparelho, e essa cópia tem
+   prioridade sobre o código. Quando você corrigir data/hora/estádio de um jogo
+   no código, adicione um ajuste aqui (com um "id" novo e único): ele é aplicado
+   UMA vez em cada aparelho e depois deixa você editar o jogo normalmente.
+   =========================================================== */
+const AJUSTES_JOGOS = [
+  { id: "2026-brasileiro-35-hora-2130", comp: "brasileiro", round: "35ª Rodada", year: "2026", set: { time: "21:30" } },
+  { id: "2026-brasileiro-36-hora-1730", comp: "brasileiro", round: "36ª Rodada", year: "2026", set: { time: "17:30" } },
+];
+ 
+(function aplicarAjustesJogos() {
+  const aplicados = StorageUtils.get("bahia_ajustes_aplicados", []) || [];
+  let mudou = false;
+ 
+  AJUSTES_JOGOS.forEach(a => {
+    if (aplicados.includes(a.id)) return;
+    games.forEach(g => {
+      if ((g.category || "masculino") === "masculino" && g.comp === a.comp &&
+          g.round === a.round && (g.year || "2026") === a.year) {
+        Object.assign(g, a.set);
+        mudou = true;
+      }
+    });
+    aplicados.push(a.id);
+  });
+ 
+  if (mudou) StorageUtils.set("bahia_games", games);
+  StorageUtils.set("bahia_ajustes_aplicados", aplicados);
+})();
+ 
 let editingGameId = null;
 let activeCategory = "masculino";
 let activeSeason = "2026";
-
+ 
 function saveGames() {
   StorageUtils.set("bahia_games", games);
 }
-
+ 
 /* ===========================================================
    3. MAPEAMENTO DE ESCUDOS E EQUIPES
    =========================================================== */
-
+ 
 const teamLogos = {
   "bahia": "img/bahia.png",
   "vitoria": "img/vitoria.png",
@@ -204,7 +236,7 @@ const teamLogos = {
   "ssafc": "img/ssa_fc.png",
   "juazeirense" : "img/juazeirense.png"
 };
-
+ 
 function getTeam(slug) {
   if (!slug) return { name: "Desconhecido", logo: "img/default.png" };
   const name = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
@@ -254,7 +286,7 @@ const posicoesCompeticao = {
    - posicao: deixe "" para usar a posição do Brasileiro em posicoesCompeticao.
    - vaga: escreva o resultado exato quando estiver confirmado, por exemplo:
        "Libertadores 2027 — fase de grupos"
-       "Libertadores 2027 — fase preliminar"
+       "Libertadores 2027 — fase pre-Libertadores"
        "Sul-Americana 2027"
        "Sem vaga em competição continental"
        "Rebaixado para a Série B"
@@ -751,7 +783,7 @@ function vagaFimTemporada2026(pos) {
   if (fimTemporada2026.vaga) return { texto: fimTemporada2026.vaga, provisorio: false };
   if (!pos) return { texto: "Vaga a confirmar", provisorio: true };
   if (pos <= 4) return { texto: "Libertadores 2027 — fase de grupos", provisorio: true };
-  if (pos === 5) return { texto: "Libertadores 2027 — fase preliminar", provisorio: true };
+  if (pos === 5) return { texto: "Libertadores 2027 — fase pre Libertadores", provisorio: true };
   if (pos >= 17) return { texto: "Rebaixado para a Série B", provisorio: false };
   return { texto: "Sem vaga na Libertadores pelo regulamento base", provisorio: true };
 }
