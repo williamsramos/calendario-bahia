@@ -92,7 +92,7 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Ida)", date: "16/10/26", team1: "bahia", team2: "sao-paulo", stadium: "Batistão", time: "19:00", score: "2x1" },
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Volta)", date: "21/10/26", team1: "sao-paulo", team2: "bahia", stadium: "Brinco de Ouro da Princesa (agr. 1 x 3)", time: "19:00", score: "0x1" },
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Ida)", date: "03/11/26", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "19:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Volta)", date: "08/11/26", team1: "flamengo", team2: "bahia", stadium: "Luso brasileiro", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Volta)", date: "07/11/26", team1: "flamengo", team2: "bahia", stadium: "Luso brasileiro", time: "21:30", score: "x" },
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Final (Ida)", date: "11/11/26", team1: "bahia", team2: "braga inter fla flu", stadium: "Batistão", time: "19:00", score: "x" },
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Final (Volta)", date: "15/11/26", team1: "braga inter fla flu", team2: "bahia", stadium: "A definir", time: "19:00", score: "x" },
 
