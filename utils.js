@@ -285,9 +285,9 @@ function renderizarTabelaClassificacao(dados = dadosClassificacao) {
     tr.innerHTML = `
       <td class="py-3 px-4"><span class="${posBadgeClass}" style="${posBadgeStyle}">${item.pos}º</span></td>
       <td class="py-3 px-4 flex items-center gap-2.5 font-medium text-slate-200">
+        ${clubesRebaixados.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#d93829] bg-[#d93829]/20 text-[#ff6b5e]" title="Rebaixado">R</span>' : ''}
         <img src="${teamData.logo}" alt="Escudo do ${item.clube}" class="w-6 h-6 object-contain shrink-0 drop-shadow" onerror="this.onerror=null; this.src='img/default.png';">
         <span class="${isbahia ? 'text-white font-black tracking-wide' : ''}">${item.clube}</span>
-        ${clubesRebaixados.includes(item.slug) ? '<span class="ml-1 text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#d93829] bg-[#d93829]/20 text-[#ff6b5e]" title="Rebaixado">R</span>' : ''}
         ${isbahia ? '<span class="ml-1 text-[10px] bg-gold/20 text-gold border border-gold/40 px-1.5 py-0.5 rounded font-extrabold uppercase tracking-wider">Esquadrão</span>' : ''}
       </td>
       <td class="py-3 px-3 text-center font-mono ${isbahia ? 'text-gold font-black text-lg' : 'font-bold text-white'}">${item.pts}</td>
