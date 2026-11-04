@@ -115,24 +115,24 @@ const dadosClassificacao = [
   { pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 70, pj: 33, vit: 20, e: 10, der: 3, gm: 56, gc: 22, sg: 34, ultimas: ["V", "V", "V", "V", "E"], proximo: "remo", status: "libertadores_fase_grupos" },
   { pos: 3, clube: "Cruzeiro", slug: "cruzeiro", pts: 57, pj: 33, vit: 17, e: 6, der: 10, gm: 52, gc: 46, sg: 6, ultimas: ["V", "D", "V", "V", "V"], proximo: "bahia", status: "libertadores_fase_grupos" },
   { pos: 4, clube: "Fluminense", slug: "fluminense", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 52, gc: 42, sg: 10, ultimas: ["V", "D", "D", "D", "V"], proximo: "vitoria", status: "libertadores_fase_grupos" },
-  { pos: 5, clube: "Athletico-PR", slug: "athletico-pr", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 50, gc: 40, sg: 10, ultimas: ["E", "V", "D", "E", "D"], proximo: "vasco", status: "libertadores_fase_grupos" },
-  { pos: 6, clube: "Bahia", slug: "bahia", pts: 53, pj: 33, vit: 14, e: 11, der: 8, gm: 48, gc: 42, sg: 6, ultimas: ["D", "V", "D", "E", "V"], proximo: "cruzeiro", status: "pre_libertadores" },
-  { pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 50, pj: 33, vit: 14, e: 8, der: 11, gm: 44, gc: 39, sg: 5, ultimas: ["E", "V", "V", "D", "D"], proximo: "botafogo", status: "pre_libertadores" },
-  { pos: 8, clube: "Bragantino", slug: "bragantino", pts: 47, pj: 34, vit: 13, e: 8, der: 13, gm: 44, gc: 39, sg: 5, ultimas: ["V", "E", "D", "V", "V"], proximo: "santos", status: "sul_americana" },
-  { pos: 9, clube: "Santos", slug: "santos", pts: 47, pj: 34, vit: 12, e: 11, der: 11, gm: 50, gc: 49, sg: 1, ultimas: ["D", "V", "E", "E", "D"], proximo: "bragantino", status: "sul_americana" },
+  { pos: 5, clube: "Athletico-PR", slug: "athletico-pr", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 50, gc: 40, sg: 10, ultimas: ["E", "V", "D", "E", "D"], proximo: "vasco", status: "pre_libertadores" },
+  { pos: 6, clube: "Bahia", slug: "bahia", pts: 53, pj: 33, vit: 14, e: 11, der: 8, gm: 48, gc: 42, sg: 6, ultimas: ["D", "V", "D", "E", "V"], proximo: "cruzeiro", status: "sul_americana" },
+  { pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 50, pj: 33, vit: 14, e: 8, der: 11, gm: 44, gc: 39, sg: 5, ultimas: ["E", "V", "V", "D", "D"], proximo: "botafogo", status: "sul_americana" },
+  { pos: 8, clube: "Bragantino", slug: "bragantino", pts: 47, pj: 34, vit: 13, e: 8, der: 13, gm: 44, gc: 39, sg: 5, ultimas: ["V", "E", "D", "V", "V"], proximo: "vitoria", status: "sul_americana" },
+  { pos: 9, clube: "Santos", slug: "santos", pts: 47, pj: 34, vit: 12, e: 11, der: 11, gm: 50, gc: 49, sg: 1, ultimas: ["D", "V", "E", "E", "D"], proximo: "coritiba", status: "sul_americana" },
   { pos: 10, clube: "São Paulo", slug: "sao-paulo", pts: 43, pj: 33, vit: 12, e: 7, der: 14, gm: 39, gc: 39, sg: 0, ultimas: ["D", "V", "V", "E", "D"], proximo: "corinthians", status: "sul_americana" },
   { pos: 11, clube: "Coritiba", slug: "coritiba", pts: 42, pj: 33, vit: 11, e: 9, der: 13, gm: 40, gc: 50, sg: -10, ultimas: ["D", "E", "D", "D", "V"], proximo: "internacional", status: "sul_americana" },
-  { pos: 12, clube: "Botafogo", slug: "botafogo", pts: 39, pj: 33, vit: 10, e: 9, der: 14, gm: 45, gc: 53, sg: -8, ultimas: ["D", "E", "V", "D", "D"], proximo: "atletico-mg", status: "sul_americana" },
-  { pos: 13, clube: "Vasco da Gama", slug: "vasco", pts: 38, pj: 32, vit: 10, e: 8, der: 14, gm: 40, gc: 49, sg: -9, ultimas: ["V", "E", "D", "V", "D"], proximo: "athletico-pr", status: "sul_americana" },
-  { pos: 14, clube: "Vitória", slug: "vitoria", pts: 38, pj: 33, vit: 10, e: 8, der: 15, gm: 35, gc: 48, sg: -13, ultimas: ["V", "D", "E", "E", "D"], proximo: "fluminense", status: "neutro" },
-  { pos: 15, clube: "Grêmio", slug: "gremio", pts: 37, pj: 33, vit: 9, e: 10, der: 14, gm: 37, gc: 44, sg: -7, ultimas: ["E", "E", "D", "V", "V"], proximo: "flamengo", status: "neutro" },
-  { pos: 16, clube: "Mirassol", slug: "mirassol", pts: 37, pj: 33, vit: 9, e: 10, der: 14, gm: 37, gc: 47, sg: -10, ultimas: ["E", "D", "V", "E", "D"], proximo: "chapecoense", status: "neutro" },
+  { pos: 12, clube: "Mirassol", slug: "mirassol", pts: 40, pj: 34, vit: 10, e: 10, der: 14, gm: 39, gc: 46, sg: -7, ultimas: ["D", "V", "E", "D", "V"], proximo: "atletico-mg", status: "neutro" },
+  { pos: 13, clube: "Botafogo", slug: "botafogo", pts: 39, pj: 33, vit: 10, e: 9, der: 14, gm: 45, gc: 53, sg: -8, ultimas: ["D", "E", "V", "D", "D"], proximo: "atletico-mg", status: "neutro" },
+  { pos: 14, clube: "Vasco da Gama", slug: "vasco", pts: 38, pj: 32, vit: 10, e: 8, der: 14, gm: 40, gc: 49, sg: -9, ultimas: ["V", "E", "D", "V", "D"], proximo: "athletico-pr", status: "neutro" },
+  { pos: 15, clube: "Vitória", slug: "vitoria", pts: 38, pj: 33, vit: 10, e: 8, der: 15, gm: 35, gc: 48, sg: -13, ultimas: ["V", "D", "E", "E", "D"], proximo: "fluminense", status: "neutro" },
+  { pos: 16, clube: "Grêmio", slug: "gremio", pts: 37, pj: 33, vit: 9, e: 10, der: 14, gm: 37, gc: 44, sg: -7, ultimas: ["E", "E", "D", "V", "V"], proximo: "flamengo", status: "neutro" },
   { pos: 17, clube: "Corinthians", slug: "corinthians", pts: 36, pj: 33, vit: 9, e: 9, der: 15, gm: 36, gc: 42, sg: -6, ultimas: ["D", "D", "E", "D", "V"], proximo: "sao-paulo", status: "rebaixamento" },
   { pos: 18, clube: "Internacional", slug: "internacional", pts: 35, pj: 33, vit: 8, e: 11, der: 14, gm: 37, gc: 42, sg: -5, ultimas: ["V", "E", "D", "V", "D"], proximo: "coritiba", status: "rebaixamento" },
   { pos: 19, clube: "Remo", slug: "remo", pts: 29, pj: 33, vit: 6, e: 11, der: 16, gm: 36, gc: 51, sg: -15, ultimas: ["E", "E", "E", "D", "V"], proximo: "palmeiras", status: "rebaixamento" },
-  { pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 21, pj: 32, vit: 4, e: 9, der: 19, gm: 32, gc: 66, sg: -34, ultimas: ["D", "D", "D", "V", "D"], proximo: "mirassol", status: "rebaixamento" }
+  { pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 21, pj: 33, vit: 4, e: 9, der: 20, gm: 33, gc: 68, sg: -35, ultimas: ["D", "D", "V", "D", "D"], proximo: "remo", status: "rebaixamento" }
 ];
- 
+
 // ===== ZONAS (fonte única de cores e textos: tabela, filtros e legenda) =====
 const legendaQualificacaoRebaixamento = {
   libertadores_fase_grupos: { label: "1º - 4º: Libertadores (G4)", cor: "#234bc5" },
@@ -141,7 +141,10 @@ const legendaQualificacaoRebaixamento = {
   neutro:                   { label: "12º - 16º: Neutro",          cor: "#64748b" },
   rebaixamento:             { label: "17º - 20º: Rebaixamento",    cor: "#d93829" }
 };
- 
+
+// Clubes já rebaixados matematicamente (mostram "R" na tabela e na legenda)
+const clubesRebaixados = ["chapecoense"];
+
 // Define a zona pela POSIÇÃO atual (o simulador reordena a tabela)
 function statusPorPosicao(pos) {
   if (pos <= 4) return "libertadores_fase_grupos";
@@ -150,11 +153,11 @@ function statusPorPosicao(pos) {
   if (pos <= 16) return "neutro";
   return "rebaixamento";
 }
- 
+
 // ===== FILTROS POR ZONA =====
 let filtroClassificacao = "todos";
 let ultimosDadosClassificacao = dadosClassificacao;
- 
+
 const filtrosClassificacao = [
   { id: "libertadores_fase_grupos", label: "Libertadores - G4", faixa: "1º ao 4º" },
   { id: "pre_libertadores",         label: "Pré-Libertadores",  faixa: "5º" },
@@ -163,11 +166,11 @@ const filtrosClassificacao = [
   { id: "rebaixamento",             label: "Rebaixamento",      faixa: "17º ao 20º" },
   { id: "todos",                    label: "Ver tudo",          faixa: "1º ao 20º" }
 ];
- 
+
 function renderizarFiltros() {
   const container = document.getElementById("filtros-classificacao");
   if (!container) return;
- 
+
   container.innerHTML = filtrosClassificacao.map(f => {
     const ativo = f.id === filtroClassificacao;
     const zona = legendaQualificacaoRebaixamento[f.id];
@@ -180,7 +183,7 @@ function renderizarFiltros() {
     const faixa = f.faixa ? `<span class="opacity-60 text-[11px]">${f.faixa}</span>` : "";
     return `<button type="button" data-filtro="${f.id}" aria-pressed="${ativo}" class="${base}${tema}${anel}">${dot}<span>${f.label}</span>${faixa}</button>`;
   }).join("");
- 
+
   container.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
       filtroClassificacao = btn.dataset.filtro;
@@ -284,6 +287,7 @@ function renderizarTabelaClassificacao(dados = dadosClassificacao) {
       <td class="py-3 px-4 flex items-center gap-2.5 font-medium text-slate-200">
         <img src="${teamData.logo}" alt="Escudo do ${item.clube}" class="w-6 h-6 object-contain shrink-0 drop-shadow" onerror="this.onerror=null; this.src='img/default.png';">
         <span class="${isbahia ? 'text-white font-black tracking-wide' : ''}">${item.clube}</span>
+        ${clubesRebaixados.includes(item.slug) ? '<span class="ml-1 text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#d93829] bg-[#d93829]/20 text-[#ff6b5e]" title="Rebaixado">R</span>' : ''}
         ${isbahia ? '<span class="ml-1 text-[10px] bg-gold/20 text-gold border border-gold/40 px-1.5 py-0.5 rounded font-extrabold uppercase tracking-wider">Esquadrão</span>' : ''}
       </td>
       <td class="py-3 px-3 text-center font-mono ${isbahia ? 'text-gold font-black text-lg' : 'font-bold text-white'}">${item.pts}</td>
@@ -321,9 +325,13 @@ function renderizarLegendaClassificacao() {
       <span>${l.label}</span>
     </div>`).join("");
 
+  const itemRebaixado = clubesRebaixados.length
+    ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#ff6b5e]">R</span><span>- Rebaixado</span></div>`
+    : "";
+
   const legendaHTML = `
     <div id="legenda-classificacao" class="mt-6 p-4 bg-navy-900 border border-navy-800 rounded-xl flex flex-wrap gap-4 text-xs font-medium justify-between items-center text-slate-300">
-      ${itens}
+      ${itens}${itemRebaixado}
     </div>
   `;
 
@@ -332,8 +340,6 @@ function renderizarLegendaClassificacao() {
 
 // ===== DICIONÁRIO DE PRÓXIMOS CONFRONTOS POR RODADA =====
 const proximosJogosPorRodada = {
-
-
   34: {
     "bragantino": "santos", "santos": "bragantino",
     "chapecoense": "mirassol", "mirassol": "chapecoense",
@@ -345,8 +351,8 @@ const proximosJogosPorRodada = {
     "palmeiras": "remo", "remo": "palmeiras",
     "cruzeiro": "bahia", "bahia": "cruzeiro",
     "vitoria": "fluminense", "fluminense": "vitoria"
-  ,
- 35: {
+  },
+  35: {
     "mirassol": "atletico-mg", "atletico-mg": "mirassol",
     "coritiba": "santos", "santos": "coritiba",
     "remo": "chapecoense", "chapecoense": "remo",
@@ -369,8 +375,7 @@ const proximosJogosPorRodada = {
     "botafogo": "sao-paulo", "sao-paulo": "botafogo",
     "santos": "gremio", "gremio": "santos",
     "atletico-mg": "corinthians", "corinthians": "atletico-mg"
-  }}
-
+  }
 };
 
 function atualizarRodadaTabela(numeroRodada) {
