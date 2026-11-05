@@ -1,145 +1,145 @@
 /* ===========================================================
-   Utilitários Globais — Compartilhados entre páginas
-   =========================================================== */
+Utilitários Globais — Compartilhados entre páginas
+=========================================================== */
 
 // ===== TOAST NOTIFICATIONS =====
 function initToastContainer() {
-  if (!document.getElementById('toastContainer')) {
-    const container = document.createElement('div');
-    container.id = 'toastContainer';
-    container.className = 'toast-container';
-    document.body.appendChild(container);
-  }
+if (!document.getElementById('toastContainer')) {
+const container = document.createElement('div');
+container.id = 'toastContainer';
+container.className = 'toast-container';
+document.body.appendChild(container);
+}
 }
 
 function showToast(message, type = 'success', duration = 3000) {
-  initToastContainer();
-  const container = document.getElementById('toastContainer');
+initToastContainer();
+const container = document.getElementById('toastContainer');
 
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = message;
+const toast = document.createElement('div');
+toast.className = `toast ${type}`;
+toast.textContent = message;
 
-  container.appendChild(toast);
+container.appendChild(toast);
 
-  if (duration > 0) {
-    setTimeout(() => {
-      toast.style.animation = 'slideInRight 0.3s ease reverse';
-      setTimeout(() => toast.remove(), 300);
-    }, duration);
-  }
+if (duration > 0) {
+setTimeout(() => {
+toast.style.animation = 'slideInRight 0.3s ease reverse';
+setTimeout(() => toast.remove(), 300);
+}, duration);
+}
 }
 
 // ===== TAILWIND CONFIG (Centralizado - EC Bahia) =====
 function initTailwindConfig() {
-  if (!window.tailwindInitialized) {
-    if (typeof tailwind !== 'undefined') {
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              navy: {
-                950: '#030B18',
-                900: '#071329',
-                800: '#0E1F3F',
-                700: '#152C56',
-                600: '#1D3B70'
-              },
-              azul: { DEFAULT: '#00468C', 600: '#003366', 400: '#0056F3' },
-              vermelho: { DEFAULT: '#E31C22', 600: '#B31217', 400: '#FF3B3B' },
-              branco: { DEFAULT: '#FFFFFF', 100: '#F1F5F9', 200: '#E2E8F0' },
-              ouro: { DEFAULT: '#FFD700', 600: '#CCAC00', 400: '#FFE033' },
-              blaugrana: { DEFAULT: '#00468C', 600: '#003366' },
-              garnet: { DEFAULT: '#E31C22', 600: '#B31217', 400: '#FF3B3B' },
-              gold: { DEFAULT: '#FFD700', 600: '#CCAC00' }
-            },
-            fontFamily: {
-              display: ['Oswald', 'sans-serif'],
-              body: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
-            },
-          }
-        }
-      };
-    }
-    window.tailwindInitialized = true;
-  }
+if (!window.tailwindInitialized) {
+if (typeof tailwind !== 'undefined') {
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+navy: {
+950: '#030B18',
+900: '#071329',
+800: '#0E1F3F',
+700: '#152C56',
+600: '#1D3B70'
+},
+azul: { DEFAULT: '#00468C', 600: '#003366', 400: '#0056F3' },
+vermelho: { DEFAULT: '#E31C22', 600: '#B31217', 400: '#FF3B3B' },
+branco: { DEFAULT: '#FFFFFF', 100: '#F1F5F9', 200: '#E2E8F0' },
+ouro: { DEFAULT: '#FFD700', 600: '#CCAC00', 400: '#FFE033' },
+blaugrana: { DEFAULT: '#00468C', 600: '#003366' },
+garnet: { DEFAULT: '#E31C22', 600: '#B31217', 400: '#FF3B3B' },
+gold: { DEFAULT: '#FFD700', 600: '#CCAC00' }
+},
+fontFamily: {
+display: ['Oswald', 'sans-serif'],
+body: ['Inter', 'sans-serif'],
+mono: ['JetBrains Mono', 'monospace'],
+},
+}
+}
+};
+}
+window.tailwindInitialized = true;
+}
 }
 
 // ===== ARMAZENAMENTO LOCAL =====
 const LocalStorage = {
-  set(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-      return true;
-    } catch (error) {
-      console.error('Erro ao salvar dados:', error);
-      return false;
-    }
-  },
+set(key, value) {
+try {
+localStorage.setItem(key, JSON.stringify(value));
+return true;
+} catch (error) {
+console.error('Erro ao salvar dados:', error);
+return false;
+}
+},
 
-  get(key, defaultValue = null) {
-    try {
-      const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : defaultValue;
-    } catch (error) {
-      console.error('Erro ao carregar dados:', error);
-      return defaultValue;
-    }
-  },
+get(key, defaultValue = null) {
+try {
+const item = localStorage.getItem(key);
+return item ? JSON.parse(item) : defaultValue;
+} catch (error) {
+console.error('Erro ao carregar dados:', error);
+return defaultValue;
+}
+},
 
-  remove(key) {
-    try {
-      localStorage.removeItem(key);
-      return true;
-    } catch (error) {
-      console.error('Erro ao remover dados:', error);
-      return false;
-    }
-  },
+remove(key) {
+try {
+localStorage.removeItem(key);
+return true;
+} catch (error) {
+console.error('Erro ao remover dados:', error);
+return false;
+}
+},
 
-  clear() {
-    try {
-      localStorage.clear();
-      return true;
-    } catch (error) {
-      console.error('Erro ao limpar dados:', error);
-      return false;
-    }
-  }
+clear() {
+try {
+localStorage.clear();
+return true;
+} catch (error) {
+console.error('Erro ao limpar dados:', error);
+return false;
+}
+}
 };
 
 // 📊 Matriz com os dados atualizados da classificação da Serie A - 2026
 const dadosClassificacao = [
-  { pos: 1, clube: "Flamengo", slug: "flamengo", pts: 73, pj: 33, vit: 22, e: 7, der: 4, gm: 68, gc: 28, sg: 40, ultimas: ["E", "V", "V", "V", "V"], proximo: "gremio", status: "libertadores_fase_grupos" },
-  { pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 70, pj: 33, vit: 20, e: 10, der: 3, gm: 56, gc: 22, sg: 34, ultimas: ["V", "V", "V", "V", "E"], proximo: "remo", status: "libertadores_fase_grupos" },
-  { pos: 3, clube: "Cruzeiro", slug: "cruzeiro", pts: 57, pj: 33, vit: 17, e: 6, der: 10, gm: 52, gc: 46, sg: 6, ultimas: ["V", "D", "V", "V", "V"], proximo: "bahia", status: "libertadores_fase_grupos" },
-  { pos: 4, clube: "Fluminense", slug: "fluminense", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 52, gc: 42, sg: 10, ultimas: ["V", "D", "D", "D", "V"], proximo: "vitoria", status: "libertadores_fase_grupos" },
-  { pos: 5, clube: "Athletico-PR", slug: "athletico-pr", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 50, gc: 40, sg: 10, ultimas: ["E", "V", "D", "E", "D"], proximo: "vasco", status: "pre_libertadores" },
-  { pos: 6, clube: "Bahia", slug: "bahia", pts: 53, pj: 33, vit: 14, e: 11, der: 8, gm: 48, gc: 42, sg: 6, ultimas: ["D", "V", "D", "E", "V"], proximo: "cruzeiro", status: "sul_americana" },
-  { pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 50, pj: 33, vit: 14, e: 8, der: 11, gm: 44, gc: 39, sg: 5, ultimas: ["E", "V", "V", "D", "D"], proximo: "botafogo", status: "sul_americana" },
-  { pos: 8, clube: "Bragantino", slug: "bragantino", pts: 47, pj: 34, vit: 13, e: 8, der: 13, gm: 44, gc: 39, sg: 5, ultimas: ["V", "E", "D", "V", "V"], proximo: "vitoria", status: "sul_americana" },
-  { pos: 9, clube: "Santos", slug: "santos", pts: 47, pj: 34, vit: 12, e: 11, der: 11, gm: 50, gc: 49, sg: 1, ultimas: ["D", "V", "E", "E", "D"], proximo: "coritiba", status: "sul_americana" },
-  { pos: 10, clube: "São Paulo", slug: "sao-paulo", pts: 43, pj: 33, vit: 12, e: 7, der: 14, gm: 39, gc: 39, sg: 0, ultimas: ["D", "V", "V", "E", "D"], proximo: "corinthians", status: "sul_americana" },
-  { pos: 11, clube: "Coritiba", slug: "coritiba", pts: 42, pj: 33, vit: 11, e: 9, der: 13, gm: 40, gc: 50, sg: -10, ultimas: ["D", "E", "D", "D", "V"], proximo: "internacional", status: "sul_americana" },
-  { pos: 12, clube: "Mirassol", slug: "mirassol", pts: 40, pj: 34, vit: 10, e: 10, der: 14, gm: 39, gc: 46, sg: -7, ultimas: ["D", "V", "E", "D", "V"], proximo: "atletico-mg", status: "neutro" },
-  { pos: 13, clube: "Botafogo", slug: "botafogo", pts: 39, pj: 33, vit: 10, e: 9, der: 14, gm: 45, gc: 53, sg: -8, ultimas: ["D", "E", "V", "D", "D"], proximo: "atletico-mg", status: "neutro" },
-  { pos: 14, clube: "Vasco da Gama", slug: "vasco", pts: 38, pj: 32, vit: 10, e: 8, der: 14, gm: 40, gc: 49, sg: -9, ultimas: ["V", "E", "D", "V", "D"], proximo: "athletico-pr", status: "neutro" },
-  { pos: 15, clube: "Vitória", slug: "vitoria", pts: 38, pj: 33, vit: 10, e: 8, der: 15, gm: 35, gc: 48, sg: -13, ultimas: ["V", "D", "E", "E", "D"], proximo: "fluminense", status: "neutro" },
-  { pos: 16, clube: "Grêmio", slug: "gremio", pts: 37, pj: 33, vit: 9, e: 10, der: 14, gm: 37, gc: 44, sg: -7, ultimas: ["E", "E", "D", "V", "V"], proximo: "flamengo", status: "neutro" },
-  { pos: 17, clube: "Corinthians", slug: "corinthians", pts: 36, pj: 33, vit: 9, e: 9, der: 15, gm: 36, gc: 42, sg: -6, ultimas: ["D", "D", "E", "D", "V"], proximo: "sao-paulo", status: "rebaixamento" },
-  { pos: 18, clube: "Internacional", slug: "internacional", pts: 35, pj: 33, vit: 8, e: 11, der: 14, gm: 37, gc: 42, sg: -5, ultimas: ["V", "E", "D", "V", "D"], proximo: "coritiba", status: "rebaixamento" },
-  { pos: 19, clube: "Remo", slug: "remo", pts: 29, pj: 33, vit: 6, e: 11, der: 16, gm: 36, gc: 51, sg: -15, ultimas: ["E", "E", "E", "D", "V"], proximo: "palmeiras", status: "rebaixamento" },
-  { pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 21, pj: 33, vit: 4, e: 9, der: 20, gm: 33, gc: 68, sg: -35, ultimas: ["D", "D", "V", "D", "D"], proximo: "remo", status: "rebaixamento" }
+{ pos: 1, clube: "Flamengo", slug: "flamengo", pts: 73, pj: 33, vit: 22, e: 7, der: 4, gm: 68, gc: 28, sg: 40, ultimas: ["E", "V", "V", "V", "V"], proximo: "gremio", status: "libertadores_fase_grupos" },
+{ pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 70, pj: 33, vit: 20, e: 10, der: 3, gm: 56, gc: 22, sg: 34, ultimas: ["V", "V", "V", "V", "E"], proximo: "remo", status: "libertadores_fase_grupos" },
+{ pos: 3, clube: "Cruzeiro", slug: "cruzeiro", pts: 57, pj: 33, vit: 17, e: 6, der: 10, gm: 52, gc: 46, sg: 6, ultimas: ["V", "D", "V", "V", "V"], proximo: "bahia", status: "libertadores_fase_grupos" },
+{ pos: 4, clube: "Fluminense", slug: "fluminense", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 52, gc: 42, sg: 10, ultimas: ["V", "D", "D", "D", "V"], proximo: "vitoria", status: "libertadores_fase_grupos" },
+{ pos: 5, clube: "Athletico-PR", slug: "athletico-pr", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 50, gc: 40, sg: 10, ultimas: ["E", "V", "D", "E", "D"], proximo: "vasco", status: "pre_libertadores" },
+{ pos: 6, clube: "Bahia", slug: "bahia", pts: 53, pj: 33, vit: 14, e: 11, der: 8, gm: 48, gc: 42, sg: 6, ultimas: ["D", "V", "D", "E", "V"], proximo: "cruzeiro", status: "sul_americana" },
+{ pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 50, pj: 33, vit: 14, e: 8, der: 11, gm: 44, gc: 39, sg: 5, ultimas: ["E", "V", "V", "D", "D"], proximo: "botafogo", status: "sul_americana" },
+{ pos: 8, clube: "Bragantino", slug: "bragantino", pts: 47, pj: 34, vit: 13, e: 8, der: 13, gm: 44, gc: 39, sg: 5, ultimas: ["V", "E", "D", "V", "V"], proximo: "vitoria", status: "sul_americana" },
+{ pos: 9, clube: "Santos", slug: "santos", pts: 47, pj: 34, vit: 12, e: 11, der: 11, gm: 50, gc: 49, sg: 1, ultimas: ["D", "V", "E", "E", "D"], proximo: "coritiba", status: "sul_americana" },
+{ pos: 10, clube: "São Paulo", slug: "sao-paulo", pts: 43, pj: 33, vit: 12, e: 7, der: 14, gm: 39, gc: 39, sg: 0, ultimas: ["D", "V", "V", "E", "D"], proximo: "corinthians", status: "sul_americana" },
+{ pos: 11, clube: "Coritiba", slug: "coritiba", pts: 42, pj: 33, vit: 11, e: 9, der: 13, gm: 40, gc: 50, sg: -10, ultimas: ["D", "E", "D", "D", "V"], proximo: "internacional", status: "sul_americana" },
+{ pos: 12, clube: "Mirassol", slug: "mirassol", pts: 40, pj: 34, vit: 10, e: 10, der: 14, gm: 39, gc: 46, sg: -7, ultimas: ["D", "V", "E", "D", "V"], proximo: "atletico-mg", status: "neutro" },
+{ pos: 13, clube: "Botafogo", slug: "botafogo", pts: 39, pj: 33, vit: 10, e: 9, der: 14, gm: 45, gc: 53, sg: -8, ultimas: ["D", "E", "V", "D", "D"], proximo: "atletico-mg", status: "neutro" },
+{ pos: 14, clube: "Vasco da Gama", slug: "vasco", pts: 38, pj: 32, vit: 10, e: 8, der: 14, gm: 40, gc: 49, sg: -9, ultimas: ["V", "E", "D", "V", "D"], proximo: "athletico-pr", status: "neutro" },
+{ pos: 15, clube: "Vitória", slug: "vitoria", pts: 38, pj: 33, vit: 10, e: 8, der: 15, gm: 35, gc: 48, sg: -13, ultimas: ["V", "D", "E", "E", "D"], proximo: "fluminense", status: "neutro" },
+{ pos: 16, clube: "Grêmio", slug: "gremio", pts: 37, pj: 33, vit: 9, e: 10, der: 14, gm: 37, gc: 44, sg: -7, ultimas: ["E", "E", "D", "V", "V"], proximo: "flamengo", status: "neutro" },
+{ pos: 17, clube: "Corinthians", slug: "corinthians", pts: 36, pj: 33, vit: 9, e: 9, der: 15, gm: 36, gc: 42, sg: -6, ultimas: ["D", "D", "E", "D", "V"], proximo: "sao-paulo", status: "rebaixamento" },
+{ pos: 18, clube: "Internacional", slug: "internacional", pts: 35, pj: 33, vit: 8, e: 11, der: 14, gm: 37, gc: 42, sg: -5, ultimas: ["V", "E", "D", "V", "D"], proximo: "coritiba", status: "rebaixamento" },
+{ pos: 19, clube: "Remo", slug: "remo", pts: 29, pj: 33, vit: 6, e: 11, der: 16, gm: 36, gc: 51, sg: -15, ultimas: ["E", "E", "E", "D", "V"], proximo: "palmeiras", status: "rebaixamento" },
+{ pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 21, pj: 33, vit: 4, e: 9, der: 20, gm: 33, gc: 68, sg: -35, ultimas: ["D", "D", "V", "D", "D"], proximo: "remo", status: "rebaixamento" }
 ];
 
 // ===== ZONAS (fonte única de cores e textos: tabela, filtros e legenda) =====
 const legendaQualificacaoRebaixamento = {
-  libertadores_fase_grupos: { label: "1º - 4º: Libertadores (G4)", cor: "#234bc5" },
-  pre_libertadores:         { label: "5º: Pré-Libertadores",       cor: "#447eff" },
-  sul_americana:            { label: "6º - 11º: Sul-Americana",    cor: "#358856" },
-  neutro:                   { label: "12º - 16º: Neutro",          cor: "#64748b" },
-  rebaixamento:             { label: "17º - 20º: Rebaixamento",    cor: "#d93829" }
+libertadores_fase_grupos: { label: "1º - 4º: Libertadores (G4)", cor: "#234bc5" },
+pre_libertadores: { label: "5º: Pré-Libertadores", cor: "#447eff" },
+sul_americana: { label: "6º - 11º: Sul-Americana", cor: "#358856" },
+neutro: { label: "12º - 16º: Neutro", cor: "#64748b" },
+rebaixamento: { label: "17º - 20º: Rebaixamento", cor: "#d93829" }
 };
 
 // Clubes já rebaixados matematicamente (mostram "R" na tabela e na legenda)
@@ -147,11 +147,11 @@ const clubesRebaixados = ["chapecoense"];
 
 // Define a zona pela POSIÇÃO atual (o simulador reordena a tabela)
 function statusPorPosicao(pos) {
-  if (pos <= 4) return "libertadores_fase_grupos";
-  if (pos <= 5) return "pre_libertadores";
-  if (pos <= 11) return "sul_americana";
-  if (pos <= 16) return "neutro";
-  return "rebaixamento";
+if (pos <= 4) return "libertadores_fase_grupos";
+if (pos <= 5) return "pre_libertadores";
+if (pos <= 11) return "sul_americana";
+if (pos <= 16) return "neutro";
+return "rebaixamento";
 }
 
 // ===== FILTROS POR ZONA =====
@@ -159,441 +159,441 @@ let filtroClassificacao = "todos";
 let ultimosDadosClassificacao = dadosClassificacao;
 
 const filtrosClassificacao = [
-  { id: "libertadores_fase_grupos", label: "Libertadores - G4", faixa: "1º ao 4º" },
-  { id: "pre_libertadores",         label: "Pré-Libertadores",  faixa: "5º" },
-  { id: "sul_americana",            label: "Sul-Americana",     faixa: "6º ao 11º" },
-  { id: "neutro",                   label: "Neutro",            faixa: "12º ao 16º" },
-  { id: "rebaixamento",             label: "Rebaixamento",      faixa: "17º ao 20º" },
-  { id: "todos",                    label: "Ver tudo",          faixa: "1º ao 20º" }
+{ id: "libertadores_fase_grupos", label: "Libertadores - G4", faixa: "1º ao 4º" },
+{ id: "pre_libertadores", label: "Pré-Libertadores", faixa: "5º" },
+{ id: "sul_americana", label: "Sul-Americana", faixa: "6º ao 11º" },
+{ id: "neutro", label: "Neutro", faixa: "12º ao 16º" },
+{ id: "rebaixamento", label: "Rebaixamento", faixa: "17º ao 20º" },
+{ id: "todos", label: "Ver tudo", faixa: "1º ao 20º" }
 ];
 
 function renderizarFiltros() {
-  const container = document.getElementById("filtros-classificacao");
-  if (!container) return;
+const container = document.getElementById("filtros-classificacao");
+if (!container) return;
 
-  container.innerHTML = filtrosClassificacao.map(f => {
-    const ativo = f.id === filtroClassificacao;
-    const zona = legendaQualificacaoRebaixamento[f.id];
-    const base = "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition ";
-    const tema = f.id === "todos"
-      ? "bg-navy-950 text-white border border-gold/40 hover:border-gold "
-      : "bg-slate-200 text-navy-950 hover:bg-white ";
-    const anel = ativo ? "ring-2 ring-gold ring-offset-2 ring-offset-navy-950" : "";
-    const dot = zona ? `<span class="w-2.5 h-2.5 rounded-full inline-block" style="background:${zona.cor}" aria-hidden="true"></span>` : "";
-    const faixa = f.faixa ? `<span class="opacity-60 text-[11px]">${f.faixa}</span>` : "";
-    return `<button type="button" data-filtro="${f.id}" aria-pressed="${ativo}" class="${base}${tema}${anel}">${dot}<span>${f.label}</span>${faixa}</button>`;
-  }).join("");
+container.innerHTML = filtrosClassificacao.map(f => {
+const ativo = f.id === filtroClassificacao;
+const zona = legendaQualificacaoRebaixamento[f.id];
+const base = "inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs sm:text-sm font-medium transition ";
+const tema = f.id === "todos"
+? "bg-navy-950 text-white border border-gold/40 hover:border-gold "
+: "bg-slate-200 text-navy-950 hover:bg-white ";
+const anel = ativo ? "ring-2 ring-gold ring-offset-2 ring-offset-navy-950" : "";
+const dot = zona ? `<span class="w-2.5 h-2.5 rounded-full inline-block" style="background:${zona.cor}" aria-hidden="true"></span>` : "";
+const faixa = f.faixa ? `<span class="opacity-60 text-[11px]">${f.faixa}</span>` : "";
+return `<button type="button" data-filtro="${f.id}" aria-pressed="${ativo}" class="${base}${tema}${anel}">${dot}<span>${f.label}</span>${faixa}</button>`;
+}).join("");
 
-  container.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      filtroClassificacao = btn.dataset.filtro;
-      renderizarFiltros();
-      renderizarTabelaClassificacao(ultimosDadosClassificacao);
-    });
-  });
+container.querySelectorAll("button").forEach(btn => {
+btn.addEventListener("click", () => {
+filtroClassificacao = btn.dataset.filtro;
+renderizarFiltros();
+renderizarTabelaClassificacao(ultimosDadosClassificacao);
+});
+});
 }
 
 // 📊 Mapeamento dos escudos dos times
 const teamLogos = {
-  "bahia": "img/bahia.png",
-  "vitoria": "img/vitoria.png",
-  "flamengo": "img/flamengo.png",
-  "palmeiras": "img/palmeiras.png",
-  "corinthians": "img/corinthians.png",
-  "sao-paulo": "img/sao-paulo.jpg",
-  "gremio": "img/gremio.png",
-  "internacional": "img/internacional.png",
-  "atletico-mg": "img/atletico-mg.png",
-  "cruzeiro": "img/cruzeiro.svg",
-  "botafogo": "img/botafogo.png",
-  "fluminense": "img/fluminense.png",
-  "athletico-pr": "img/athletico-pr.png",
-  "santos": "img/santos.png",
-  "bragantino": "img/bragantino.png",
-  "vasco": "img/vasco.png",
-  "coritiba": "img/coritiba.png",
-  "chapecoense": "img/chapecoense.png",
-  "remo": "img/remo.png",
-  "mirassol": "img/mirassol.png",
-  "o-higgins": "img/o-higgins.png",
-  "montevideo-city": "img/montevideo-city.png"
+"bahia": "img/bahia.png",
+"vitoria": "img/vitoria.png",
+"flamengo": "img/flamengo.png",
+"palmeiras": "img/palmeiras.png",
+"corinthians": "img/corinthians.png",
+"sao-paulo": "img/sao-paulo.jpg",
+"gremio": "img/gremio.png",
+"internacional": "img/internacional.png",
+"atletico-mg": "img/atletico-mg.png",
+"cruzeiro": "img/cruzeiro.svg",
+"botafogo": "img/botafogo.png",
+"fluminense": "img/fluminense.png",
+"athletico-pr": "img/athletico-pr.png",
+"santos": "img/santos.png",
+"bragantino": "img/bragantino.png",
+"vasco": "img/vasco.png",
+"coritiba": "img/coritiba.png",
+"chapecoense": "img/chapecoense.png",
+"remo": "img/remo.png",
+"mirassol": "img/mirassol.png",
+"o-higgins": "img/o-higgins.png",
+"montevideo-city": "img/montevideo-city.png"
 };
 
 function getTeam(slug) {
-  const name = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-  const logo = teamLogos[slug] || 'img/default.png';
+const name = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+const logo = teamLogos[slug] || 'img/default.png';
 
-  return { name, logo };
+return { name, logo };
 }
 
 function renderizarTabelaClassificacao(dados = dadosClassificacao) {
-  const tbody = document.getElementById("tabela-corpo");
-  if (!tbody) return;
+const tbody = document.getElementById("tabela-corpo");
+if (!tbody) return;
 
-  ultimosDadosClassificacao = dados;
-  tbody.innerHTML = "";
+ultimosDadosClassificacao = dados;
+tbody.innerHTML = "";
 
-  const visiveis = filtroClassificacao === "todos"
-    ? dados
-    : dados.filter(i => statusPorPosicao(i.pos) === filtroClassificacao);
+const visiveis = filtroClassificacao === "todos"
+? dados
+: dados.filter(i => statusPorPosicao(i.pos) === filtroClassificacao);
 
-  visiveis.forEach((item) => {
-    const isbahia = item.slug === "bahia";
-    const teamData = getTeam(item.slug);
-    const proximoData = getTeam(item.proximo || "");
+visiveis.forEach((item) => {
+const isbahia = item.slug === "bahia";
+const teamData = getTeam(item.slug);
+const proximoData = getTeam(item.proximo || "");
 
-    // Zona de classificação calculada pela posição atual
-    const status = statusPorPosicao(item.pos);
-    const cor = status ? legendaQualificacaoRebaixamento[status].cor : null;
+// Zona de classificação calculada pela posição atual
+const status = statusPorPosicao(item.pos);
+const cor = status ? legendaQualificacaoRebaixamento[status].cor : null;
 
-    let posBadgeClass = "font-mono px-2 py-0.5 rounded text-xs font-bold ";
-    let posBadgeStyle = "";
-    let trClasses = "hover:bg-navy-800/50 transition-colors ";
+let posBadgeClass = "font-mono px-2 py-0.5 rounded text-xs font-bold ";
+let posBadgeStyle = "";
+let trClasses = "hover:bg-navy-800/50 transition-colors ";
 
-    if (cor) {
-      posBadgeClass += "text-white border";
-      posBadgeStyle = `background:${cor}55; border-color:${cor};`;
-      if (status === "rebaixamento") trClasses += "bg-rose-950/20 ";
-    } else {
-      posBadgeClass += "text-slate-400 bg-navy-800/40";
-    }
+if (cor) {
+posBadgeClass += "text-white border";
+posBadgeStyle = `background:${cor}55; border-color:${cor};`;
+if (status === "rebaixamento") trClasses += "bg-rose-950/20 ";
+} else {
+posBadgeClass += "text-slate-400 bg-navy-800/40";
+}
 
-    if (isbahia) {
-      trClasses = "bg-gradient-to-r from-azul-600/40 via-navy-800 to-vermelho-600/30 font-bold text-white border-l-4 border-gold shadow-lg shadow-blue-900/40 scale-[1.01] transition-transform";
-      posBadgeClass = "bg-gold text-navy-950 font-black px-2 py-0.5 rounded text-xs border border-gold shadow";
-      posBadgeStyle = "";
-    }
+if (isbahia) {
+trClasses = "bg-gradient-to-r from-azul-600/40 via-navy-800 to-vermelho-600/30 font-bold text-white border-l-4 border-gold shadow-lg shadow-blue-900/40 scale-[1.01] transition-transform";
+posBadgeClass = "bg-gold text-navy-950 font-black px-2 py-0.5 rounded text-xs border border-gold shadow";
+posBadgeStyle = "";
+}
 
-    const ultimosHTML = (item.ultimas || []).map(resultado => {
-      if (resultado === 'V') {
-        return `<span class="w-5 h-5 inline-flex items-center justify-center bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-[10px] font-extrabold">V</span>`;
-      } else if (resultado === 'E') {
-        return `<span class="w-5 h-5 inline-flex items-center justify-center bg-slate-500/20 text-slate-300 border border-slate-500/40 rounded-full text-[10px] font-extrabold">E</span>`;
-      } else {
-        return `<span class="w-5 h-5 inline-flex items-center justify-center bg-rose-500/20 text-rose-400 border border-rose-500/40 rounded-full text-[10px] font-extrabold">D</span>`;
-      }
-    }).join(' ');
+const ultimosHTML = (item.ultimas || []).map(resultado => {
+if (resultado === 'V') {
+return `<span class="w-5 h-5 inline-flex items-center justify-center bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-[10px] font-extrabold">V</span>`;
+} else if (resultado === 'E') {
+return `<span class="w-5 h-5 inline-flex items-center justify-center bg-slate-500/20 text-slate-300 border border-slate-500/40 rounded-full text-[10px] font-extrabold">E</span>`;
+} else {
+return `<span class="w-5 h-5 inline-flex items-center justify-center bg-rose-500/20 text-rose-400 border border-rose-500/40 rounded-full text-[10px] font-extrabold">D</span>`;
+}
+}).join(' ');
 
-    let sgClass = "font-mono ";
-    if (item.sg > 0) sgClass += isbahia ? "text-emerald-300 font-bold" : "text-emerald-400 font-medium";
-    else if (item.sg < 0) sgClass += "text-rose-400 font-medium";
-    else sgClass += "text-slate-400";
+let sgClass = "font-mono ";
+if (item.sg > 0) sgClass += isbahia ? "text-emerald-300 font-bold" : "text-emerald-400 font-medium";
+else if (item.sg < 0) sgClass += "text-rose-400 font-medium";
+else sgClass += "text-slate-400";
 
-    const tr = document.createElement("tr");
-    tr.className = trClasses.trim();
+const tr = document.createElement("tr");
+tr.className = trClasses.trim();
 
-    tr.innerHTML = `
-      <td class="py-3 px-4"><span class="${posBadgeClass}" style="${posBadgeStyle}">${item.pos}º</span></td>
-      <td class="py-3 px-4 flex items-center gap-2.5 font-medium text-slate-200">
-        ${clubesRebaixados.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#d93829] bg-[#d93829]/20 text-[#ff6b5e]" title="Rebaixado">R</span>' : ''}
-        <img src="${teamData.logo}" alt="Escudo do ${item.clube}" class="w-6 h-6 object-contain shrink-0 drop-shadow" onerror="this.onerror=null; this.src='img/default.png';">
-        <span class="${isbahia ? 'text-white font-black tracking-wide' : ''}">${item.clube}</span>
-        ${isbahia ? '<span class="ml-1 text-[10px] bg-gold/20 text-gold border border-gold/40 px-1.5 py-0.5 rounded font-extrabold uppercase tracking-wider">Esquadrão</span>' : ''}
-      </td>
-      <td class="py-3 px-3 text-center font-mono ${isbahia ? 'text-gold font-black text-lg' : 'font-bold text-white'}">${item.pts}</td>
-      <td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.pj}</td>
-      <td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.vit}</td>
-      <td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.e}</td>
-      <td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.der}</td>
-      <td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.gm}</td>
-      <td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.gc}</td>
-      <td class="py-3 px-3 text-center ${sgClass}">${item.sg > 0 ? '+' + item.sg : item.sg}</td>
-      <td class="py-3 px-3 text-center">
-        <div class="flex items-center justify-center gap-1">${ultimosHTML}</div>
-      </td>
-      <td class="py-3 px-3 text-center">
-        <div class="flex items-center justify-center gap-1.5" title="Próximo jogo contra ${proximoData.name}">
-          <img src="${proximoData.logo}" alt="Escudo do ${proximoData.name}" class="w-5 h-5 object-contain" onerror="this.onerror=null; this.src='img/default.png';">
-          <span class="text-xs text-slate-300 hidden md:inline">${proximoData.name}</span>
-        </div>
-      </td>
-    `;
+tr.innerHTML = `
+<td class="py-3 px-4"><span class="${posBadgeClass}" style="${posBadgeStyle}">${item.pos}º</span></td>
+<td class="py-3 px-4 flex items-center gap-2.5 font-medium text-slate-200">
+${clubesRebaixados.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#d93829] bg-[#d93829]/20 text-[#ff6b5e]" title="Rebaixado">R</span>' : ''}
+<img src="${teamData.logo}" alt="Escudo do ${item.clube}" class="w-6 h-6 object-contain shrink-0 drop-shadow" onerror="this.onerror=null; this.src='img/default.png';">
+<span class="${isbahia ? 'text-white font-black tracking-wide' : ''}">${item.clube}</span>
+${isbahia ? '<span class="ml-1 text-[10px] bg-gold/20 text-gold border border-gold/40 px-1.5 py-0.5 rounded font-extrabold uppercase tracking-wider">Esquadrão</span>' : ''}
+</td>
+<td class="py-3 px-3 text-center font-mono ${isbahia ? 'text-gold font-black text-lg' : 'font-bold text-white'}">${item.pts}</td>
+<td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.pj}</td>
+<td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.vit}</td>
+<td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.e}</td>
+<td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.der}</td>
+<td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.gm}</td>
+<td class="py-3 px-3 text-center ${isbahia ? 'text-white font-bold' : 'text-slate-300'}">${item.gc}</td>
+<td class="py-3 px-3 text-center ${sgClass}">${item.sg > 0 ? '+' + item.sg : item.sg}</td>
+<td class="py-3 px-3 text-center">
+<div class="flex items-center justify-center gap-1">${ultimosHTML}</div>
+</td>
+<td class="py-3 px-3 text-center">
+<div class="flex items-center justify-center gap-1.5" title="Próximo jogo contra ${proximoData.name}">
+<img src="${proximoData.logo}" alt="Escudo do ${proximoData.name}" class="w-5 h-5 object-contain" onerror="this.onerror=null; this.src='img/default.png';">
+<span class="text-xs text-slate-300 hidden md:inline">${proximoData.name}</span>
+</div>
+</td>
+`;
 
-    tbody.appendChild(tr);
-  });
+tbody.appendChild(tr);
+});
 }
 
 function renderizarLegendaClassificacao() {
-  const containerTabela = document.getElementById("tabela-corpo")?.closest('.overflow-x-auto') || document.getElementById("tabela-corpo")?.parentElement;
+const containerTabela = document.getElementById("tabela-corpo")?.closest('.overflow-x-auto') || document.getElementById("tabela-corpo")?.parentElement;
 
-  if (!containerTabela || document.getElementById("legenda-classificacao")) return;
+if (!containerTabela || document.getElementById("legenda-classificacao")) return;
 
-  // Legenda gerada a partir do mesmo objeto que define as cores da tabela
-  const itens = Object.values(legendaQualificacaoRebaixamento).map(l => `
-    <div class="flex items-center gap-2">
-      <span class="w-3.5 h-3.5 rounded inline-block" style="background:${l.cor}"></span>
-      <span>${l.label}</span>
-    </div>`).join("");
+// Legenda gerada a partir do mesmo objeto que define as cores da tabela
+const itens = Object.values(legendaQualificacaoRebaixamento).map(l => `
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rounded inline-block" style="background:${l.cor}"></span>
+<span>${l.label}</span>
+</div>`).join("");
 
-  const itemRebaixado = clubesRebaixados.length
-    ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#ff6b5e]">R</span><span>- Rebaixado</span></div>`
-    : "";
+const itemRebaixado = clubesRebaixados.length
+? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#ff6b5e]">R</span><span>- Rebaixado</span></div>`
+: "";
 
-  const legendaHTML = `
-    <div id="legenda-classificacao" class="mt-6 p-4 bg-navy-900 border border-navy-800 rounded-xl flex flex-wrap gap-4 text-xs font-medium justify-between items-center text-slate-300">
-      ${itens}${itemRebaixado}
-    </div>
-  `;
+const legendaHTML = `
+<div id="legenda-classificacao" class="mt-6 p-4 bg-navy-900 border border-navy-800 rounded-xl flex flex-wrap gap-4 text-xs font-medium justify-between items-center text-slate-300">
+${itens}${itemRebaixado}
+</div>
+`;
 
-  containerTabela.insertAdjacentHTML('afterend', legendaHTML);
+containerTabela.insertAdjacentHTML('afterend', legendaHTML);
 }
 
 // ===== DICIONÁRIO DE PRÓXIMOS CONFRONTOS POR RODADA =====
 const proximosJogosPorRodada = {
-  34: {
-    "bragantino": "santos", "santos": "bragantino",
-    "chapecoense": "mirassol", "mirassol": "chapecoense",
-    "internacional": "coritiba", "coritiba": "internacional",
-    "flamengo": "gremio", "gremio": "flamengo",
-    "athletico-pr": "vasco", "vasco": "athletico-pr",
-    "botafogo": "atletico-mg", "atletico-mg": "botafogo",
-    "sao-paulo": "corinthians", "corinthians": "sao-paulo",
-    "palmeiras": "remo", "remo": "palmeiras",
-    "cruzeiro": "bahia", "bahia": "cruzeiro",
-    "vitoria": "fluminense", "fluminense": "vitoria"
-  },
-  35: {
-    "mirassol": "atletico-mg", "atletico-mg": "mirassol",
-    "coritiba": "santos", "santos": "coritiba",
-    "remo": "chapecoense", "chapecoense": "remo",
-    "cruzeiro": "palmeiras", "palmeiras": "cruzeiro",
-    "flamengo": "athletico-pr", "athletico-pr": "flamengo",
-    "gremio": "bahia", "bahia": "gremio",
-    "corinthians": "botafogo", "botafogo": "corinthians",
-    "vitoria": "bragantino", "bragantino": "vitoria",
-    "vasco": "internacional", "internacional": "vasco",
-    "sao-paulo": "fluminense", "fluminense": "sao-paulo"
-  },
-  36: {
-    "palmeiras": "flamengo", "flamengo": "palmeiras",
-    "bahia": "coritiba", "coritiba": "bahia",
-    "chapecoense": "cruzeiro", "cruzeiro": "chapecoense",
-    "athletico-pr": "remo", "remo": "athletico-pr",
-    "fluminense": "mirassol", "mirassol": "fluminense",
-    "bragantino": "vasco", "vasco": "bragantino",
-    "internacional": "vitoria", "vitoria": "internacional",
-    "botafogo": "sao-paulo", "sao-paulo": "botafogo",
-    "santos": "gremio", "gremio": "santos",
-    "atletico-mg": "corinthians", "corinthians": "atletico-mg"
-  }
+34: {
+"bragantino": "santos", "santos": "bragantino",
+"chapecoense": "mirassol", "mirassol": "chapecoense",
+"internacional": "coritiba", "coritiba": "internacional",
+"flamengo": "gremio", "gremio": "flamengo",
+"athletico-pr": "vasco", "vasco": "athletico-pr",
+"botafogo": "atletico-mg", "atletico-mg": "botafogo",
+"sao-paulo": "corinthians", "corinthians": "sao-paulo",
+"palmeiras": "remo", "remo": "palmeiras",
+"cruzeiro": "bahia", "bahia": "cruzeiro",
+"vitoria": "fluminense", "fluminense": "vitoria"
+},
+35: {
+"mirassol": "atletico-mg", "atletico-mg": "mirassol",
+"coritiba": "santos", "santos": "coritiba",
+"remo": "chapecoense", "chapecoense": "remo",
+"cruzeiro": "palmeiras", "palmeiras": "cruzeiro",
+"flamengo": "athletico-pr", "athletico-pr": "flamengo",
+"gremio": "bahia", "bahia": "gremio",
+"corinthians": "botafogo", "botafogo": "corinthians",
+"vitoria": "bragantino", "bragantino": "vitoria",
+"vasco": "internacional", "internacional": "vasco",
+"sao-paulo": "fluminense", "fluminense": "sao-paulo"
+},
+36: {
+"palmeiras": "flamengo", "flamengo": "palmeiras",
+"bahia": "coritiba", "coritiba": "bahia",
+"chapecoense": "cruzeiro", "cruzeiro": "chapecoense",
+"athletico-pr": "remo", "remo": "athletico-pr",
+"fluminense": "mirassol", "mirassol": "fluminense",
+"bragantino": "vasco", "vasco": "bragantino",
+"internacional": "vitoria", "vitoria": "internacional",
+"botafogo": "sao-paulo", "sao-paulo": "botafogo",
+"santos": "gremio", "gremio": "santos",
+"atletico-mg": "corinthians", "corinthians": "atletico-mg"
+}
 };
 
 function atualizarRodadaTabela(numeroRodada) {
-  const mapaConfrontos = proximosJogosPorRodada[numeroRodada];
-  if (!mapaConfrontos) return;
+const mapaConfrontos = proximosJogosPorRodada[numeroRodada];
+if (!mapaConfrontos) return;
 
-  dadosClassificacao.forEach(item => {
-    if (mapaConfrontos[item.slug]) {
-      item.proximo = mapaConfrontos[item.slug];
-    }
-  });
+dadosClassificacao.forEach(item => {
+if (mapaConfrontos[item.slug]) {
+item.proximo = mapaConfrontos[item.slug];
+}
+});
 
-  const tabelaAtual = LocalStorage.get("tabela_classificacao", dadosClassificacao);
-  renderizarTabelaClassificacao(tabelaAtual);
+const tabelaAtual = LocalStorage.get("tabela_classificacao", dadosClassificacao);
+renderizarTabelaClassificacao(tabelaAtual);
 }
 
 // ===== CALENDÁRIO COMPLETO DAS RODADAS =====
 const calendarioRodadas = [
-  {
-    rodada: 34,
-    jogos: [
-      { id: "r34_j1", mandante: "bragantino", visitante: "santos", data: "Segunda-feira, 02/11", hora: "20:00", estadio: "Cícero Souza Marques" },
-      { id: "r34_j2", mandante: "chapecoense", visitante: "mirassol", data: "Terça-feira, 03/11", hora: "19:30", estadio: "Arena Condá" },
-      { id: "r34_j3", mandante: "internacional", visitante: "coritiba", data: "Terça-feira, 03/11", hora: "21:30", estadio: "Beira-Rio" },
-      { id: "r34_j4", mandante: "flamengo", visitante: "gremio", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Maracanã" },
-      { id: "r34_j5", mandante: "athletico-pr", visitante: "vasco", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Arena da Baixada" },
-      { id: "r34_j6", mandante: "botafogo", visitante: "atletico-mg", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "Nilton Santos" },
-      { id: "r34_j7", mandante: "sao-paulo", visitante: "corinthians", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "A definir" },
-      { id: "r34_j8", mandante: "palmeiras", visitante: "remo", data: "Quinta-feira, 05/11", hora: "19:30", estadio: "Nubank Parque" },
-      { id: "r34_j9", mandante: "cruzeiro", visitante: "bahia", data: "Quinta-feira, 05/11", hora: "21:30", estadio: "Mineirão" },
-      { id: "r34_j10", mandante: "vitoria", visitante: "fluminense", data: "Sexta-feira, 06/11", hora: "20:00", estadio: "Barradão" }
-    ]
-  },
-  {
-    rodada: 35,
-    jogos: [
-      { id: "r35_j1", mandante: "mirassol", visitante: "atletico-mg", data: "Sábado, 14/11", hora: "18:30", estadio: "Campos Maia" },
-      { id: "r35_j2", mandante: "coritiba", visitante: "santos", data: "Quarta-feira, 18/11", hora: "19:30", estadio: "Couto Pereira" },
-      { id: "r35_j3", mandante: "remo", visitante: "chapecoense", data: "Quarta-feira, 18/11", hora: "20:00", estadio: "Mangueirão" },
-      { id: "r35_j4", mandante: "cruzeiro", visitante: "palmeiras", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Mineirão" },
-      { id: "r35_j5", mandante: "flamengo", visitante: "athletico-pr", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Maracanã" },
-      { id: "r35_j6", mandante: "gremio", visitante: "bahia", data: "Quarta-feira, 18/11", hora: "21:30", estadio: "Arena do Grêmio" },
-      { id: "r35_j7", mandante: "corinthians", visitante: "botafogo", data: "Quarta-feira, 18/11", hora: "21:30", estadio: "Neo Química Arena" },
-      { id: "r35_j8", mandante: "vitoria", visitante: "bragantino", data: "Quinta-feira, 19/11", hora: "19:30", estadio: "Barradão" },
-      { id: "r35_j9", mandante: "vasco", visitante: "internacional", data: "Quinta-feira, 19/11", hora: "19:30", estadio: "São Januário" },
-      { id: "r35_j10", mandante: "sao-paulo", visitante: "fluminense", data: "Quinta-feira, 19/11", hora: "21:30", estadio: "Morumbi" }
-    ]
-  },
-  {
-    rodada: 36,
-    jogos: [
-      { id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sábado, 21/11", hora: "16:30", estadio: "Nubank Parque" },
-      { id: "r36_j2", mandante: "bahia", visitante: "coritiba", data: "Sábado, 21/11", hora: "17:30", estadio: "Arena Fonte Nova" },
-      { id: "r36_j3", mandante: "chapecoense", visitante: "cruzeiro", data: "Sábado, 21/11", hora: "21:00", estadio: "Arena Condá" },
-      { id: "r36_j4", mandante: "athletico-pr", visitante: "remo", data: "Domingo, 22/11", hora: "16:00", estadio: "Arena da Baixada" },
-      { id: "r36_j5", mandante: "fluminense", visitante: "mirassol", data: "Domingo, 22/11", hora: "18:30", estadio: "Maracanã" },
-      { id: "r36_j6", mandante: "bragantino", visitante: "vasco", data: "Domingo, 22/11", hora: "19:30", estadio: "Cícero Souza Marques" },
-      { id: "r36_j7", mandante: "internacional", visitante: "vitoria", data: "Segunda-feira, 23/11", hora: "19:30", estadio: "Beira-Rio" },
-      { id: "r36_j8", mandante: "botafogo", visitante: "sao-paulo", data: "Segunda-feira, 23/11", hora: "20:00", estadio: "Nilton Santos" },
-      { id: "r36_j9", mandante: "santos", visitante: "gremio", data: "Segunda-feira, 23/11", hora: "21:00", estadio: "Morumbi" },
-      { id: "r36_j10", mandante: "atletico-mg", visitante: "corinthians", data: "Quarta-feira, 25/11", hora: "20:00", estadio: "Arena MRV" }
-    ]
-  }
+{
+rodada: 34,
+jogos: [
+{ id: "r34_j1", mandante: "bragantino", visitante: "santos", data: "Segunda-feira, 02/11", hora: "20:00", estadio: "Cícero Souza Marques" },
+{ id: "r34_j2", mandante: "chapecoense", visitante: "mirassol", data: "Terça-feira, 03/11", hora: "19:30", estadio: "Arena Condá" },
+{ id: "r34_j3", mandante: "internacional", visitante: "coritiba", data: "Terça-feira, 03/11", hora: "21:30", estadio: "Beira-Rio" },
+{ id: "r34_j4", mandante: "flamengo", visitante: "gremio", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Maracanã" },
+{ id: "r34_j5", mandante: "athletico-pr", visitante: "vasco", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Arena da Baixada" },
+{ id: "r34_j6", mandante: "botafogo", visitante: "atletico-mg", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "Nilton Santos" },
+{ id: "r34_j7", mandante: "sao-paulo", visitante: "corinthians", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "A definir" },
+{ id: "r34_j8", mandante: "palmeiras", visitante: "remo", data: "Quinta-feira, 05/11", hora: "19:30", estadio: "Nubank Parque" },
+{ id: "r34_j9", mandante: "cruzeiro", visitante: "bahia", data: "Quinta-feira, 05/11", hora: "21:30", estadio: "Mineirão" },
+{ id: "r34_j10", mandante: "vitoria", visitante: "fluminense", data: "Sexta-feira, 06/11", hora: "20:00", estadio: "Barradão" }
+]
+},
+{
+rodada: 35,
+jogos: [
+{ id: "r35_j1", mandante: "mirassol", visitante: "atletico-mg", data: "Sábado, 14/11", hora: "18:30", estadio: "Campos Maia" },
+{ id: "r35_j2", mandante: "coritiba", visitante: "santos", data: "Quarta-feira, 18/11", hora: "19:30", estadio: "Couto Pereira" },
+{ id: "r35_j3", mandante: "remo", visitante: "chapecoense", data: "Quarta-feira, 18/11", hora: "20:00", estadio: "Mangueirão" },
+{ id: "r35_j4", mandante: "cruzeiro", visitante: "palmeiras", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Mineirão" },
+{ id: "r35_j5", mandante: "flamengo", visitante: "athletico-pr", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Maracanã" },
+{ id: "r35_j6", mandante: "gremio", visitante: "bahia", data: "Quarta-feira, 18/11", hora: "21:30", estadio: "Arena do Grêmio" },
+{ id: "r35_j7", mandante: "corinthians", visitante: "botafogo", data: "Quarta-feira, 18/11", hora: "21:30", estadio: "Neo Química Arena" },
+{ id: "r35_j8", mandante: "vitoria", visitante: "bragantino", data: "Quinta-feira, 19/11", hora: "19:30", estadio: "Barradão" },
+{ id: "r35_j9", mandante: "vasco", visitante: "internacional", data: "Quinta-feira, 19/11", hora: "19:30", estadio: "São Januário" },
+{ id: "r35_j10", mandante: "sao-paulo", visitante: "fluminense", data: "Quinta-feira, 19/11", hora: "21:30", estadio: "Morumbi" }
+]
+},
+{
+rodada: 36,
+jogos: [
+{ id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sábado, 21/11", hora: "16:30", estadio: "Nubank Parque" },
+{ id: "r36_j2", mandante: "bahia", visitante: "coritiba", data: "Sábado, 21/11", hora: "17:30", estadio: "Arena Fonte Nova" },
+{ id: "r36_j3", mandante: "chapecoense", visitante: "cruzeiro", data: "Sábado, 21/11", hora: "21:00", estadio: "Arena Condá" },
+{ id: "r36_j4", mandante: "athletico-pr", visitante: "remo", data: "Domingo, 22/11", hora: "16:00", estadio: "Arena da Baixada" },
+{ id: "r36_j5", mandante: "fluminense", visitante: "mirassol", data: "Domingo, 22/11", hora: "18:30", estadio: "Maracanã" },
+{ id: "r36_j6", mandante: "bragantino", visitante: "vasco", data: "Domingo, 22/11", hora: "19:30", estadio: "Cícero Souza Marques" },
+{ id: "r36_j7", mandante: "internacional", visitante: "vitoria", data: "Segunda-feira, 23/11", hora: "19:30", estadio: "Beira-Rio" },
+{ id: "r36_j8", mandante: "botafogo", visitante: "sao-paulo", data: "Segunda-feira, 23/11", hora: "20:00", estadio: "Nilton Santos" },
+{ id: "r36_j9", mandante: "santos", visitante: "gremio", data: "Segunda-feira, 23/11", hora: "21:00", estadio: "Morumbi" },
+{ id: "r36_j10", mandante: "atletico-mg", visitante: "corinthians", data: "Quarta-feira, 25/11", hora: "20:00", estadio: "Arena MRV" }
+]
+}
 ];
 
 // ===== SIMULADOR DE CLASSIFICAÇÃO =====
 function recalcularClassificacaoComPlacares(jogosAgendados) {
-  // Clona a estrutura base para acumular os pontos simulados
-  const tabelaProcessada = dadosClassificacao.map(time => ({ ...time }));
+// Clona a estrutura base para acumular os pontos simulados
+const tabelaProcessada = dadosClassificacao.map(time => ({ ...time }));
 
-  // Processa todos os jogos gravados com placar
-  jogosAgendados.forEach(rodadaObj => {
-    (rodadaObj.jogos || []).forEach(jogo => {
-      if (
-        jogo.golsMandante !== undefined && jogo.golsMandante !== null && jogo.golsMandante !== "" &&
-        jogo.golsVisitante !== undefined && jogo.golsVisitante !== null && jogo.golsVisitante !== ""
-      ) {
-        const gM = parseInt(jogo.golsMandante, 10);
-        const gV = parseInt(jogo.golsVisitante, 10);
+// Processa todos os jogos gravados com placar
+jogosAgendados.forEach(rodadaObj => {
+(rodadaObj.jogos || []).forEach(jogo => {
+if (
+jogo.golsMandante !== undefined && jogo.golsMandante !== null && jogo.golsMandante !== "" &&
+jogo.golsVisitante !== undefined && jogo.golsVisitante !== null && jogo.golsVisitante !== ""
+) {
+const gM = parseInt(jogo.golsMandante, 10);
+const gV = parseInt(jogo.golsVisitante, 10);
 
-        const mandante = tabelaProcessada.find(t => t.slug === jogo.mandante);
-        const visitante = tabelaProcessada.find(t => t.slug === jogo.visitante);
+const mandante = tabelaProcessada.find(t => t.slug === jogo.mandante);
+const visitante = tabelaProcessada.find(t => t.slug === jogo.visitante);
 
-        if (mandante && visitante) {
-          mandante.pj += 1;
-          visitante.pj += 1;
+if (mandante && visitante) {
+mandante.pj += 1;
+visitante.pj += 1;
 
-          mandante.gm += gM;
-          mandante.gc += gV;
-          visitante.gm += gV;
-          visitante.gc += gM;
+mandante.gm += gM;
+mandante.gc += gV;
+visitante.gm += gV;
+visitante.gc += gM;
 
-          if (gM > gV) {
-            mandante.pts += 3;
-            mandante.vit += 1;
-            visitante.der += 1;
-          } else if (gM < gV) {
-            visitante.pts += 3;
-            visitante.vit += 1;
-            mandante.der += 1;
-          } else {
-            mandante.pts += 1;
-            visitante.pts += 1;
-            mandante.e += 1;
-            visitante.e += 1;
-          }
+if (gM > gV) {
+mandante.pts += 3;
+mandante.vit += 1;
+visitante.der += 1;
+} else if (gM < gV) {
+visitante.pts += 3;
+visitante.vit += 1;
+mandante.der += 1;
+} else {
+mandante.pts += 1;
+visitante.pts += 1;
+mandante.e += 1;
+visitante.e += 1;
+}
 
-          mandante.sg = mandante.gm - mandante.gc;
-          visitante.sg = visitante.gm - visitante.gc;
-        }
-      }
-    });
-  });
+mandante.sg = mandante.gm - mandante.gc;
+visitante.sg = visitante.gm - visitante.gc;
+}
+}
+});
+});
 
-  // Reordena a tabela seguindo os critérios de desempate do Brasileirão
-  tabelaProcessada.sort((a, b) => {
-    if (b.pts !== a.pts) return b.pts - a.pts; // 1º Pontos
-    if (b.vit !== a.vit) return b.vit - a.vit; // 2º Vitórias
-    if (b.sg !== a.sg) return b.sg - a.sg;     // 3º Saldo de Gols
-    return b.gm - a.gm;                        // 4º Gols Pró
-  });
+// Reordena a tabela seguindo os critérios de desempate do Brasileirão
+tabelaProcessada.sort((a, b) => {
+if (b.pts !== a.pts) return b.pts - a.pts; // 1º Pontos
+if (b.vit !== a.vit) return b.vit - a.vit; // 2º Vitórias
+if (b.sg !== a.sg) return b.sg - a.sg; // 3º Saldo de Gols
+return b.gm - a.gm; // 4º Gols Pró
+});
 
-  // Atualiza as posições (e a zona de cada clube) da tabela
-  tabelaProcessada.forEach((item, idx) => {
-    item.pos = idx + 1;
-    item.status = statusPorPosicao(item.pos);
-  });
+// Atualiza as posições (e a zona de cada clube) da tabela
+tabelaProcessada.forEach((item, idx) => {
+item.pos = idx + 1;
+item.status = statusPorPosicao(item.pos);
+});
 
-  LocalStorage.set("tabela_classificacao", tabelaProcessada);
-  renderizarTabelaClassificacao(tabelaProcessada);
+LocalStorage.set("tabela_classificacao", tabelaProcessada);
+renderizarTabelaClassificacao(tabelaProcessada);
 }
 
 // ===== EVENTOS E TROCA DE RODADAS =====
 function aoMudarRodadaNoCalendario(numeroRodada) {
-  atualizarRodadaTabela(numeroRodada);
+atualizarRodadaTabela(numeroRodada);
 
-  if (typeof renderizarJogosDoCalendario === 'function') {
-    renderizarJogosDoCalendario(numeroRodada);
-  }
+if (typeof renderizarJogosDoCalendario === 'function') {
+renderizarJogosDoCalendario(numeroRodada);
+}
 }
 
 /* ======================= HAMBURGER MENU ======================= */
 function toggleMobileMenu() {
-  const mobileMenu = document.getElementById('mobileMenu');
-  const hamburgerIcon = document.getElementById('hamburgerIcon');
+const mobileMenu = document.getElementById('mobileMenu');
+const hamburgerIcon = document.getElementById('hamburgerIcon');
 
-  if (mobileMenu) {
-    const isHidden = mobileMenu.classList.toggle('hidden');
-    mobileMenu.classList.toggle('flex', !isHidden);
+if (mobileMenu) {
+const isHidden = mobileMenu.classList.toggle('hidden');
+mobileMenu.classList.toggle('flex', !isHidden);
 
-    if (hamburgerIcon) {
-      if (!isHidden) {
-        hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>';
-      } else {
-        hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>';
-      }
-    }
-  }
+if (hamburgerIcon) {
+if (!isHidden) {
+hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>';
+} else {
+hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>';
+}
+}
+}
 }
 
 function initHamburgerMenu() {
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
+const hamburgerBtn = document.getElementById('hamburgerBtn');
 
-  if (hamburgerBtn) {
-    // Remove listeners antigos criando um clone limpo do botão
-    const newBtn = hamburgerBtn.cloneNode(true);
-    hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
+if (hamburgerBtn) {
+// Remove listeners antigos criando um clone limpo do botão
+const newBtn = hamburgerBtn.cloneNode(true);
+hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
 
-    newBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleMobileMenu();
-    });
-  }
+newBtn.addEventListener('click', (e) => {
+e.preventDefault();
+toggleMobileMenu();
+});
+}
 }
 
 // Inicialização automática do menu ao carregar a página
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHamburgerMenu);
+document.addEventListener('DOMContentLoaded', initHamburgerMenu);
 } else {
-  initHamburgerMenu();
+initHamburgerMenu();
 }
 
 // Listener dinâmico para os campos de input de placar
 document.addEventListener('input', (event) => {
-  if (event.target.classList.contains('input-placar')) {
-    const jogoId = event.target.dataset.jogoId;
-    const inputMandante = document.querySelector(`[data-mandante-id="${jogoId}"]`);
-    const inputVisitante = document.querySelector(`[data-visitante-id="${jogoId}"]`);
+if (event.target.classList.contains('input-placar')) {
+const jogoId = event.target.dataset.jogoId;
+const inputMandante = document.querySelector(`[data-mandante-id="${jogoId}"]`);
+const inputVisitante = document.querySelector(`[data-visitante-id="${jogoId}"]`);
 
-    if (!inputMandante || !inputVisitante) return;
+if (!inputMandante || !inputVisitante) return;
 
-    const jogosSalvos = LocalStorage.get("jogos_calendario", calendarioRodadas);
+const jogosSalvos = LocalStorage.get("jogos_calendario", calendarioRodadas);
 
-    // Localiza e atualiza o jogo na estrutura de rodadas
-    jogosSalvos.forEach(rodadaObj => {
-      const jogo = rodadaObj.jogos.find(j => j.id === jogoId);
-      if (jogo) {
-        jogo.golsMandante = inputMandante.value;
-        jogo.golsVisitante = inputVisitante.value;
-      }
-    });
+// Localiza e atualiza o jogo na estrutura de rodadas
+jogosSalvos.forEach(rodadaObj => {
+const jogo = rodadaObj.jogos.find(j => j.id === jogoId);
+if (jogo) {
+jogo.golsMandante = inputMandante.value;
+jogo.golsVisitante = inputVisitante.value;
+}
+});
 
-    LocalStorage.set("jogos_calendario", jogosSalvos);
-    recalcularClassificacaoComPlacares(jogosSalvos);
-    showToast("Placar e classificação atualizados!", "success");
-  }
+LocalStorage.set("jogos_calendario", jogosSalvos);
+recalcularClassificacaoComPlacares(jogosSalvos);
+showToast("Placar e classificação atualizados!", "success");
+}
 });
 
 // ===== INICIALIZAÇÃO ÚNICA =====
 document.addEventListener('DOMContentLoaded', () => {
-  initTailwindConfig();
-  initToastContainer();
+initTailwindConfig();
+initToastContainer();
 
-  // Restaura simulação salva ou exibe dados padrão
-  const jogosSalvos = LocalStorage.get("jogos_calendario", calendarioRodadas);
-  recalcularClassificacaoComPlacares(jogosSalvos);
+// Restaura simulação salva ou exibe dados padrão
+const jogosSalvos = LocalStorage.get("jogos_calendario", calendarioRodadas);
+recalcularClassificacaoComPlacares(jogosSalvos);
 
-  renderizarFiltros();
-  renderizarLegendaClassificacao();
-  initHamburgerMenu();
+renderizarFiltros();
+renderizarLegendaClassificacao();
+initHamburgerMenu();
 });
