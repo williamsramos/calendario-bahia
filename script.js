@@ -112,7 +112,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "3x2" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "21:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "21/11", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "17:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "29/11", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "16:00", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "28/11", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "21:00", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
 
   // MASCULINO — LIBERTADORES
@@ -1227,7 +1227,6 @@ function initBuscaJogos() {
 const rodadaInteresse = {
   rodada: "35-36",
   jogos: [
-    { id: "r34_j4", mandante: "vitoria", visitante: "fluminense", data: "Sexta-feira, 06/11", hora: "20:00", estadio: "Barradão" },
     { id: "r35_j1", mandante: "mirassol", visitante: "atletico-mg", data: "Sabado, 14/11", hora: "18:30", estadio: "Maião" },
     { id: "r35_j2", mandante: "coritiba", visitante: "santos", data: "Quarta-Feira, 18/11", hora: "19:30", estadio: "Couto Pereira" },
     { id: "r35_j3", mandante: "flamengo", visitante: "athletico-pr", data: "Quarta-Feira, 18/11", hora: "20:30", estadio: "Maracanã" },
@@ -1239,14 +1238,14 @@ const rodadaInteresse = {
     { id: "r36_j4", mandante: "fluminense", visitante: "mirassol", data: "Domingo, 22/11", hora: "18:30", estadio: "Maracanã" },
     { id: "r36_j5", mandante: "santos", visitante: "gremio", data: "Domingo, 22/11", hora: "21:00", estadio: "Morumbis" },
     { id: "r36_j6", mandante: "atletico-mg", visitante: "corinthians", data: "Quarta-Feira, 25/11", hora: "20:00", estadio: "Arena MRV" },
-    { id: "r37_j1", mandante: "vitoria", visitante: "santos", data: "Sabado, 28/11", hora: ":", estadio: "Barradão" },
-    { id: "r37_j2", mandante: "atletico-mg", visitante: "vasco", data: "Sabado, 28/11", hora: ":", estadio: "Arena MRV" },
-    { id: "r37_j3", mandante: "mirassol", visitante: "athletico-pr", data: "Domingo, 29/11", hora: ":", estadio: "Maião" },
-    { id: "r37_j4", mandante: "fluminense", visitante: "cruzeiro", data: "Domingo, 29/11", hora: ":", estadio: "Maracanã" },
-    { id: "r38_j1", mandante: "cruzeiro", visitante: "internacional", data: "Quarta-Feira, 02/12", hora: ":", estadio: "Minerão" },
-    { id: "r38_j2", mandante: "athletico-pr", visitante: "sao-paulo", data: "Quarta-Feira, 02/12", hora: ":", estadio: "Arena da Baixada" },
-    { id: "r38_j3", mandante: "bragantino", visitante: "fluminense", data: "Quarta-Feira, 02/12", hora: ":", estadio: "Estádio Cicero (Bragança Paulista)" },
-    { id: "r38_j4", mandante: "santos", visitante: "botafogo", data: "Quarta-Feira, 02/12", hora: ":", estadio: "Vila Belmiro" },
+    { id: "r37_j1", mandante: "vitoria", visitante: "santos", data: "Sabado, 29/11", hora: "16:00", estadio: "Barradão" },
+    { id: "r37_j2", mandante: "atletico-mg", visitante: "vasco", data: "Sabado, 29/11", hora: "19:30", estadio: "Arena MRV" },
+    { id: "r37_j3", mandante: "mirassol", visitante: "athletico-pr", data: "Domingo, 29/11", hora: "18:30:", estadio: "Maião" },
+    { id: "r37_j4", mandante: "fluminense", visitante: "cruzeiro", data: "Domingo, 27/11", hora: "20:00", estadio: "Maracanã" },
+    { id: "r38_j1", mandante: "cruzeiro", visitante: "internacional", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Minerão" },
+    { id: "r38_j2", mandante: "athletico-pr", visitante: "sao-paulo", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Arena da Baixada" },
+    { id: "r38_j3", mandante: "bragantino", visitante: "fluminense", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Estádio Cicero (Bragança Paulista)" },
+    { id: "r38_j4", mandante: "santos", visitante: "botafogo", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Vila Belmiro" },
   ]
 };
 
@@ -1266,7 +1265,7 @@ const CLUBES_INTERESSE = [
 
 // Lista exclusiva de clubes de interesse para 2027
 const CLUBES_INTERESSE_2027 = [
-  "athletico-pr", "atletico-mg", "botafogo", "bragantino", "chapecoense", "corinthians",
+  "athletico-pr", "atletico-mg", "botafogo", "bragantino", "corinthians",
   "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional",
   "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
 ];
@@ -1298,7 +1297,7 @@ function carregarJogosInteresse() {
   const salvo = StorageUtils.get(CHAVE_INTERESSE, null);
   if (salvo) return salvo.map(normalizarJogoInteresse);
 
-  const antigo = StorageUtils.get("bahia_jogos_interesse_r34", null);
+  const antigo = StorageUtils.get("bahia_jogos_interesse_r35", null);
   if (!antigo) return seed;
 
   const chave = j => j.mandante + "|" + j.visitante;
