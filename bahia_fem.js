@@ -91,11 +91,9 @@ const listaAtualizadaDeGamesFeminino = [
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Oitavas de final", date: "21/07/26", team1: "itabirito", team2: "bahia", stadium: "Arena do Jacaré", time: "20:00", score: "0 x 1" },
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Ida)", date: "16/10/26", team1: "bahia", team2: "sao-paulo", stadium: "Batistão", time: "19:00", score: "2x1" },
   { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Quartas (Volta)", date: "21/10/26", team1: "sao-paulo", team2: "bahia", stadium: "Brinco de Ouro da Princesa (agr. 1 x 3)", time: "19:00", score: "0x1" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Ida)", date: "03/11/26", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "19:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Volta)", date: "07/11/26", team1: "flamengo", team2: "bahia", stadium: "Luso brasileiro", time: "21:30", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Final (Ida)", date: "11/11/26", team1: "bahia", team2: "braga inter fla flu", stadium: "Batistão", time: "19:00", score: "x" },
-  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Final (Volta)", date: "15/11/26", team1: "braga inter fla flu", team2: "bahia", stadium: "A definir", time: "19:00", score: "x" },
-
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Ida)", date: "03/11/26", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "19:00", score: "0x0" },
+  { id: cryptoId(), category: "feminino", comp: "copa-brasil-fem", round: "Semifinal (Volta)", date: "07/11/26", team1: "flamengo", team2: "bahia", stadium: "Luso brasileiro", time: "21:30", score: "3x2" },
+  
   // BAIANO - FEMININO
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "1ª Rodada", date: "07/09", team1: "jacuipense", team2: "bahia", stadium: "CT Went'n Wild", time: "15:00", score: "0x5" },
   { id: cryptoId(), category: "feminino", comp: "baiano-fem", round: "2ª Rodada", date: "24/09/26", team1: "bahia", team2: "botafogo-ba", stadium: "CT Evaristo", time: "15:00", score: "7x2" },
@@ -173,7 +171,7 @@ const posicoesCompeticao = {
   "todos": "6º",
   "brasileiro_fem": "6º",
   "brasileiro_fem_2ªfase": "eliminada nas semifinais",
-  "copas_fem": "Semifinal",
+  "copas_fem": "Eliminada na Semifinal",
   "estadual_fem": "Final",
   "amistoso_fem": "-"
 };
