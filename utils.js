@@ -111,27 +111,28 @@ return false;
 
 // 📊 Matriz com os dados atualizados da classificação da Serie A - 2026
 const dadosClassificacao = [
-{ pos: 1, clube: "Flamengo", slug: "flamengo", pts: 73, pj: 33, vit: 22, e: 7, der: 4, gm: 68, gc: 28, sg: 40, ultimas: ["E", "V", "V", "V", "V"], proximo: "gremio", status: "libertadores_fase_grupos" },
-{ pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 70, pj: 33, vit: 20, e: 10, der: 3, gm: 56, gc: 22, sg: 34, ultimas: ["V", "V", "V", "V", "E"], proximo: "remo", status: "libertadores_fase_grupos" },
-{ pos: 3, clube: "Cruzeiro", slug: "cruzeiro", pts: 57, pj: 33, vit: 17, e: 6, der: 10, gm: 52, gc: 46, sg: 6, ultimas: ["V", "D", "V", "V", "V"], proximo: "bahia", status: "libertadores_fase_grupos" },
-{ pos: 4, clube: "Fluminense", slug: "fluminense", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 52, gc: 42, sg: 10, ultimas: ["V", "D", "D", "D", "V"], proximo: "vitoria", status: "libertadores_fase_grupos" },
-{ pos: 5, clube: "Athletico-PR", slug: "athletico-pr", pts: 54, pj: 33, vit: 15, e: 9, der: 9, gm: 50, gc: 40, sg: 10, ultimas: ["E", "V", "D", "E", "D"], proximo: "vasco", status: "pre_libertadores" },
-{ pos: 6, clube: "Bahia", slug: "bahia", pts: 53, pj: 33, vit: 14, e: 11, der: 8, gm: 48, gc: 42, sg: 6, ultimas: ["D", "V", "D", "E", "V"], proximo: "cruzeiro", status: "sul_americana" },
-{ pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 50, pj: 33, vit: 14, e: 8, der: 11, gm: 44, gc: 39, sg: 5, ultimas: ["E", "V", "V", "D", "D"], proximo: "botafogo", status: "sul_americana" },
+{ pos: 1, clube: "Flamengo", slug: "flamengo", pts: 76, pj: 34, vit: 23, e: 7, der: 4, gm: 71, gc: 29, sg: 42, ultimas: ["V", "V", "V", "V", "V"], proximo: "athletico-pr", status: "libertadores_fase_grupos" },
+{ pos: 2, clube: "Palmeiras", slug: "palmeiras", pts: 73, pj: 34, vit: 21, e: 10, der: 3, gm: 62, gc: 23, sg: 39, ultimas: ["V", "V", "V", "E", "V"], proximo: "cruzeiro", status: "libertadores_fase_grupos" },
+{ pos: 3, clube: "Cruzeiro", slug: "cruzeiro", pts: 60, pj: 34, vit: 18, e: 6, der: 10, gm: 55, gc: 48, sg: 7, ultimas: ["D", "V", "V", "V", "V"], proximo: "palmeiras", status: "libertadores_fase_grupos" },
+{ pos: 4, clube: "Fluminense", slug: "fluminense", pts: 57, pj: 34, vit: 16, e: 9, der: 9, gm: 55, gc: 42, sg: 13, ultimas: ["D", "D", "D", "V", "V"], proximo: "sao-paulo", status: "libertadores_fase_grupos" },
+{ pos: 5, clube: "Athletico-PR", slug: "athletico-pr", pts: 54, pj: 34, vit: 15, e: 9, der: 10, gm: 51, gc: 43, sg: 8, ultimas: ["V", "D", "E", "D", "D"], proximo: "flamengo", status: "pre_libertadores" },
+{ pos: 6, clube: "Bahia", slug: "bahia", pts: 53, pj: 34, vit: 14, e: 11, der: 9, gm: 50, gc: 45, sg: 5, ultimas: ["V", "D", "E", "V", "D"], proximo: "gremio", status: "sul_americana" },
+{ pos: 7, clube: "Atlético-MG", slug: "atletico-mg", pts: 50, pj: 34, vit: 14, e: 8, der: 12, gm: 44, gc: 40, sg: 4, ultimas: ["V", "V", "D", "D", "D"], proximo: "mirassol", status: "sul_americana" },
 { pos: 8, clube: "Bragantino", slug: "bragantino", pts: 47, pj: 34, vit: 13, e: 8, der: 13, gm: 44, gc: 39, sg: 5, ultimas: ["V", "E", "D", "V", "V"], proximo: "vitoria", status: "sul_americana" },
 { pos: 9, clube: "Santos", slug: "santos", pts: 47, pj: 34, vit: 12, e: 11, der: 11, gm: 50, gc: 49, sg: 1, ultimas: ["D", "V", "E", "E", "D"], proximo: "coritiba", status: "sul_americana" },
-{ pos: 10, clube: "São Paulo", slug: "sao-paulo", pts: 43, pj: 33, vit: 12, e: 7, der: 14, gm: 39, gc: 39, sg: 0, ultimas: ["D", "V", "V", "E", "D"], proximo: "corinthians", status: "sul_americana" },
-{ pos: 11, clube: "Coritiba", slug: "coritiba", pts: 42, pj: 33, vit: 11, e: 9, der: 13, gm: 40, gc: 50, sg: -10, ultimas: ["D", "E", "D", "D", "V"], proximo: "internacional", status: "sul_americana" },
-{ pos: 12, clube: "Mirassol", slug: "mirassol", pts: 40, pj: 34, vit: 10, e: 10, der: 14, gm: 39, gc: 46, sg: -7, ultimas: ["D", "V", "E", "D", "V"], proximo: "atletico-mg", status: "neutro" },
-{ pos: 13, clube: "Botafogo", slug: "botafogo", pts: 39, pj: 33, vit: 10, e: 9, der: 14, gm: 45, gc: 53, sg: -8, ultimas: ["D", "E", "V", "D", "D"], proximo: "atletico-mg", status: "neutro" },
-{ pos: 14, clube: "Vasco da Gama", slug: "vasco", pts: 38, pj: 32, vit: 10, e: 8, der: 14, gm: 40, gc: 49, sg: -9, ultimas: ["V", "E", "D", "V", "D"], proximo: "athletico-pr", status: "neutro" },
-{ pos: 15, clube: "Vitória", slug: "vitoria", pts: 38, pj: 33, vit: 10, e: 8, der: 15, gm: 35, gc: 48, sg: -13, ultimas: ["V", "D", "E", "E", "D"], proximo: "fluminense", status: "neutro" },
-{ pos: 16, clube: "Grêmio", slug: "gremio", pts: 37, pj: 33, vit: 9, e: 10, der: 14, gm: 37, gc: 44, sg: -7, ultimas: ["E", "E", "D", "V", "V"], proximo: "flamengo", status: "neutro" },
-{ pos: 17, clube: "Corinthians", slug: "corinthians", pts: 36, pj: 33, vit: 9, e: 9, der: 15, gm: 36, gc: 42, sg: -6, ultimas: ["D", "D", "E", "D", "V"], proximo: "sao-paulo", status: "rebaixamento" },
-{ pos: 18, clube: "Internacional", slug: "internacional", pts: 35, pj: 33, vit: 8, e: 11, der: 14, gm: 37, gc: 42, sg: -5, ultimas: ["V", "E", "D", "V", "D"], proximo: "coritiba", status: "rebaixamento" },
-{ pos: 19, clube: "Remo", slug: "remo", pts: 29, pj: 33, vit: 6, e: 11, der: 16, gm: 36, gc: 51, sg: -15, ultimas: ["E", "E", "E", "D", "V"], proximo: "palmeiras", status: "rebaixamento" },
-{ pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 21, pj: 33, vit: 4, e: 9, der: 20, gm: 33, gc: 68, sg: -35, ultimas: ["D", "D", "V", "D", "D"], proximo: "remo", status: "rebaixamento" }
+{ pos: 10, clube: "São Paulo", slug: "sao-paulo", pts: 44, pj: 34, vit: 12, e: 8, der: 14, gm: 39, gc: 39, sg: 0, ultimas: ["V", "V", "E", "D", "E"], proximo: "fluminense", status: "sul_americana" },
+{ pos: 11, clube: "Botafogo", slug: "botafogo", pts: 42, pj: 34, vit: 11, e: 9, der: 14, gm: 46, gc: 53, sg: -7, ultimas: ["E", "V", "D", "D", "V"], proximo: "corinthians", status: "neutro" },
+{ pos: 12, clube: "Coritiba", slug: "coritiba", pts: 42, pj: 34, vit: 11, e: 9, der: 14, gm: 40, gc: 51, sg: -11, ultimas: ["E", "D", "D", "V", "D"], proximo: "santos", status: "sul_americana" },
+{ pos: 13, clube: "Vasco da Gama", slug: "vasco", pts: 41, pj: 33, vit: 11, e: 8, der: 14, gm: 43, gc: 50, sg: -7, ultimas: ["E", "D", "V", "D", "V"], proximo: "internacional", status: "neutro" },
+{ pos: 14, clube: "Mirassol", slug: "mirassol", pts: 40, pj: 34, vit: 10, e: 10, der: 14, gm: 39, gc: 48, sg: -9, ultimas: ["V", "E", "D", "V", "V"], proximo: "atletico-mg", status: "neutro" },
+{ pos: 15, clube: "Vitória", slug: "vitoria", pts: 38, pj: 34, vit: 10, e: 8, der: 16, gm: 35, gc: 51, sg: -16, ultimas: ["D", "E", "E", "D", "D"], proximo: "bragantino", status: "neutro" },
+{ pos: 16, clube: "Internacional", slug: "internacional", pts: 38, pj: 34, vit: 9, e: 11, der: 14, gm: 38, gc: 42, sg: -4, ultimas: ["E", "D", "V", "D", "V"], proximo: "vasco", status: "neutro" },
+{ pos: 17, clube: "Corinthians", slug: "corinthians", pts: 37, pj: 34, vit: 9, e: 10, der: 15, gm: 36, gc: 42, sg: -6, ultimas: ["D", "E", "D", "V", "E"], proximo: "botafogo", status: "rebaixamento" },
+{ pos: 18, clube: "Grêmio", slug: "gremio", pts: 37, pj: 34, vit: 9, e: 10, der: 15, gm: 38, gc: 47, sg: -9, ultimas: ["E", "D", "V", "V", "D"], proximo: "bahia", status: "rebaixamento" },
+{ pos: 19, clube: "Remo", slug: "remo", pts: 29, pj: 34, vit: 6, e: 11, der: 17, gm: 37, gc: 57, sg: -20, ultimas: ["E", "E", "D", "V", "D"], proximo: "chapecoense", status: "rebaixamento" },
+{ pos: 20, clube: "Chapecoense", slug: "chapecoense", pts: 21, pj: 33, vit: 4, e: 9, der: 20, gm: 33, gc: 68, sg: -35, ultimas: ["D", "V", "D", "D", "D"], proximo: "remo", status: "rebaixamento" }
 ];
+
 
 // ===== ZONAS (fonte única de cores e textos: tabela, filtros e legenda) =====
 const legendaQualificacaoRebaixamento = {
@@ -340,18 +341,6 @@ containerTabela.insertAdjacentHTML('afterend', legendaHTML);
 
 // ===== DICIONÁRIO DE PRÓXIMOS CONFRONTOS POR RODADA =====
 const proximosJogosPorRodada = {
-34: {
-"bragantino": "santos", "santos": "bragantino",
-"chapecoense": "mirassol", "mirassol": "chapecoense",
-"internacional": "coritiba", "coritiba": "internacional",
-"flamengo": "gremio", "gremio": "flamengo",
-"athletico-pr": "vasco", "vasco": "athletico-pr",
-"botafogo": "atletico-mg", "atletico-mg": "botafogo",
-"sao-paulo": "corinthians", "corinthians": "sao-paulo",
-"palmeiras": "remo", "remo": "palmeiras",
-"cruzeiro": "bahia", "bahia": "cruzeiro",
-"vitoria": "fluminense", "fluminense": "vitoria"
-},
 35: {
 "mirassol": "atletico-mg", "atletico-mg": "mirassol",
 "coritiba": "santos", "santos": "coritiba",
@@ -375,6 +364,31 @@ const proximosJogosPorRodada = {
 "botafogo": "sao-paulo", "sao-paulo": "botafogo",
 "santos": "gremio", "gremio": "santos",
 "atletico-mg": "corinthians", "corinthians": "atletico-mg"
+},
+37: {
+"chapecoense": "palmeiras", "palmeiras": "chapecoense",
+"sao-paulo": "remo", "remo": "sao-paulo",
+"fluminense": "cruzeiro", "cruzeiro": "fluminense",
+"botafogo": "bahia", "bahia": "botafogo",
+"vitoria": "santos", "santos": "vitoria",
+"coritiba": "flamengo", "flamengo": "coritiba",
+"internacional": "bragantino", "bragantino": "internacional",
+"mirassol": "athletico-pr", "athletico-pr": "mirassol",
+"corinthians": "gremio", "gremio": "corinthians",
+"atletico-mg": "vasco", "vasco": "atletico-mg"
+},
+
+38: {
+"remo": "corinthians", "corinthians": "remo",
+"bahia": "atletico-mg", "atletico-mg": "bahia",
+"athletico-pr": "sao-paulo", "sao-paulo": "athletico-pr",
+"gremio": "mirassol", "mirassol": "gremio",
+"cruzeiro": "internacional", "internacional": "cruzeiro",
+"bragantino": "fluminense", "fluminense": "bragantino",
+"palmeiras": "coritiba", "coritiba": "palmeiras",
+"santos": "botafogo", "botafogo": "santos",
+"vasco": "vitoria", "vitoria": "vasco",
+"flamengo": "chapecoense", "chapecoense": "flamengo"
 }
 };
 
@@ -394,21 +408,6 @@ renderizarTabelaClassificacao(tabelaAtual);
 
 // ===== CALENDÁRIO COMPLETO DAS RODADAS =====
 const calendarioRodadas = [
-{
-rodada: 34,
-jogos: [
-{ id: "r34_j1", mandante: "bragantino", visitante: "santos", data: "Segunda-feira, 02/11", hora: "20:00", estadio: "Cícero Souza Marques" },
-{ id: "r34_j2", mandante: "chapecoense", visitante: "mirassol", data: "Terça-feira, 03/11", hora: "19:30", estadio: "Arena Condá" },
-{ id: "r34_j3", mandante: "internacional", visitante: "coritiba", data: "Terça-feira, 03/11", hora: "21:30", estadio: "Beira-Rio" },
-{ id: "r34_j4", mandante: "flamengo", visitante: "gremio", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Maracanã" },
-{ id: "r34_j5", mandante: "athletico-pr", visitante: "vasco", data: "Quarta-feira, 04/11", hora: "19:30", estadio: "Arena da Baixada" },
-{ id: "r34_j6", mandante: "botafogo", visitante: "atletico-mg", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "Nilton Santos" },
-{ id: "r34_j7", mandante: "sao-paulo", visitante: "corinthians", data: "Quarta-feira, 04/11", hora: "21:30", estadio: "A definir" },
-{ id: "r34_j8", mandante: "palmeiras", visitante: "remo", data: "Quinta-feira, 05/11", hora: "19:30", estadio: "Nubank Parque" },
-{ id: "r34_j9", mandante: "cruzeiro", visitante: "bahia", data: "Quinta-feira, 05/11", hora: "21:30", estadio: "Mineirão" },
-{ id: "r34_j10", mandante: "vitoria", visitante: "fluminense", data: "Sexta-feira, 06/11", hora: "20:00", estadio: "Barradão" }
-]
-},
 {
 rodada: 35,
 jogos: [
@@ -437,6 +436,36 @@ jogos: [
 { id: "r36_j8", mandante: "botafogo", visitante: "sao-paulo", data: "Segunda-feira, 23/11", hora: "20:00", estadio: "Nilton Santos" },
 { id: "r36_j9", mandante: "santos", visitante: "gremio", data: "Segunda-feira, 23/11", hora: "21:00", estadio: "Morumbi" },
 { id: "r36_j10", mandante: "atletico-mg", visitante: "corinthians", data: "Quarta-feira, 25/11", hora: "20:00", estadio: "Arena MRV" }
+]
+},
+{
+rodada: 37,
+jogos: [
+{ id: "r37_j1", mandante: "chapecoense", visitante: "palmeiras", data: "Terça-feira, 24/11", hora: "18:00", estadio: "Arena Condá" },
+{ id: "r37_j2", mandante: "sao-paulo", visitante: "remo", data: "Quinta-feira, 26/11", hora: "20:00", estadio: "Morumbi" },
+{ id: "r37_j3", mandante: "fluminense", visitante: "cruzeiro", data: "Sexta-feira, 27/11", hora: "20:00", estadio: "Maracanã" },
+{ id: "r37_j4", mandante: "botafogo", visitante: "bahia", data: "Sábado, 28/11", hora: "21:00", estadio: "Engenhão" },
+{ id: "r37_j5", mandante: "vitoria", visitante: "santos", data: "Domingo, 29/11", hora: "16:00", estadio: "Barradão" },
+{ id: "r37_j6", mandante: "coritiba", visitante: "flamengo", data: "Domingo, 29/11", hora: "16:00", estadio: "Couto Pereira" },
+{ id: "r37_j7", mandante: "internacional", visitante: "bragantino", data: "Domingo, 29/11", hora: "18:30", estadio: "Beira-Rio" },
+{ id: "r37_j8", mandante: "mirassol", visitante: "athletico-pr", data: "Domingo, 29/11", hora: "18:30", estadio: "Campos Maia" },
+{ id: "r37_j9", mandante: "corinthians", visitante: "gremio", data: "Domingo, 29/11", hora: "18:30", estadio: "Neo Química Arena" },
+{ id: "r37_j10", mandante: "atletico-mg", visitante: "vasco", data: "Domingo, 29/11", hora: "19:30", estadio: "Arena MRV" }
+]
+},
+{
+rodada: 38,
+jogos: [
+{ id: "r38_j1", mandante: "remo", visitante: "corinthians", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Mangueirão" },
+{ id: "r38_j2", mandante: "bahia", visitante: "atletico-mg", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Arena Fonte Nova" },
+{ id: "r38_j3", mandante: "athletico-pr", visitante: "sao-paulo", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Arena da Baixada" },
+{ id: "r38_j4", mandante: "gremio", visitante: "mirassol", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Arena do Grêmio" },
+{ id: "r38_j5", mandante: "cruzeiro", visitante: "internacional", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Mineirão" },
+{ id: "r38_j6", mandante: "bragantino", visitante: "fluminense", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Cícero de Souza Marques" },
+{ id: "r38_j7", mandante: "palmeiras", visitante: "coritiba", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Nubank Parque" },
+{ id: "r38_j8", mandante: "santos", visitante: "botafogo", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Vila Belmiro" },
+{ id: "r38_j9", mandante: "vasco", visitante: "vitoria", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "São Januário" },
+{ id: "r38_j10", mandante: "flamengo", visitante: "chapecoense", data: "Quarta-feira, 02/12", hora: "21:30", estadio: "Maracanã" }
 ]
 }
 ];
