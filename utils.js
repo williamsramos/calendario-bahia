@@ -137,8 +137,8 @@ const dadosClassificacao = [
 // ===== ZONAS (fonte única de cores e textos: tabela, filtros e legenda) =====
 const legendaQualificacaoRebaixamento = {
 libertadores_fase_grupos: { label: "1º - 4º: Libertadores (G4)", cor: "#234bc5" },
-pre_libertadores: { label: "5º: Pré-Libertadores", cor: "#447eff" },
-sul_americana: { label: "6º - 11º: Sul-Americana", cor: "#358856" },
+pre_libertadores: { label: "5º - 6º: Pré-Libertadores", cor: "#447eff" },
+sul_americana: { label: "7º - 11º: Sul-Americana", cor: "#358856" },
 neutro: { label: "12º - 16º: Neutro", cor: "#64748b" },
 rebaixamento: { label: "17º - 20º: Rebaixamento", cor: "#d93829" }
 };
@@ -148,11 +148,11 @@ const clubesRebaixados = ["chapecoense"];
 
 // Define a zona pela POSIÇÃO atual (o simulador reordena a tabela)
 function statusPorPosicao(pos) {
-if (pos <= 4) return "libertadores_fase_grupos";
-if (pos <= 5) return "pre_libertadores";
-if (pos <= 11) return "sul_americana";
-if (pos <= 16) return "neutro";
-return "rebaixamento";
+  if (pos <= 4) return "libertadores_fase_grupos";
+  if (pos <= 6) return "pre_libertadores";
+  if (pos <= 11) return "sul_americana";
+  if (pos <= 16) return "neutro";
+  return "rebaixamento";
 }
 
 // ===== FILTROS POR ZONA =====
@@ -160,12 +160,12 @@ let filtroClassificacao = "todos";
 let ultimosDadosClassificacao = dadosClassificacao;
 
 const filtrosClassificacao = [
-{ id: "libertadores_fase_grupos", label: "Libertadores - G4", faixa: "1º ao 4º" },
-{ id: "pre_libertadores", label: "Pré-Libertadores", faixa: "5º" },
-{ id: "sul_americana", label: "Sul-Americana", faixa: "6º ao 11º" },
-{ id: "neutro", label: "Neutro", faixa: "12º ao 16º" },
-{ id: "rebaixamento", label: "Rebaixamento", faixa: "17º ao 20º" },
-{ id: "todos", label: "Ver tudo", faixa: "1º ao 20º" }
+  { id: "libertadores_fase_grupos", label: "Libertadores - G4", faixa: "1º ao 4º" },
+  { id: "pre_libertadores",         label: "Pré-Libertadores",  faixa: "5º e 6º" },
+  { id: "sul_americana",            label: "Sul-Americana",     faixa: "7º ao 11º" },
+  { id: "neutro",                   label: "Neutro",            faixa: "12º ao 16º" },
+  { id: "rebaixamento",             label: "Rebaixamento",      faixa: "17º ao 20º" },
+  { id: "todos",                    label: "Ver tudo",          faixa: "" }
 ];
 
 function renderizarFiltros() {
