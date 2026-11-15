@@ -316,6 +316,9 @@ let activeSub = "todos";
 let activeMandoFilter = "todos";
 let searchTerm = "";
 
+// Aba da temporada 2027: "jogos" (Jogos & Agenda) ou "classificacao" (Classificação 2027)
+let activeView2027 = "jogos";
+
 /* ===========================================================
    5. FILTRAGEM DE JOGOS
    =========================================================== */
@@ -360,18 +363,25 @@ function renderApp() {
   const hasSeasonGames = games.some(g => (g.year || "2026") === activeSeason);
   const isFutureSeason = !hasSeasonGames;
 
-  if (emptyCard) emptyCard.classList.toggle("hidden", !isFutureSeason);
-  if (heroNext) heroNext.classList.toggle("hidden", isFutureSeason);
-  if (dashboardSection) dashboardSection.classList.toggle("hidden", isFutureSeason);
-  if (progressWrap) progressWrap.classList.toggle("hidden", isFutureSeason);
-  if (tabsNav) tabsNav.classList.toggle("hidden", isFutureSeason);
-  if (subFilterBar) subFilterBar.classList.toggle("hidden", isFutureSeason);
-  if (listsWrap) listsWrap.classList.toggle("hidden", isFutureSeason);
+  // Na aba "Classificação 2027" a parte de jogos fica escondida
+  const emClassificacao = viewClassificacaoAtiva();
+  const ocultarJogos = isFutureSeason || emClassificacao;
 
-  if (btnAdd) btnAdd.style.display = isFutureSeason ? "none" : "";
-  if (btnAddMobile) btnAddMobile.style.display = isFutureSeason ? "none" : "";
+  if (emptyCard) emptyCard.classList.toggle("hidden", !isFutureSeason || emClassificacao);
+  if (heroNext) heroNext.classList.toggle("hidden", ocultarJogos);
+  if (dashboardSection) dashboardSection.classList.toggle("hidden", ocultarJogos);
+  if (progressWrap) progressWrap.classList.toggle("hidden", ocultarJogos);
+  if (tabsNav) tabsNav.classList.toggle("hidden", ocultarJogos);
+  if (subFilterBar) subFilterBar.classList.toggle("hidden", ocultarJogos);
+  if (listsWrap) listsWrap.classList.toggle("hidden", ocultarJogos);
 
-  if (isFutureSeason) {
+  if (btnAdd) btnAdd.style.display = ocultarJogos ? "none" : "";
+  if (btnAddMobile) btnAddMobile.style.display = ocultarJogos ? "none" : "";
+
+  renderViewToggle2027();
+  renderClassificacao();
+
+  if (ocultarJogos) {
     if (countdownInterval) clearInterval(countdownInterval);
     return;
   }
@@ -1176,7 +1186,6 @@ function renderLists() {
   }
 
   renderJogosInteresse();
-  renderClassificacao();
 }
 
 /* ===========================================================
@@ -1569,16 +1578,21 @@ function fecharModalInteresse() {
 }
 
 /* ===========================================================
-   8.3 CLASSIFICAÇÃO — TEMPORADA 2027
-   Tabela editável (aparece só em 2027). O Baiano já vem com os 10 times
-   dos jogos cadastrados; o Brasileiro começa vazio (clubes ainda não definidos).
+   8.3 CLASSIFICAÇÃO 2027 — aba própria
+   -----------------------------------------------------------
+   Na temporada 2027 (Masculino) aparece um seletor com duas abas:
+     "Jogos & Agenda"      → calendário normal
+     "Classificação 2027"  → tabela oficial (Baiano / Brasileiro / Libertadores)
+   A tabela NÃO aparece mais misturada com a lista de jogos.
    Pontos, jogos e saldo são calculados sozinhos a partir de V / E / D / GP / GC.
+   O Baiano já vem com os 10 times dos jogos cadastrados.
    =========================================================== */
 
 const CHAVE_CLASSIFICACAO_2027 = "bahia_classificacao_2027";
 const COMPS_CLASSIFICACAO_2027 = [
-  { id: "estadual 27",   label: "Baiano" },
-  { id: "brasileiro 27", label: "Brasileiro Série A" },
+  { id: "estadual 27",     label: "Baiano 2027" },
+  { id: "brasileiro 27",   label: "Brasileiro Série A 2027" },
+  { id: "libertadores 27", label: "Libertadores 2027" },
 ];
 
 let classifComp = "estadual 27";
@@ -1596,7 +1610,9 @@ function carregarClassificacao2027() {
     )];
     salvo["estadual 27"] = times.map(novaLinhaClassificacao);
   }
-  if (!Array.isArray(salvo["brasileiro 27"])) salvo["brasileiro 27"] = [];
+  COMPS_CLASSIFICACAO_2027.forEach(c => {
+    if (!Array.isArray(salvo[c.id])) salvo[c.id] = [];
+  });
   return salvo;
 }
 
@@ -1621,60 +1637,114 @@ function tabelaOrdenada(compId) {
       getTeam(a.time).name.localeCompare(getTeam(b.time).name));
 }
 
+/* ---------- Seletor "Jogos & Agenda" / "Classificação 2027" ---------- */
+
+function toggle2027Disponivel() {
+  return activeSeason === "2027" && activeCategory === "masculino";
+}
+
+function viewClassificacaoAtiva() {
+  return toggle2027Disponivel() && activeView2027 === "classificacao";
+}
+
+// Cria (uma vez) o seletor e o contêiner da tabela logo acima do "Próximo jogo"
+function garantirViewClassificacao() {
+  let toggle = document.getElementById("viewToggle2027");
+  let view = document.getElementById("classificacaoView");
+  if (toggle && view) return { toggle, view };
+
+  const ref = document.getElementById("heroNext");
+  if (!ref || !ref.parentNode) return { toggle: null, view: null };
+
+  if (!toggle) {
+    toggle = document.createElement("div");
+    toggle.id = "viewToggle2027";
+    toggle.className = "hidden flex w-full max-w-xl mx-auto mt-4 p-1.5 gap-1.5 rounded-2xl border border-white/10 bg-navy-900/70 backdrop-blur-md";
+    ref.parentNode.insertBefore(toggle, ref);
+  }
+  if (!view) {
+    view = document.createElement("section");
+    view.id = "classificacaoView";
+    view.className = "hidden mt-6";
+    ref.parentNode.insertBefore(view, ref);
+  }
+  return { toggle, view };
+}
+
+function renderViewToggle2027() {
+  const { toggle } = garantirViewClassificacao();
+  if (!toggle) return;
+
+  const mostrar = toggle2027Disponivel();
+  toggle.classList.toggle("hidden", !mostrar);
+  if (!mostrar) { toggle.innerHTML = ""; return; }
+
+  const botao = (id, icone, rotulo) => {
+    const ativo = activeView2027 === id;
+    return `<button type="button" onclick="setView2027('${id}')" aria-pressed="${ativo}"
+      class="flex-1 px-2 sm:px-4 py-3 rounded-xl text-sm sm:text-base font-semibold whitespace-nowrap transition-all ${
+        ativo ? "bg-gold text-navy-950 shadow-md" : "text-slate-400 hover:text-white"
+      }">${icone} ${rotulo}</button>`;
+  };
+
+  toggle.innerHTML = botao("jogos", "📅", "Jogos & Agenda") + botao("classificacao", "🏆", "Classificação 2027");
+}
+
+function setView2027(view) {
+  activeView2027 = view;
+  renderApp();
+}
+
+/* ---------- Cartão "Tabela oficial · Classificação 2027" ---------- */
+
 function setClassifComp(id) {
   classifComp = id;
   renderClassificacao();
 }
 
 function renderClassificacao() {
-  const listsWrap = document.getElementById("listsWrap");
-  if (!listsWrap) return;
+  const { view } = garantirViewClassificacao();
+  if (!view) return;
 
-  const visivel = activeSeason === "2027" && activeCategory === "masculino" && !searchTerm.trim();
-  let sec = document.getElementById("classificacao2027");
-
-  if (!visivel) {
-    if (sec) { sec.classList.add("hidden"); sec.innerHTML = ""; }
-    return;
-  }
-
-  if (!sec) {
-    sec = document.createElement("section");
-    sec.id = "classificacao2027";
-    sec.className = "mt-6";
-    const ref = document.getElementById("jogosInteresse");
-    if (ref) listsWrap.insertBefore(sec, ref); else listsWrap.appendChild(sec);
-  }
+  const mostrar = viewClassificacaoAtiva();
+  view.classList.toggle("hidden", !mostrar);
+  if (!mostrar) { view.innerHTML = ""; return; }
 
   const linhas = tabelaOrdenada(classifComp);
-  const pills = COMPS_CLASSIFICACAO_2027.map(c => `
-    <button onclick="setClassifComp('${c.id}')" class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
-      classifComp === c.id ? "bg-navy-800 text-gold border-gold" : "border-navy-700/50 text-slate-400 hover:text-slate-200"
-    }">${c.label}</button>`).join("");
 
-  const th = "px-2 py-2 text-center font-semibold";
+  const pills = COMPS_CLASSIFICACAO_2027.map(c => {
+    const ativo = classifComp === c.id;
+    return `<button type="button" onclick="setClassifComp('${c.id}')" aria-pressed="${ativo}"
+      class="px-5 py-2.5 rounded-full border text-sm sm:text-base font-semibold transition-colors ${
+        ativo ? "border-gold bg-gold/10 text-gold" : "border-white/10 bg-navy-950/50 text-slate-300 hover:text-white hover:border-white/30"
+      }">${c.label}</button>`;
+  }).join("");
+
+  const th = "px-1.5 sm:px-3 py-3 text-center text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400";
+  const td = "px-1.5 sm:px-3 py-4 text-center font-mono text-sm sm:text-base";
+
   const corpo = linhas.map((l, i) => {
     const t = getTeam(l.time);
     const ehBahia = l.time === "bahia";
     const sg = l.sg > 0 ? `+${l.sg}` : l.sg;
     return `
-      <tr class="border-t border-white/5 group ${ehBahia ? "bg-navy-800/60 text-gold" : "text-slate-200"}">
-        <td class="px-2 py-2 text-center font-mono">${i + 1}</td>
-        <td class="px-2 py-2">
-          <div class="flex items-center gap-2 min-w-[8rem]">
-            <img src="${t.logo}" alt="${t.name}" class="w-5 h-5 object-contain shrink-0">
-            <span class="font-display truncate">${t.name}</span>
+      <tr class="border-b border-white/10 ${ehBahia ? "bg-[#101d42]" : ""}">
+        <td class="pl-3 pr-1 sm:px-3 py-4 text-center font-mono text-sm sm:text-base text-slate-300">${i + 1}</td>
+        <td class="px-2 sm:px-3 py-4">
+          <div class="flex items-center gap-2.5">
+            <img src="${t.logo}" alt="${t.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0" onerror="this.onerror=null; this.src='img/default.png';">
+            <span class="font-display text-base sm:text-lg truncate max-w-[4.5rem] sm:max-w-[14rem] ${ehBahia ? "text-gold font-semibold" : "text-slate-100"}">${t.name}</span>
           </div>
         </td>
-        <td class="${th} font-bold">${l.p}</td>
-        <td class="${th}">${l.j}</td>
-        <td class="${th}">${l.v}</td>
-        <td class="${th}">${l.e}</td>
-        <td class="${th}">${l.d}</td>
-        <td class="${th}">${l.gp}</td>
-        <td class="${th}">${l.gc}</td>
-        <td class="${th}">${sg}</td>
-        <td class="px-2 py-2 text-right whitespace-nowrap">
+        <td class="${td} font-bold text-white">${l.p}</td>
+        <td class="${td} text-slate-100">${l.j}</td>
+        <td class="${td} text-emerald-400">${l.v}</td>
+        <td class="${td} text-slate-100">${l.e}</td>
+        <td class="${td} text-rose-400">${l.d}</td>
+        <td class="${td} text-slate-100">${l.gp}</td>
+        <td class="${td} text-slate-100">${l.gc}</td>
+        <td class="${td} text-slate-100">${sg}</td>
+        <td class="px-2 py-4 text-right whitespace-nowrap">
           <button onclick="abrirModalClassificacao('${l.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar time">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </button>
@@ -1685,28 +1755,33 @@ function renderClassificacao() {
       </tr>`;
   }).join("");
 
-  sec.classList.remove("hidden");
-  sec.innerHTML = `
-    <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
-      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Classificação 2027</h3>
-      <button onclick="abrirModalClassificacao()" class="text-[11px] font-semibold text-gold hover:text-white transition-colors">+ Adicionar time</button>
-    </div>
-    <div class="flex items-center gap-2 mb-3">${pills}</div>
-    ${linhas.length ? `
-    <div class="overflow-x-auto rounded-xl border border-white/10 bg-navy-900/60">
-      <table class="w-full text-xs sm:text-sm">
-        <thead>
-          <tr class="text-[10px] uppercase tracking-wider text-slate-400">
-            <th class="px-2 py-2 text-center">#</th>
-            <th class="px-2 py-2 text-left">Time</th>
-            <th class="${th}">P</th><th class="${th}">J</th><th class="${th}">V</th><th class="${th}">E</th>
-            <th class="${th}">D</th><th class="${th}">GP</th><th class="${th}">GC</th><th class="${th}">SG</th>
-            <th class="px-2 py-2"></th>
-          </tr>
-        </thead>
-        <tbody>${corpo}</tbody>
-      </table>
-    </div>` : '<p class="text-xs text-slate-500">Nenhum time na tabela. Use "+ Adicionar time".</p>'}`;
+  view.innerHTML = `
+    <div class="rounded-3xl border border-white/10 bg-gradient-to-b from-navy-900/90 to-navy-950/90 backdrop-blur-md shadow-2xl p-5 sm:p-8">
+      <p class="text-[11px] sm:text-xs font-bold tracking-[0.3em] text-gold uppercase">Tabela oficial</p>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold text-white uppercase mt-1">Classificação 2027</h2>
+
+      <div class="flex flex-wrap gap-3 mt-5">${pills}</div>
+
+      ${linhas.length ? `
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b-2 border-white/15">
+              <th class="pl-3 pr-1 sm:px-3 py-3 text-center text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400">#</th>
+              <th class="px-2 sm:px-3 py-3 text-left text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400">Time</th>
+              <th class="${th} !text-white">P</th><th class="${th}">J</th><th class="${th}">V</th><th class="${th}">E</th>
+              <th class="${th}">D</th><th class="${th}">GP</th><th class="${th}">GC</th><th class="${th}">SG</th>
+              <th class="px-2 py-3"></th>
+            </tr>
+          </thead>
+          <tbody>${corpo}</tbody>
+        </table>
+      </div>` : '<p class="mt-6 text-sm text-slate-400">Nenhum time na tabela ainda.</p>'}
+
+      <div class="mt-5 flex justify-end">
+        <button type="button" onclick="abrirModalClassificacao()" class="text-xs sm:text-sm font-semibold text-gold hover:text-white transition-colors">+ Adicionar time</button>
+      </div>
+    </div>`;
 }
 
 function removerLinhaClassificacao(id) {
