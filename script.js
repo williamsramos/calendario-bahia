@@ -1,7 +1,6 @@
-/* ===========================================================
-   Calendário Tricolor EC Bahia — COM ESTATÍSTICAS AVANÇADAS
+===========================================================
+   Calendário Tricolor EC Bahia  2026— COM ESTATÍSTICAS AVANÇADAS
    + Suporte a Categorias (Masculino/Feminino)
-   + Painel Exclusivo de Classificação 2027
    =========================================================== */
 
 /* ===========================================================
@@ -37,6 +36,9 @@ const StorageUtils = {
   }
 };
 
+/**
+ * Formatação de datas (ano opcional; padrão 2026)
+ */
 function parseDate(dstr, year) {
   if (!dstr) return new Date();
   const [d, m] = dstr.split("/").map(Number);
@@ -53,60 +55,65 @@ function today() {
   return new Date(t.getFullYear(), t.getMonth(), t.getDate());
 }
 
+function obterJogosFemininos(lista) {
+  return lista.filter(jogo => jogo.category === "feminino");
+}
+
+function obterJogosFemininosPorComp(lista) {
+  const compsFemininas = ["brasileiro_fem", "copa-brasil-fem", "baiano-fem"];
+  return lista.filter(jogo => compsFemininas.includes(jogo.comp));
+}
+
 /* ===========================================================
-   2. DADOS E ESTADO — TEMPORADA 2026 E 2027
+   2. DADOS E ESTADO — TEMPORADA 2026
    =========================================================== */
 
 const listaAtualizadaDeGames = [
-  // ==========================================
-  // JOGOS DA TEMPORADA 2026
-  // ==========================================
-  
   // MASCULINO — BRASILEIRÃO · 1º TURNO
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "1ª Rodada", date: "28/01", year: "2026", team1: "corinthians", team2: "bahia", stadium: "Vila Belmiro", time: "20:00", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "2ª Rodada", date: "05/02", year: "2026", team1: "bahia", team2: "fluminense", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "3ª Rodada", date: "11/02", year: "2026", team1: "vasco", team2: "bahia", stadium: "São Januário", time: "21:30", score: "0 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "5ª Rodada", date: "11/03", year: "2026", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "20:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "6ª Rodada", date: "15/03", year: "2026", team1: "internacional", team2: "bahia", stadium: "Beira-Rio", time: "16:00", score: "0 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "7ª Rodada", date: "18/03", year: "2026", team1: "bahia", team2: "bragantino", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "8ª Rodada", date: "22/03", year: "2026", team1: "remo", team2: "bahia", stadium: "Mangueirão", time: "16:00", score: "4 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "9ª Rodada", date: "01/04", year: "2026", team1: "bahia", team2: "athletico-pr", stadium: "Arena Fonte Nova", time: "20:00", score: "3 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "10ª Rodada", date: "05/04", year: "2026", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "19:30", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "11ª Rodada", date: "11/04", year: "2026", team1: "mirassol", team2: "bahia", stadium: "Maião", time: "18:30", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "12ª Rodada", date: "19/04", year: "2026", team1: "flamengo", team2: "bahia", stadium: "Maracanã", time: "19:30", score: "2 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "13ª Rodada", date: "25/04", year: "2026", team1: "bahia", team2: "santos", stadium: "Arena Fonte Nova", time: "18:30", score: "2 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "14ª Rodada", date: "03/05", year: "2026", team1: "sao-paulo", team2: "bahia", stadium: "Estadio Cicero Sousa de Marques", time: "16:00", score: "2 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "15ª Rodada", date: "09/05", year: "2026", team1: "bahia", team2: "cruzeiro", stadium: "Arena Fonte Nova", time: "21:00", score: "1 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "16ª Rodada", date: "17/05", year: "2026", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "16:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "17ª Rodada", date: "25/05", year: "2026", team1: "coritiba", team2: "bahia", stadium: "Couto Pereira", time: "20:00", score: "3 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "18ª Rodada", date: "30/05", year: "2026", team1: "bahia", team2: "botafogo", stadium: "Arena Fonte Nova", time: "17:30", score: "2 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "4ª Rodada", date: "17/07", year: "2026", team1: "bahia", team2: "chapecoense", stadium: "Arena Fonte Nova", time: "19:30", score: "2 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "19ª Rodada", date: "21/07", year: "2026", team1: "atletico-mg", team2: "bahia", stadium: "Arena MRV", time: "19:30", score: "1 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "1ª Rodada", date: "28/01", team1: "corinthians", team2: "bahia", stadium: "Vila Belmiro", time: "20:00", score: "1 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "2ª Rodada", date: "05/02", team1: "bahia", team2: "fluminense", stadium: "Arena Fonte Nova", time: "19:00", score: "1 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "3ª Rodada", date: "11/02", team1: "vasco", team2: "bahia", stadium: "São Januário", time: "21:30", score: "0 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "5ª Rodada", date: "11/03", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "20:00", score: "1 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "6ª Rodada", date: "15/03", team1: "internacional", team2: "bahia", stadium: "Beira-Rio", time: "16:00", score: "0 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "7ª Rodada", date: "18/03", team1: "bahia", team2: "bragantino", stadium: "Arena Fonte Nova", time: "19:00", score: "2 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "8ª Rodada", date: "22/03", team1: "remo", team2: "bahia", stadium: "Mangueirão", time: "16:00", score: "4 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "9ª Rodada", date: "01/04", team1: "bahia", team2: "athletico-pr", stadium: "Arena Fonte Nova", time: "20:00", score: "3 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "10ª Rodada", date: "05/04", team1: "bahia", team2: "palmeiras", stadium: "Arena Fonte Nova", time: "19:30", score: "1 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "11ª Rodada", date: "11/04", team1: "mirassol", team2: "bahia", stadium: "Maião", time: "18:30", score: "1 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "12ª Rodada", date: "19/04", team1: "flamengo", team2: "bahia", stadium: "Maracanã", time: "19:30", score: "2 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "13ª Rodada", date: "25/04", team1: "bahia", team2: "santos", stadium: "Arena Fonte Nova", time: "18:30", score: "2 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "14ª Rodada", date: "03/05", team1: "sao-paulo", team2: "bahia", stadium: "Estadio Cicero Sousa de Marques", time: "16:00", score: "2 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "15ª Rodada", date: "09/05", team1: "bahia", team2: "cruzeiro", stadium: "Arena Fonte Nova", time: "21:00", score: "1 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "16ª Rodada", date: "17/05", team1: "bahia", team2: "gremio", stadium: "Arena Fonte Nova", time: "16:00", score: "1 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "17ª Rodada", date: "25/05", team1: "coritiba", team2: "bahia", stadium: "Couto Pereira", time: "20:00", score: "3 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "18ª Rodada", date: "30/05", team1: "bahia", team2: "botafogo", stadium: "Arena Fonte Nova", time: "17:30", score: "2 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "4ª Rodada", date: "17/07", team1: "bahia", team2: "chapecoense", stadium: "Arena Fonte Nova", time: "19:30", score: "2 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "19ª Rodada", date: "21/07", team1: "atletico-mg", team2: "bahia", stadium: "Arena MRV", time: "19:30", score: "1 x 1" },
 
   // MASCULINO — AMISTOSOS
-  { id: cryptoId(), category: "masculino", comp: "amistoso", round: "Amistoso", date: "04/07", year: "2026", team1: "bahia", team2: "montevideo-city", stadium: "Arena Fonte Nova", time: "11:00", score: "4 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "amistoso", round: "Amistoso", date: "12/07", year: "2026", team1: "fluminense", team2: "bahia", stadium: "Maracanã", time: "16:00", score: "2 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "amistoso", round: "Amistoso", date: "04/07", team1: "bahia", team2: "montevideo-city", stadium: "Arena Fonte Nova", time: "11:00", score: "4 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "amistoso", round: "Amistoso", date: "12/07", team1: "fluminense", team2: "bahia", stadium: "Maracanã", time: "16:00", score: "2 x 0" },
 
   // MASCULINO — BRASILEIRÃO · 2º TURNO
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "20ª Rodada", date: "26/07", year: "2026", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "16:00", score: "1 x 1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "21ª Rodada", date: "29/07", year: "2026", team1: "fluminense", team2: "bahia", stadium: "Maracanã", time: "21:30", score: "0 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "22ª Rodada", date: "09/08", year: "2026", team1: "bahia", team2: "vasco", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "23ª Rodada", date: "16/08", year: "2026", team1: "chapecoense", team2: "bahia", stadium: "Arena Condá", time: "11:00", score: "3 x 3" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "24ª Rodada", date: "23/08", year: "2026", team1: "vitoria", team2: "bahia", stadium: "Barradão", time: "16:00", score: "0 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "25ª Rodada", date: "30/08", year: "2026", team1: "bahia", team2: "internacional", stadium: "Arena Fonte Nova", time: "19:30", score: "3 x 2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "26ª Rodada", date: "05/09", year: "2026", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "2x3" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "27ª Rodada", date: "14/09", year: "2026", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "20:00", score: "2x1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", year: "2026", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "2x1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", year: "2026", team1: "palmeiras", team2: "bahia", stadium: "Nubank Parque", time: "21:30", score: "1x0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", year: "2026", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "1x0" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", year: "2026", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "0x3" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", year: "2026", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "1x1" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", year: "2026", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", year: "2026", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", year: "2026", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "19:30", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "22/11", year: "2026", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "16:00", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "29/11", year: "2026", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "16:00", score: "x" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", year: "2026", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "20ª Rodada", date: "26/07", team1: "bahia", team2: "corinthians", stadium: "Arena Fonte Nova", time: "16:00", score: "1 x 1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "21ª Rodada", date: "29/07", team1: "fluminense", team2: "bahia", stadium: "Maracanã", time: "21:30", score: "0 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "22ª Rodada", date: "09/08", team1: "bahia", team2: "vasco", stadium: "Arena Fonte Nova", time: "16:00", score: "0 x 0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "23ª Rodada", date: "16/08", team1: "chapecoense", team2: "bahia", stadium: "Arena Condá", time: "11:00", score: "3 x 3" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "24ª Rodada", date: "23/08", team1: "vitoria", team2: "bahia", stadium: "Barradão", time: "16:00", score: "0 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "25ª Rodada", date: "30/08", team1: "bahia", team2: "internacional", stadium: "Arena Fonte Nova", time: "19:30", score: "3 x 2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "26ª Rodada", date: "05/09", team1: "bragantino", team2: "bahia", stadium: "Nabizão", time: "16:00", score: "2x3" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "27ª Rodada", date: "14/09", team1: "bahia", team2: "remo", stadium: "Arena Fonte Nova", time: "20:00", score: "2x1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "28ª Rodada", date: "20/09", team1: "athletico-pr", team2: "bahia", stadium: "Ligga Arena", time: "19:30", score: "2x1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "29ª Rodada", date: "08/10", team1: "palmeiras", team2: "bahia", stadium: "Nubank Parque", time: "21:30", score: "1x0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "30ª Rodada", date: "11/10", team1: "bahia", team2: "mirassol", stadium: "Arena Fonte Nova", time: "19:30", score: "1x0" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "31ª Rodada", date: "18/10", team1: "bahia", team2: "flamengo", stadium: "Arena Fonte Nova", time: "18:30", score: "0x3" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "1x1" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "3x2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "3x2" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "21/11", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "17:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "28/11", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "21:00", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
 
   // MASCULINO — LIBERTADORES
   { id: cryptoId(), category: "masculino", comp: "libertadores", round: "2ª Fase (Ida)", date: "18/02", year: "2026", team1: "o-higgins", team2: "bahia", stadium: "El Teniente", time: "19:00", score: "1 x 0" },
@@ -119,10 +126,10 @@ const listaAtualizadaDeGames = [
   // MASCULINO — BAIANO
   { id: cryptoId(), category: "masculino", comp: "baiano", round: "Final", date: "07/03", year: "2026", team1: "bahia", team2: "vitoria", stadium: "Arena Fonte Nova", time: "17:00", score: "2 x 1" },
 
-  // ==========================================
+   // ==========================================
   // JOGOS DA TEMPORADA 2027
   // ==========================================
-
+ 
   // MASCULINO — BAIANO
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "1ª rodada", date: "10/01", year: "2027", team1: "bahia", team2: "ssafc", stadium: "Arena Fonte Nova", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "2ª rodada", date: "13/01", year: "2027", team1: "jacuipense", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
@@ -134,55 +141,69 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "8ª rodada", date: "14/02", year: "2027", team1: "barcelona-ba", team2: "bahia", stadium: "A definir", time: "a definir", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" }
 ];
-
-let games = StorageUtils.get("bahia_games", null);
-
-// Sincroniza e remove duplicatas de forma estrita baseada nos dados oficiais
-(function inicializarJogosUnicos() {
-  const jogosArmazenados = games || [];
-  const chaveUnica = g => [
-    g.category || "masculino",
-    g.year || "2026",
-    String(g.comp || "").trim().toLowerCase(),
-    String(g.round || "").trim().toLowerCase(),
-    g.date,
-    g.team1,
-    g.team2
-  ].join("|");
-
-  const mapaUnicos = new Map();
-
-  // Primeiro adiciona os jogos padrões da lista atualizada oficial
-  listaAtualizadaDeGames.forEach(g => {
-    mapaUnicos.set(chaveUnica(g), g);
-  });
-
-  // Depois mescla com os do localStorage (caso o usuário tenha cadastrado novos jogos manualmente)
-  jogosArmazenados.forEach(g => {
-    const chave = chaveUnica(g);
-    if (!mapaUnicos.has(chave)) {
-      mapaUnicos.set(chave, g);
+ 
+let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
+ 
+// Jogos da temporada 2027 que estão no código mas ainda não existem no
+// localStorage do usuário (evita que dados salvos "escondam" os jogos novos).
+(function mergeJogos2027() {
+  const semSufixo = c => String(c || "").replace(/ 27$/, "");
+  games.forEach(g => {
+    if (g.year === "2027" && (g.category || "masculino") === "masculino" && g.comp && !/ 27$/.test(g.comp)) {
+      g.comp = g.comp + " 27";
     }
   });
-
-  games = Array.from(mapaUnicos.values());
+  const chave = g => [g.category || "masculino", semSufixo(g.comp), g.round, g.date, g.year || "2026"].join("|");
+  const existentes = new Set(games.map(chave));
+  const novos = listaAtualizadaDeGames.filter(g => g.year === "2027" && !existentes.has(chave(g)));
+  games = games.concat(novos);
   StorageUtils.set("bahia_games", games);
 })();
-
+ 
+/* ===========================================================
+   AJUSTES DE JOGOS JÁ SALVOS NO NAVEGADOR
+   O site guarda os jogos no localStorage de cada aparelho, e essa cópia tem
+   prioridade sobre o código. Quando você corrigir data/hora/estádio de um jogo
+   no código, adicione um ajuste aqui (com um "id" novo e único): ele é aplicado
+   UMA vez em cada aparelho e depois deixa você editar o jogo normalmente.
+   =========================================================== */
+const AJUSTES_JOGOS = [
+  { id: "2026-brasileiro-35-hora-2130", comp: "brasileiro", round: "35ª Rodada", year: "2026", set: { time: "21:30" } },
+  { id: "2026-brasileiro-36-hora-1730", comp: "brasileiro", round: "36ª Rodada", year: "2026", set: { time: "17:30" } },
+];
+ 
+(function aplicarAjustesJogos() {
+  const aplicados = StorageUtils.get("bahia_ajustes_aplicados", []) || [];
+  let mudou = false;
+ 
+  AJUSTES_JOGOS.forEach(a => {
+    if (aplicados.includes(a.id)) return;
+    games.forEach(g => {
+      if ((g.category || "masculino") === "masculino" && g.comp === a.comp &&
+          g.round === a.round && (g.year || "2026") === a.year) {
+        Object.assign(g, a.set);
+        mudou = true;
+      }
+    });
+    aplicados.push(a.id);
+  });
+ 
+  if (mudou) StorageUtils.set("bahia_games", games);
+  StorageUtils.set("bahia_ajustes_aplicados", aplicados);
+})();
+ 
 let editingGameId = null;
 let activeCategory = "masculino";
 let activeSeason = "2026";
-let activeView = "calendario"; // 'calendario' | 'classificacao'
-let activeClassificacaoComp = "baiano"; // 'baiano' | 'brasileiro' | 'libertadores'
-
+ 
 function saveGames() {
   StorageUtils.set("bahia_games", games);
 }
-
+ 
 /* ===========================================================
    3. MAPEAMENTO DE ESCUDOS E EQUIPES
    =========================================================== */
-
+ 
 const teamLogos = {
   "bahia": "img/bahia.png",
   "vitoria": "img/vitoria.png",
@@ -215,7 +236,7 @@ const teamLogos = {
   "ssafc": "img/ssa_fc.png",
   "juazeirense" : "img/juazeirense.png"
 };
-
+ 
 function getTeam(slug) {
   if (!slug) return { name: "Desconhecido", logo: "img/default.png" };
   const name = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
@@ -224,47 +245,20 @@ function getTeam(slug) {
 }
 
 /* ===========================================================
-   3.1 DADOS DA CLASSIFICAÇÃO EXCLUSIVA 2027
-   =========================================================== */
-
-const classificacao2027Padrao = {
-  baiano: [
-    { slug: "bahia", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "barcelona-ba", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "flu de feira", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "galicia", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "jacuipense", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "jequie", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "juazeirense", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "porto", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "ssafc", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 },
-    { slug: "vitoria", p: 0, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0 }
-  ],
-  brasileiro: null,
-  libertadores: null
-};
-
-let dadosClassificacao2027 = StorageUtils.get("bahia_classificacao_2027", classificacao2027Padrao);
-
-function salvarClassificacao2027() {
-  StorageUtils.set("bahia_classificacao_2027", dadosClassificacao2027);
-}
-
-/* ===========================================================
    4. COMPETIÇÕES
    =========================================================== */
 
 const COMPS_MASCULINO = [
-  { id: "todos",        label: "Todos" },
-  { id: "brasileiro",   label: "Brasileiro Série A" },
+  { id: "todos",       label: "Todos" },
+  { id: "brasileiro",  label: "Brasileiro Série A" },
   { id: "libertadores", label: "Libertadores" },
-  { id: "copas",        label: "Copas", match: ["copadobrasil", "copadonordeste"] },
-  { id: "estadual",     label: "Baiano", match: ["baiano"] },
-  { id: "amistoso",     label: "Amistosos" },
+  { id: "copas",       label: "Copas", match: ["copadobrasil", "copadonordeste"] },
+  { id: "estadual",    label: "Baiano", match: ["baiano"] },
+  { id: "amistoso",    label: "Amistosos" },
 ];
 
 const COMPS_MASCULINO_2027 = [
-  { id: "todos",           label: "Todos" },
+  { id: "todos",        label: "Todos" },
   { id: "brasileiro 27",   label: "Brasileiro Série A 27", match: [ "brasileiro 27"] },
   { id: "libertadores 27", label: "Libertadores 27",       match: [ "libertadores 27"] },
   { id: "copas 27",        label: "Copas",                 match: [ "copadobrasil 27",  "copadonordeste 27"] },
@@ -278,7 +272,42 @@ const mandos = [
   { id: "fora", label: "Fora de Casa" }
 ];
 
+const posicoesCompeticao = {
+  "todos": "6º",
+  "brasileiro": "6º",
+  "libertadores": "Caiu na 2ª Fase",
+  "copas": "Caiu nas oitavas",
+  "estadual": "Campeão",
+  "amistoso": "-"
+};
+
+/* Resumo de FIM DA TEMPORADA 2026 (aparece no lugar do "Próximo Jogo" quando
+   todos os jogos de 2026 já tiverem placar).
+   - posicao: deixe "" para usar a posição do Brasileiro em posicoesCompeticao.
+   - vaga: escreva o resultado exato quando estiver confirmado, por exemplo:
+       "Libertadores 2027 — fase de grupos"
+       "Libertadores 2027 — fase pre-Libertadores"
+       "Sul-Americana 2027"
+       "Sem vaga em competição continental"
+       "Rebaixado para a Série B"
+     Se deixar "", o app sugere pelo regulamento base (G-4 grupos, 5º preliminar),
+     mas isso pode mudar conforme as finais continentais e a Copa do Brasil. */
+const fimTemporada2026 = {
+  posicao: "",
+  vaga: ""
+};
+
+const posicoesCompeticao2027 = {
+  "todos": "-",
+  "brasileiro 27": "-",
+  "libertadores 27": "-",
+  "copas 27": "-",
+  "estadual 27": "-",
+  "amistoso 27": "-"
+};
+
 function getActiveComps() {
+  if (activeCategory === "feminino") return COMPS_FEMININO;
   return activeSeason === "2027" ? COMPS_MASCULINO_2027 : COMPS_MASCULINO;
 }
 
@@ -288,7 +317,7 @@ let activeMandoFilter = "todos";
 let searchTerm = "";
 
 /* ===========================================================
-   5. FILTRAGEM DE JOGOS E NAVEGAÇÃO ENTRE VIEWS
+   5. FILTRAGEM DE JOGOS
    =========================================================== */
 
 function gamesForTab(tabId) {
@@ -296,7 +325,7 @@ function gamesForTab(tabId) {
                   .filter(g => (g.year || "2026") === activeSeason);
 
   if (tabId !== "todos") {
-    const currentComps = getActiveComps();
+    const currentComps = typeof getActiveComps === "function" ? getActiveComps() : COMPS_MASCULINO;
     const comp = currentComps.find(c => c.id === tabId);
 
     if (comp && comp.match) {
@@ -306,174 +335,15 @@ function gamesForTab(tabId) {
     }
   }
 
-  if (activeMandoFilter === "casa") {
-    list = list.filter(g => g.team1 === "bahia");
-  } else if (activeMandoFilter === "fora") {
-    list = list.filter(g => g.team2 === "bahia");
+  if (typeof activeMandoFilter !== "undefined") {
+    if (activeMandoFilter === "casa") {
+      list = list.filter(g => g.team1 === "bahia");
+    } else if (activeMandoFilter === "fora") {
+      list = list.filter(g => g.team2 === "bahia");
+    }
   }
 
   return list;
-}
-
-function toggleViewClassificacao(view) {
-  activeView = view;
-  renderApp();
-}
-
-function setClassificacaoComp(comp) {
-  activeClassificacaoComp = comp;
-  renderPainelClassificacao2027();
-}
-
-function garantirBotaoClassificacaoMenu() {
-  const nav = document.getElementById("tabsNav") || document.querySelector("header") || document.body;
-  let btnWrap = document.getElementById("btnClassificacao2027Wrap");
-
-  if (!btnWrap) {
-    btnWrap = document.createElement("div");
-    btnWrap.id = "btnClassificacao2027Wrap";
-    btnWrap.className = "flex justify-end mb-4 px-2";
-    const targetParent = document.getElementById("heroNext")?.parentNode || document.body;
-    targetParent.insertBefore(btnWrap, document.getElementById("heroNext"));
-  }
-
-  if (activeSeason !== "2027") {
-    btnWrap.classList.add("hidden");
-    return;
-  }
-
-  btnWrap.classList.remove("hidden");
-  btnWrap.innerHTML = `
-    <div class="inline-flex rounded-xl bg-navy-900/90 border border-white/10 p-1 gap-1 shadow-lg">
-      <button onclick="toggleViewClassificacao('calendario')" class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-        activeView === "calendario" ? "bg-gold text-navy-950" : "text-slate-400 hover:text-white"
-      }">
-        📅 Jogos & Agenda
-      </button>
-      <button onclick="toggleViewClassificacao('classificacao')" class="px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
-        activeView === "classificacao" ? "bg-gold text-navy-950" : "text-slate-400 hover:text-white"
-      }">
-        🏆 Classificação 2027
-      </button>
-    </div>
-  `;
-}
-
-function renderPainelClassificacao2027() {
-  let sec = document.getElementById("secaoClassificacaoExclusiva2027");
-  if (!sec) {
-    sec = document.createElement("section");
-    sec.id = "secaoClassificacaoExclusiva2027";
-    sec.className = "max-w-4xl mx-auto px-3 sm:px-0 py-4 rise-in";
-    const targetParent = document.getElementById("listsWrap")?.parentNode || document.body;
-    targetParent.appendChild(sec);
-  }
-
-  if (activeSeason !== "2027" || activeView !== "classificacao") {
-    sec.classList.add("hidden");
-    return;
-  }
-
-  sec.classList.remove("hidden");
-
-  const abasTorneios = [
-    { id: "baiano", label: "Baiano 2027" },
-    { id: "brasileiro", label: "Brasileiro Série A 2027" },
-    { id: "libertadores", label: "Libertadores 2027" }
-  ];
-
-  const dadosAtuais = dadosClassificacao2027[activeClassificacaoComp];
-  let conteudoTabela = "";
-
-  if (!dadosAtuais) {
-    conteudoTabela = `
-      <div class="text-center py-12 text-slate-400">
-        <p class="text-base font-semibold text-slate-300">⏳ Classificação não disponível no momento</p>
-        <p class="text-xs text-slate-500 mt-1">Os dados para este torneio ainda não foram divulgados ou cadastrados para 2027.</p>
-      </div>
-    `;
-  } else {
-    const tabelaAtual = [...dadosAtuais].sort((a, b) => {
-      if (b.p !== a.p) return b.p - a.p;
-      if (b.v !== a.v) return b.v - a.v;
-      const sgA = a.gp - a.gc;
-      const sgB = b.gp - b.gc;
-      if (sgB !== sgA) return sgB - sgA;
-      return b.gp - a.gp;
-    });
-
-    conteudoTabela = `
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="border-b border-white/10 text-[11px] font-mono uppercase text-slate-400">
-              <th class="py-3 px-2 w-10 text-center">#</th>
-              <th class="py-3 px-2">Time</th>
-              <th class="py-3 px-2 text-center text-white font-bold">P</th>
-              <th class="py-3 px-2 text-center">J</th>
-              <th class="py-3 px-2 text-center">V</th>
-              <th class="py-3 px-2 text-center">E</th>
-              <th class="py-3 px-2 text-center">D</th>
-              <th class="py-3 px-2 text-center">GP</th>
-              <th class="py-3 px-2 text-center">GC</th>
-              <th class="py-3 px-2 text-center">SG</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/5 text-xs sm:text-sm">
-            ${tabelaAtual.map((item, idx) => {
-              const team = getTeam(item.slug);
-              const sg = item.gp - item.gc;
-              const isBahia = item.slug === "bahia";
-              return `
-                <tr class="${isBahia ? "bg-blue-950/40 font-semibold" : "hover:bg-white/[0.02]"} transition-colors">
-                  <td class="py-3 px-2 text-center font-mono text-slate-400">${idx + 1}</td>
-                  <td class="py-3 px-2">
-                    <div class="flex items-center gap-2.5">
-                      <img src="${team.logo}" alt="${team.name}" class="w-6 h-6 object-contain shrink-0">
-                      <span class="font-display ${isBahia ? "text-gold" : "text-slate-200"} truncate">${team.name}</span>
-                    </div>
-                  </td>
-                  <td class="py-3 px-2 text-center font-mono font-bold text-white">${item.p}</td>
-                  <td class="py-3 px-2 text-center font-mono text-slate-300">${item.j}</td>
-                  <td class="py-3 px-2 text-center font-mono text-emerald-400">${item.v}</td>
-                  <td class="py-3 px-2 text-center font-mono text-slate-400">${item.e}</td>
-                  <td class="py-3 px-2 text-center font-mono text-red-400">${item.d}</td>
-                  <td class="py-3 px-2 text-center font-mono text-slate-300">${item.gp}</td>
-                  <td class="py-3 px-2 text-center font-mono text-slate-300">${item.gc}</td>
-                  <td class="py-3 px-2 text-center font-mono ${sg > 0 ? "text-emerald-400" : sg < 0 ? "text-red-400" : "text-slate-400"}">
-                    ${sg > 0 ? "+" + sg : sg}
-                  </td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-
-  sec.innerHTML = `
-    <div class="rounded-2xl border border-white/10 bg-navy-900/80 backdrop-blur-md p-4 sm:p-6 shadow-xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
-        <div>
-          <span class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Tabela Oficial</span>
-          <h2 class="font-display text-xl sm:text-2xl text-white font-bold">CLASSIFICAÇÃO 2027</h2>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          ${abasTorneios.map(t => `
-            <button onclick="setClassificacaoComp('${t.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
-              activeClassificacaoComp === t.id
-                ? "bg-gold/15 border-gold text-gold shadow-sm"
-                : "border-white/10 bg-navy-950/60 text-slate-400 hover:text-white"
-            }">
-              ${t.label}
-            </button>
-          `).join("")}
-        </div>
-      </div>
-      ${conteudoTabela}
-    </div>
-  `;
 }
 
 function renderApp() {
@@ -487,26 +357,21 @@ function renderApp() {
   const btnAdd = document.getElementById("btnAddGame");
   const btnAddMobile = document.getElementById("btnAddGameMobile");
 
-  garantirBotaoClassificacaoMenu();
-
-  const isClassificacao2027 = (activeSeason === "2027" && activeView === "classificacao");
   const hasSeasonGames = games.some(g => (g.year || "2026") === activeSeason);
-  const isFutureSeason = !hasSeasonGames && !isClassificacao2027;
+  const isFutureSeason = !hasSeasonGames;
 
   if (emptyCard) emptyCard.classList.toggle("hidden", !isFutureSeason);
-  if (heroNext) heroNext.classList.toggle("hidden", isFutureSeason || isClassificacao2027);
-  if (dashboardSection) dashboardSection.classList.toggle("hidden", isFutureSeason || isClassificacao2027);
-  if (progressWrap) progressWrap.classList.toggle("hidden", isFutureSeason || isClassificacao2027);
-  if (tabsNav) tabsNav.classList.toggle("hidden", isFutureSeason || isClassificacao2027);
-  if (subFilterBar) subFilterBar.classList.toggle("hidden", isFutureSeason || isClassificacao2027);
-  if (listsWrap) listsWrap.classList.toggle("hidden", isFutureSeason || isClassificacao2027);
+  if (heroNext) heroNext.classList.toggle("hidden", isFutureSeason);
+  if (dashboardSection) dashboardSection.classList.toggle("hidden", isFutureSeason);
+  if (progressWrap) progressWrap.classList.toggle("hidden", isFutureSeason);
+  if (tabsNav) tabsNav.classList.toggle("hidden", isFutureSeason);
+  if (subFilterBar) subFilterBar.classList.toggle("hidden", isFutureSeason);
+  if (listsWrap) listsWrap.classList.toggle("hidden", isFutureSeason);
 
-  if (btnAdd) btnAdd.style.display = (isFutureSeason || isClassificacao2027) ? "none" : "";
-  if (btnAddMobile) btnAddMobile.style.display = (isFutureSeason || isClassificacao2027) ? "none" : "";
+  if (btnAdd) btnAdd.style.display = isFutureSeason ? "none" : "";
+  if (btnAddMobile) btnAddMobile.style.display = isFutureSeason ? "none" : "";
 
-  renderPainelClassificacao2027();
-
-  if (isClassificacao2027 || isFutureSeason) {
+  if (isFutureSeason) {
     if (countdownInterval) clearInterval(countdownInterval);
     return;
   }
@@ -517,7 +382,6 @@ function renderApp() {
 function setSeason(season) {
   activeSeason = season;
   activeTab = "todos";
-  activeView = "calendario";
 
   const btn2026 = document.getElementById("btnSeason2026");
   const btn2027 = document.getElementById("btnSeason2027");
@@ -541,13 +405,42 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
   if (jogados.length === 0) return null;
 
   const stats = {
-    totalJogados: 0, vitoria: 0, empate: 0, derrota: 0,
-    golsPro: 0, golsContra: 0, saldoGols: 0,
-    casa_jogados: 0, casa_vitoria: 0, casa_empate: 0, casa_derrota: 0, casa_golsPro: 0, casa_golsContra: 0, casa_pontos: 0, casa_aproveitamento: 0,
-    fora_jogados: 0, fora_vitoria: 0, fora_empate: 0, fora_derrota: 0, fora_golsPro: 0, fora_golsContra: 0, fora_pontos: 0, fora_aproveitamento: 0,
-    cleanSheets: 0, ataqueBranco: 0, ambasMarcam: 0,
-    ultimosJogos: [], maiorSequenciaVitorias: 0, maiorSequenciaInvencibilidade: 0,
-    mediaGolsPro: 0, mediaGolsContra: 0,
+    totalJogados: 0,
+    vitoria: 0,
+    empate: 0,
+    derrota: 0,
+    golsPro: 0,
+    golsContra: 0,
+    saldoGols: 0,
+    
+    casa_jogados: 0,
+    casa_vitoria: 0,
+    casa_empate: 0,
+    casa_derrota: 0,
+    casa_golsPro: 0,
+    casa_golsContra: 0,
+    casa_pontos: 0,
+    casa_aproveitamento: 0,
+    
+    fora_jogados: 0,
+    fora_vitoria: 0,
+    fora_empate: 0,
+    fora_derrota: 0,
+    fora_golsPro: 0,
+    fora_golsContra: 0,
+    fora_pontos: 0,
+    fora_aproveitamento: 0,
+    
+    cleanSheets: 0,
+    ataqueBranco: 0,
+    ambasMarcam: 0,
+    
+    ultimosJogos: [],
+    maiorSequenciaVitorias: 0,
+    maiorSequenciaInvencibilidade: 0,
+    
+    mediaGolsPro: 0,
+    mediaGolsContra: 0,
   };
 
   jogados.forEach(jogo => {
@@ -561,9 +454,16 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
       const golsAdv = bahiaEmCasa ? s2 : s1;
 
       let resultado = '';
-      if (golsBahia > golsAdv) { stats.vitoria++; resultado = 'V'; }
-      else if (golsBahia < golsAdv) { stats.derrota++; resultado = 'D'; }
-      else { stats.empate++; resultado = 'E'; }
+      if (golsBahia > golsAdv) {
+        stats.vitoria++;
+        resultado = 'V';
+      } else if (golsBahia < golsAdv) {
+        stats.derrota++;
+        resultado = 'D';
+      } else {
+        stats.empate++;
+        resultado = 'E';
+      }
 
       stats.ultimosJogos.push(resultado);
       stats.totalJogados++;
@@ -574,16 +474,28 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
         stats.casa_jogados++;
         stats.casa_golsPro += golsBahia;
         stats.casa_golsContra += golsAdv;
-        if (golsBahia > golsAdv) { stats.casa_vitoria++; stats.casa_pontos += 3; }
-        else if (golsBahia === golsAdv) { stats.casa_empate++; stats.casa_pontos += 1; }
-        else { stats.casa_derrota++; }
+        if (golsBahia > golsAdv) {
+          stats.casa_vitoria++;
+          stats.casa_pontos += 3;
+        } else if (golsBahia === golsAdv) {
+          stats.casa_empate++;
+          stats.casa_pontos += 1;
+        } else {
+          stats.casa_derrota++;
+        }
       } else {
         stats.fora_jogados++;
         stats.fora_golsPro += golsBahia;
         stats.fora_golsContra += golsAdv;
-        if (golsBahia > golsAdv) { stats.fora_vitoria++; stats.fora_pontos += 3; }
-        else if (golsBahia === golsAdv) { stats.fora_empate++; stats.fora_pontos += 1; }
-        else { stats.fora_derrota++; }
+        if (golsBahia > golsAdv) {
+          stats.fora_vitoria++;
+          stats.fora_pontos += 3;
+        } else if (golsBahia === golsAdv) {
+          stats.fora_empate++;
+          stats.fora_pontos += 1;
+        } else {
+          stats.fora_derrota++;
+        }
       }
 
       if (golsAdv === 0) stats.cleanSheets++;
@@ -592,13 +504,22 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
     }
   });
 
-  if (stats.ultimosJogos.length > 5) stats.ultimosJogos = stats.ultimosJogos.slice(-5);
+  if (stats.ultimosJogos.length > 5) {
+    stats.ultimosJogos = stats.ultimosJogos.slice(-5);
+  }
 
   stats.saldoGols = stats.golsPro - stats.golsContra;
   stats.mediaGolsPro = stats.totalJogados ? (stats.golsPro / stats.totalJogados).toFixed(2) : 0;
   stats.mediaGolsContra = stats.totalJogados ? (stats.golsContra / stats.totalJogados).toFixed(2) : 0;
-  stats.casa_aproveitamento = stats.casa_jogados ? ((stats.casa_vitoria * 3 + stats.casa_empate) / (stats.casa_jogados * 3) * 100).toFixed(1) : 0;
-  stats.fora_aproveitamento = stats.fora_jogados ? ((stats.fora_vitoria * 3 + stats.fora_empate) / (stats.fora_jogados * 3) * 100).toFixed(1) : 0;
+
+  stats.casa_aproveitamento = stats.casa_jogados
+    ? ((stats.casa_vitoria * 3 + stats.casa_empate) / (stats.casa_jogados * 3) * 100).toFixed(1)
+    : 0;
+
+  stats.fora_aproveitamento = stats.fora_jogados
+    ? ((stats.fora_vitoria * 3 + stats.fora_empate) / (stats.fora_jogados * 3) * 100).toFixed(1)
+    : 0;
+
   stats.maiorSequenciaVitorias = calcularMaiorSequencia(stats.ultimosJogos, 'V');
   stats.maiorSequenciaInvencibilidade = calcularMaiorSequencia(stats.ultimosJogos, ['V', 'E']);
 
@@ -608,11 +529,18 @@ function calcularEstatisticasAvancadas(filtroComp = 'todos') {
 function calcularMaiorSequencia(resultados, filtro) {
   if (resultados.length === 0) return 0;
   const filtroArray = Array.isArray(filtro) ? filtro : [filtro];
-  let maiorSeq = 0, seqAtual = 0;
+  let maiorSeq = 0;
+  let seqAtual = 0;
+
   resultados.forEach(r => {
-    if (filtroArray.includes(r)) { seqAtual++; maiorSeq = Math.max(maiorSeq, seqAtual); }
-    else { seqAtual = 0; }
+    if (filtroArray.includes(r)) {
+      seqAtual++;
+      maiorSeq = Math.max(maiorSeq, seqAtual);
+    } else {
+      seqAtual = 0;
+    }
   });
+
   return maiorSeq;
 }
 
@@ -621,46 +549,170 @@ function renderizarEstatisticasAvancadas() {
   if (!container) return;
 
   const stats = calcularEstatisticasAvancadas(activeTab === 'todos' ? 'todos' : activeTab);
+
   if (!stats) {
-    container.innerHTML = `<div class="text-center py-8 text-slate-400 text-sm"><p>⏳ Nenhum jogo com placar definido ainda</p></div>`;
+    container.innerHTML = `
+      <div class="text-center py-8 text-slate-400 text-sm">
+        <p>⏳ Nenhum jogo com placar definido ainda</p>
+      </div>
+    `;
     return;
   }
 
   container.innerHTML = `
     <div class="space-y-4">
       <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-gold"></span> Desempenho e Mando de Campo
+        <span class="w-2 h-2 rounded-full bg-gold"></span>
+        📊 Desempenho e Mando de Campo
       </h3>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">📍 Em Casa</p>
           <div class="space-y-1.5 text-xs">
-            <div class="flex justify-between items-center"><span class="text-slate-400">Jogos:</span><span class="text-sm font-bold text-white">${stats.casa_jogados}</span></div>
-            <div class="flex justify-between items-center"><span class="text-slate-400">Apr:</span><span class="text-sm font-bold text-gold">${stats.casa_aproveitamento}%</span></div>
-            <div class="flex justify-between items-center"><span class="text-slate-400">Pontos:</span><span class="text-sm font-bold text-emerald-400">${stats.casa_pontos}</span></div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Jogos:</span>
+              <span class="text-sm font-bold text-white">${stats.casa_jogados}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Apr:</span>
+              <span class="text-sm font-bold text-gold">${stats.casa_aproveitamento}%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Pontos:</span>
+              <span class="text-sm font-bold text-emerald-400">${stats.casa_pontos}</span>
+            </div>
           </div>
         </div>
+
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">🛣️ Fora de Casa</p>
           <div class="space-y-1.5 text-xs">
-            <div class="flex justify-between items-center"><span class="text-slate-400">Jogos:</span><span class="text-sm font-bold text-white">${stats.fora_jogados}</span></div>
-            <div class="flex justify-between items-center"><span class="text-slate-400">Apr:</span><span class="text-sm font-bold text-gold">${stats.fora_aproveitamento}%</span></div>
-            <div class="flex justify-between items-center"><span class="text-slate-400">Pontos:</span><span class="text-sm font-bold text-emerald-400">${stats.fora_pontos}</span></div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Jogos:</span>
+              <span class="text-sm font-bold text-white">${stats.fora_jogados}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Apr:</span>
+              <span class="text-sm font-bold text-gold">${stats.fora_aproveitamento}%</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Pontos:</span>
+              <span class="text-sm font-bold text-emerald-400">${stats.fora_pontos}</span>
+            </div>
           </div>
         </div>
+
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">🛡️ Defesa</p>
           <div class="space-y-1.5 text-xs">
-            <div class="flex justify-between items-center"><span class="text-slate-400">Clean Sheets:</span><span class="text-sm font-bold text-emerald-400">${stats.cleanSheets}</span></div>
-            <div class="flex justify-between items-center"><span class="text-slate-400">Média GC:</span><span class="text-sm font-bold text-slate-300">${stats.mediaGolsContra}</span></div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Clean Sheets:</span>
+              <span class="text-sm font-bold text-emerald-400">${stats.cleanSheets}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Média GC:</span>
+              <span class="text-sm font-bold text-slate-300">${stats.mediaGolsContra}</span>
+            </div>
           </div>
         </div>
+
         <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
           <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">⚽ Ataque</p>
           <div class="space-y-1.5 text-xs">
-            <div class="flex justify-between items-center"><span class="text-slate-400">Ataque Branco:</span><span class="text-sm font-bold text-red-400">${stats.ataqueBranco}</span></div>
-            <div class="flex justify-between items-center"><span class="text-slate-400">Média GP:</span><span class="text-sm font-bold text-amber-400">${stats.mediaGolsPro}</span></div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Ataque Branco:</span>
+              <span class="text-sm font-bold text-red-400">${stats.ataqueBranco}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Média GP:</span>
+              <span class="text-sm font-bold text-amber-400">${stats.mediaGolsPro}</span>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-4 mt-6">
+      <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-gold"></span>
+        🎯 Gols e Saldo
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="bg-blue-900/20 border border-blue-700/40 rounded-xl p-4 text-center">
+          <p class="text-[10px] text-blue-300 uppercase tracking-wider font-semibold mb-2">Gols Marcados</p>
+          <p class="font-display text-3xl font-bold text-blue-300">${stats.golsPro}</p>
+        </div>
+
+        <div class="bg-red-900/20 border border-red-700/40 rounded-xl p-4 text-center">
+          <p class="text-[10px] text-red-300 uppercase tracking-wider font-semibold mb-2">Gols Sofridos</p>
+          <p class="font-display text-3xl font-bold text-red-300">${stats.golsContra}</p>
+        </div>
+
+        <div class="bg-emerald-900/20 border border-emerald-700/40 rounded-xl p-4 text-center">
+          <p class="text-[10px] text-emerald-300 uppercase tracking-wider font-semibold mb-2">Saldo</p>
+          <p class="font-display text-3xl font-bold ${stats.saldoGols >= 0 ? 'text-emerald-400' : 'text-red-400'}">
+            ${stats.saldoGols >= 0 ? '+' : ''}${stats.saldoGols}
+          </p>
+        </div>
+
+        <div class="bg-purple-900/20 border border-purple-700/40 rounded-xl p-4 text-center">
+          <p class="text-[10px] text-purple-300 uppercase tracking-wider font-semibold mb-2">Ambas Marcam</p>
+          <p class="font-display text-3xl font-bold text-purple-300">${stats.ambasMarcam}</p>
+        </div>
+
+        <div class="bg-slate-900/20 border border-slate-700/40 rounded-xl p-4 text-center col-span-2">
+          <p class="text-[10px] text-slate-300 uppercase tracking-wider font-semibold mb-2">Média de Gols/Jogo</p>
+          <p class="space-x-2">
+            <span class="font-display text-2xl font-bold text-blue-400">${stats.mediaGolsPro}</span>
+            <span class="text-slate-500">×</span>
+            <span class="font-display text-2xl font-bold text-red-400">${stats.mediaGolsContra}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-4 mt-6">
+      <h3 class="font-display text-sm text-slate-400 uppercase tracking-wider font-semibold flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-gold"></span>
+        📈 Sequências e Forma Recente
+      </h3>
+      
+      <div class="bg-navy-900/60 border border-navy-700/60 rounded-xl p-4">
+        <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mb-3">Últimos ${stats.ultimosJogos.length} Jogos</p>
+        <div class="flex justify-center gap-2">
+          ${stats.ultimosJogos.map((resultado) => {
+            let corBg = '';
+            let corTexto = '';
+            if (resultado === 'V') {
+              corBg = 'bg-emerald-500/20 border-emerald-500/50';
+              corTexto = 'text-emerald-400';
+            } else if (resultado === 'E') {
+              corBg = 'bg-slate-500/20 border-slate-500/50';
+              corTexto = 'text-slate-300';
+            } else {
+              corBg = 'bg-red-500/20 border-red-500/50';
+              corTexto = 'text-red-400';
+            }
+            return `
+              <div class="w-10 h-10 rounded-lg border ${corBg} flex items-center justify-center" title="${resultado === 'V' ? 'Vitória' : resultado === 'E' ? 'Empate' : 'Derrota'}">
+                <span class="font-display font-bold text-sm ${corTexto}">${resultado}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-emerald-900/20 border border-emerald-700/40 rounded-xl p-4">
+          <p class="text-[10px] text-emerald-300 uppercase tracking-wider font-semibold mb-2">Maior Seq. Vitórias</p>
+          <p class="font-display text-3xl font-bold text-emerald-400">${stats.maiorSequenciaVitorias}</p>
+          <p class="text-[10px] text-slate-500 mt-1">jogos</p>
+        </div>
+
+        <div class="bg-blue-900/20 border border-blue-700/40 rounded-xl p-4">
+          <p class="text-[10px] text-blue-300 uppercase tracking-wider font-semibold mb-2">Invencibilidade (V+E)</p>
+          <p class="font-display text-3xl font-bold text-blue-400">${stats.maiorSequenciaInvencibilidade}</p>
+          <p class="text-[10px] text-slate-500 mt-1">jogos</p>
         </div>
       </div>
     </div>
@@ -684,12 +736,15 @@ function startCountdown(nextGameDate, timeStr, gameYear) {
   const targetTime = new Date(year, m - 1, d, hh, mm, 0).getTime();
 
   function update() {
-    const diff = targetTime - new Date().getTime();
+    const now = new Date().getTime();
+    const diff = targetTime - now;
+
     if (diff <= 0) {
       timerEl.innerHTML = `<span class="text-gold font-bold">Jogo em andamento ou encerrado!</span>`;
       clearInterval(countdownInterval);
       return;
     }
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -703,6 +758,7 @@ function startCountdown(nextGameDate, timeStr, gameYear) {
         <span class="bg-navy-950/80 px-2 py-1 rounded border border-white/10 font-bold">${String(seconds).padStart(2, '0')}s</span>
       </div>`;
   }
+
   update();
   countdownInterval = setInterval(update, 1000);
 }
@@ -713,12 +769,73 @@ function getNextGame() {
     .sort((a, b) => parseDate(a.date, a.year) - parseDate(b.date, b.year))[0] || null;
 }
 
+function jogoJaDisputado(g) {
+  return !!g.score && g.score.trim().toLowerCase() !== "x";
+}
+
+// Todos os jogos masculinos de 2026 já têm placar
+function temporada2026Encerrada() {
+  const lista = games.filter(g => (g.category || "masculino") === "masculino" && (g.year || "2026") === "2026");
+  return lista.length > 0 && lista.every(jogoJaDisputado);
+}
+
+function vagaFimTemporada2026(pos) {
+  if (fimTemporada2026.vaga) return { texto: fimTemporada2026.vaga, provisorio: false };
+  if (!pos) return { texto: "Vaga a confirmar", provisorio: true };
+  if (pos <= 4) return { texto: "Libertadores 2027 — fase de grupos", provisorio: true };
+  if (pos === 5) return { texto: "Libertadores 2027 — fase pre Libertadores", provisorio: true };
+  if (pos >= 17) return { texto: "Rebaixado para a Série B", provisorio: false };
+  return { texto: "Sem vaga na Libertadores pelo regulamento base", provisorio: true };
+}
+
+function renderResumoFimTemporada(box) {
+  if (countdownInterval) clearInterval(countdownInterval);
+
+  const posTxt = fimTemporada2026.posicao || posicoesCompeticao["brasileiro"] || "-";
+  const posNum = parseInt(posTxt, 10) || 0;
+  const vaga = vagaFimTemporada2026(posNum);
+
+  let cor = "text-slate-300";
+  if (/sem vaga|rebaix|a confirmar/i.test(vaga.texto)) cor = /rebaix/i.test(vaga.texto) ? "text-red-400" : "text-slate-300";
+  else if (/libertadores/i.test(vaga.texto)) cor = "text-emerald-400";
+  else if (/sul-americana/i.test(vaga.texto)) cor = "text-blue-400";
+
+  box.classList.remove("hidden");
+  box.innerHTML = `
+    <div class="ticket next-game rise-in rounded-2xl border border-navy-600/60 px-4 sm:px-8 py-5 sm:py-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-8 bg-navy-900/80 backdrop-blur-md">
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="w-2.5 h-2.5 rounded-full bg-gold"></span>
+        <span class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Fim da temporada 2026</span>
+      </div>
+      <div class="flex items-center gap-4 flex-1 justify-center w-full min-w-0">
+        <div class="text-center">
+          <p class="text-[10px] uppercase tracking-wider text-slate-400 mb-1">Posição final · Brasileiro Série A</p>
+          <p class="font-display text-4xl sm:text-5xl font-semibold text-gold leading-none">${posTxt}</p>
+        </div>
+      </div>
+      <div class="text-center sm:text-right shrink-0 max-w-xs">
+        <p class="font-display text-sm sm:text-base font-semibold ${cor}">${vaga.texto}</p>
+        ${vaga.provisorio ? '<p class="text-[11px] text-slate-500 mt-1">Pode mudar conforme a redistribuição de vagas das finais continentais.</p>' : ""}
+      </div>
+    </div>`;
+}
+
 function renderHero() {
   const box = document.getElementById("heroNext");
   if (!box) return;
 
+  if (activeSeason === "2026" && activeCategory === "masculino" && temporada2026Encerrada()) {
+    renderResumoFimTemporada(box);
+    return;
+  }
+
   const next = getNextGame();
-  if (!next) { box.innerHTML = ""; box.classList.add("hidden"); if (countdownInterval) clearInterval(countdownInterval); return; }
+  if (!next) { 
+    box.innerHTML = ""; 
+    box.classList.add("hidden"); 
+    if (countdownInterval) clearInterval(countdownInterval);
+    return; 
+  }
   
   box.classList.remove("hidden");
   const t1 = getTeam(next.team1), t2 = getTeam(next.team2);
@@ -756,10 +873,145 @@ function renderHero() {
    8. DASHBOARD DE ESTATÍSTICAS BÁSICAS
    =========================================================== */
 
+function computeStats(list) {
+  const jogados = list.filter(g => g.score && g.score.trim().toLowerCase() !== "x");
+  
+  let v = 0, e = 0, d = 0, gp = 0, gc = 0;
+  let jogosSemSofrerGols = 0;
+  let vCasa = 0, eCasa = 0, dCasa = 0, pontosCasa = 0;
+  let vFora = 0, eFora = 0, dFora = 0, pontosFora = 0;
+  
+  const resultados = [];
+  let streakVitoriasAtual = 0, maxVitorias = 0;
+  let streakInvencivelAtual = 0, maxInvencivel = 0;
+
+  jogados.forEach(g => {
+    const cleanScore = g.score.split("(")[0].trim();
+    const scores = cleanScore.toLowerCase().split("x").map(s => parseInt(s.trim(), 10));
+
+    if (scores.length === 2 && !isNaN(scores[0]) && !isNaN(scores[1])) {
+      const [s1, s2] = scores;
+      const bahEmCasa = g.team1 === "bahia";
+      const golsBah = bahEmCasa ? s1 : s2;
+      const golsAdv = bahEmCasa ? s2 : s1;
+
+      gp += golsBah; 
+      gc += golsAdv;
+
+      if (golsAdv === 0) jogosSemSofrerGols++;
+
+      if (golsBah > golsAdv) {
+        v++;
+        resultados.push("V");
+        if (bahEmCasa) vCasa++; else vFora++;
+        streakVitoriasAtual++;
+        if (streakVitoriasAtual > maxVitorias) maxVitorias = streakVitoriasAtual;
+        streakInvencivelAtual++;
+        if (streakInvencivelAtual > maxInvencivel) maxInvencivel = streakInvencivelAtual;
+
+      } else if (golsBah === golsAdv) {
+        e++;
+        resultados.push("E");
+        if (bahEmCasa) eCasa++; else eFora++;
+        streakVitoriasAtual = 0;
+        streakInvencivelAtual++;
+        if (streakInvencivelAtual > maxInvencivel) maxInvencivel = streakInvencivelAtual;
+
+      } else {
+        d++;
+        resultados.push("D");
+        if (bahEmCasa) dCasa++; else dFora++;
+        streakVitoriasAtual = 0;
+        streakInvencivelAtual = 0;
+      }
+    }
+  });
+
+  const totalJogados = jogados.length;
+  const pontos = (v * 3) + e;
+  const saldoGols = gp - gc;
+  const mediaGolsPro = totalJogados ? (gp / totalJogados).toFixed(2) : "0.00";
+  const aproveitamento = totalJogados ? Math.round((pontos / (totalJogados * 3)) * 100) : 0;
+  const posicao = (activeSeason === "2027" ? posicoesCompeticao2027 : posicoesCompeticao)[activeTab] || "-";
+
+  const totalCasa = vCasa + eCasa + dCasa;
+  pontosCasa = (vCasa * 3) + eCasa;
+  const aproveitamentoCasa = totalCasa ? Math.round((pontosCasa / (totalCasa * 3)) * 100) : 0;
+
+  const totalFora = vFora + eFora + dFora;
+  pontosFora = (vFora * 3) + eFora;
+  const aproveitamentoFora = totalFora ? Math.round((pontosFora / (totalFora * 3)) * 100) : 0;
+
+  const ultimos5 = resultados.slice(-5);
+
+  return { 
+    v, e, d, gp, gc, pontos, aproveitamento, totalJogados, posicao, 
+    saldoGols, mediaGolsPro, jogosSemSofrerGols,
+    ultimos5, maxVitorias, maxInvencivel,
+    pontosCasa, aproveitamentoCasa, totalCasa,
+    pontosFora, aproveitamentoFora, totalFora
+  };
+}
+
+function renderFormaRecente(ultimos5) {
+  if (!ultimos5 || ultimos5.length === 0) return '<span class="text-slate-500 text-sm">-</span>';
+
+  return `
+    <div class="flex items-center justify-center gap-1 mt-1">
+      ${ultimos5.map(res => {
+        let bgClass = "bg-slate-700 text-slate-300";
+        if (res === "V") bgClass = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        if (res === "E") bgClass = "bg-slate-500/20 text-slate-300 border border-slate-500/30";
+        if (res === "D") bgClass = "bg-red-500/20 text-red-400 border border-red-500/30";
+        
+        return `<span class="w-6 h-6 rounded-full text-[11px] font-bold flex items-center justify-center ${bgClass}">${res}</span>`;
+      }).join("")}
+    </div>
+  `;
+}
+
+function statCard(label, value, colorClass) {
+  return `
+    <div class="stat-card bg-navy-900/60 border border-white/5 rounded-xl px-3 sm:px-4 py-3.5 text-center flex flex-col justify-center items-center">
+      <p class="text-[10px] uppercase tracking-wider text-slate-400 mb-1.5">${label}</p>
+      <div class="font-display text-xl sm:text-2xl font-semibold ${colorClass}">${value}</div>
+    </div>`;
+}
+
 function renderDashboard() {
+  const list = gamesForTab(activeTab);
+  const s = computeStats(list);
   const compLabel = getActiveComps().find(c => c.id === activeTab)?.label || "Geral";
+
   const titleEl = document.getElementById("dashboardTitle");
   if (titleEl) titleEl.textContent = `Desempenho · ${compLabel}`;
+
+  const isBrasileiro = activeTab === "brasileiro" || activeTab === "brasileiro 27" || activeTab === "brasileiro_fem";
+
+  const saldoFormatado = s.saldoGols > 0 ? `+${s.saldoGols}` : s.saldoGols;
+  const corSaldo = s.saldoGols > 0 ? "text-emerald-400" : (s.saldoGols < 0 ? "text-red-400" : "text-slate-300");
+
+  const gridEl = document.getElementById("statGrid");
+  if (gridEl) {
+    gridEl.innerHTML = `
+      ${statCard("Posição", s.posicao, "text-gold")}
+      ${isBrasileiro ? statCard("Pontos", `${s.pontos} <span class="text-xs text-slate-400">pts</span>`, "text-gold") : ""}
+      ${statCard("Jogos", s.totalJogados, "text-slate-200")}
+      ${statCard("Aproveitamento Geral", s.aproveitamento + "%", "text-gold")}
+      ${statCard("Aprov. Casa", s.aproveitamentoCasa + "%", "text-emerald-400")}
+      ${statCard("Aprov. Fora", s.aproveitamentoFora + "%", "text-blue-400")}
+      ${isBrasileiro ? statCard("Pontos Casa / Fora", `${s.pontosCasa} <span class="text-slate-500 text-sm">/</span> ${s.pontosFora}`, "text-gold") : ""}
+      ${statCard("Triunfos", s.v, "text-emerald-400")}
+      ${statCard("Empates", s.e, "text-slate-300")}
+      ${statCard("Derrotas", s.d, "text-red-400")}
+      ${statCard("Forma Recente", renderFormaRecente(s.ultimos5), "")}
+      ${statCard("Gols Pró / Contra", `${s.gp} <span class="text-slate-500 text-sm">/</span> ${s.gc}`, "text-blue-400")}
+      ${statCard("Saldo de Gols", saldoFormatado, corSaldo)}
+      ${statCard("Maior Seq. Triunfos", `${s.maxVitorias} <span class="text-xs text-slate-400">jogos</span>`, "text-emerald-400")}
+      ${statCard("Maior Invencibilidade", `${s.maxInvencivel} <span class="text-xs text-slate-400">jogos</span>`, "text-gold")}
+    `;
+  }
+
   renderizarEstatisticasAvancadas();
 }
 
@@ -819,6 +1071,7 @@ function renderSubFilters() {
     btn.onclick = () => { activeSub = o.id; render(); };
     bar.appendChild(btn);
   });
+
   renderMandoFilters();
 }
 
@@ -828,7 +1081,9 @@ function renderMandoFilters() {
 
   mandoContainer.innerHTML = mandos.map(m => `
     <button onclick="setMandoFilter('${m.id}')" class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
-      activeMandoFilter === m.id ? "bg-navy-800 text-gold border-gold" : "border-navy-700/50 text-slate-400 hover:text-slate-200"
+      activeMandoFilter === m.id 
+        ? "bg-navy-800 text-gold border-gold" 
+        : "border-navy-700/50 text-slate-400 hover:text-slate-200"
     }">
       ${m.label}
     </button>
@@ -845,10 +1100,11 @@ function renderCard(g, isNext) {
   const t1 = getTeam(g.team1), t2 = getTeam(g.team2);
   const compObj = getActiveComps().find(c => c.id === g.comp || (c.match && c.match.includes(g.comp)));
   const compLabel = compObj ? compObj.label : g.comp;
+
   const exibeCentro = played ? g.score : (g.time || "--:--");
 
   return `
-  <div class="ticket ${isNext ? "border-gold" : "border-white/10"} bg-navy-900/65 backdrop-blur-md rise-in rounded-xl overflow-hidden flex border group mb-3">
+  <div class="ticket ${isNext ? "border-gold" : "border-white/10"} bg-navy-900/60 backdrop-blur-md rise-in rounded-xl overflow-hidden flex border group mb-3">
     <div class="w-20 sm:w-28 shrink-0 flex flex-col items-center justify-center py-4 bg-navy-950/50">
       <span class="font-mono text-[10px] text-slate-400 uppercase">${fmtLongDate(g.date, g.year).split(" ")[0]}</span>
       <span class="font-display text-xl sm:text-2xl text-white font-semibold leading-none mt-0.5">${g.date.split("/")[0]}</span>
@@ -861,23 +1117,31 @@ function renderCard(g, isNext) {
           ${isNext ? '<span class="ml-2 text-gold">★ Próximo</span>' : ""}
         </p>
         <div class="flex items-center gap-1 opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-          <button onclick="editGame('${g.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar jogo">✏️</button>
-          <button onclick="deleteGame('${g.id}')" class="text-slate-500 hover:text-red-400 p-1" title="Remover jogo">🗑️</button>
+          <button onclick="editGame('${g.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar jogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button onclick="deleteGame('${g.id}')" class="text-slate-500 hover:text-red-400 p-1" title="Remover jogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+          </button>
         </div>
       </div>
+
       <div class="flex items-center justify-between my-2">
         <div class="flex items-center gap-2 flex-1 min-w-0">
           <img src="${t1.logo}" alt="${t1.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0">
           <span class="font-display text-xs sm:text-sm text-slate-200 truncate">${t1.name}</span>
         </div>
+
         <div class="px-3 py-1 rounded bg-navy-950 font-mono text-sm font-bold text-white shrink-0 border border-white/5 flex items-center justify-center">
           ${exibeCentro}
         </div>
+
         <div class="flex items-center gap-2 flex-1 min-w-0 justify-end">
           <span class="font-display text-xs sm:text-sm text-slate-200 truncate text-right">${t2.name}</span>
           <img src="${t2.logo}" alt="${t2.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0">
         </div>
       </div>
+
       <p class="text-[11px] text-slate-400 font-mono">${g.stadium || "Estádio não informado"}</p>
     </div>
   </div>`;
@@ -910,18 +1174,30 @@ function renderLists() {
     const totalVisible = (activeSub === "recentes" ? recentes.length : activeSub === "proximos" ? proximos.length : list.length);
     emptyState.classList.toggle("hidden", totalVisible > 0);
   }
+
+  renderJogosInteresse();
+  renderClassificacao();
+}
+
+/* ===========================================================
+   8.1 BUSCA DE JOGOS DO BAHIA
+   =========================================================== */
+
+function normalizarTexto(str) {
+  return String(str || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 function jogoCombinaComBusca(g) {
-  const termos = String(searchTerm || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/\s+/).filter(Boolean);
+  const termos = normalizarTexto(searchTerm).split(/\s+/).filter(Boolean);
   if (!termos.length) return true;
+
   const compObj = getActiveComps().find(c => c.id === g.comp || (c.match && c.match.includes(g.comp)));
-  const texto = String([
+  const texto = normalizarTexto([
     getTeam(g.team1).name, g.team1,
     getTeam(g.team2).name, g.team2,
     compObj ? compObj.label : g.comp,
     g.round, g.stadium, g.date, g.score
-  ].join(" ")).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  ].join(" "));
 
   return termos.every(t => texto.includes(t));
 }
@@ -945,13 +1221,609 @@ function initBuscaJogos() {
 }
 
 /* ===========================================================
-   9. TEMA E CATEGORIAS
+   8.2 JOGOS DA RODADA QUE INTERESSAM AO BAHIA
+   =========================================================== */
+
+const rodadaInteresse = {
+  rodada: "35-36",
+  jogos: [
+    { id: "r35_j1", mandante: "mirassol", visitante: "atletico-mg", data: "Sabado, 14/11", hora: "18:30", estadio: "Maião" },
+    { id: "r35_j2", mandante: "coritiba", visitante: "santos", data: "Quarta-Feira, 18/11", hora: "19:30", estadio: "Couto Pereira" },
+    { id: "r35_j3", mandante: "flamengo", visitante: "athletico-pr", data: "Quarta-Feira, 18/11", hora: "20:30", estadio: "Maracanã" },
+    { id: "r35_j4", mandante: "cruzeiro", visitante: "palmeiras", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Minerão" },
+    { id: "r35_j5", mandante: "sao-paulo", visitante: "fluminense", data: "Quinta-feira, 19/11", hora: "21:30", estadio: "Morumbis" },
+    { id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sabado, 21/11", hora: "16:30", estadio: "Nubank Parque" },
+    { id: "r36_j2", mandante: "chapecoense", visitante: "cruzeiro", data: "Sabado, 21/11", hora: "21:00", estadio: "Arena Condá" },
+    { id: "r36_j3", mandante: "athletico-pr", visitante: "remo", data: "Domingo, 22/11", hora: "16:00", estadio: "Arena da Baixada" },
+    { id: "r36_j4", mandante: "fluminense", visitante: "mirassol", data: "Domingo, 22/11", hora: "18:30", estadio: "Maracanã" },
+    { id: "r36_j5", mandante: "santos", visitante: "gremio", data: "Domingo, 22/11", hora: "21:00", estadio: "Morumbis" },
+    { id: "r36_j6", mandante: "atletico-mg", visitante: "corinthians", data: "Quarta-Feira, 25/11", hora: "20:00", estadio: "Arena MRV" },
+    { id: "r37_j1", mandante: "vitoria", visitante: "santos", data: "Sabado, 29/11", hora: "16:00", estadio: "Barradão" },
+    { id: "r37_j2", mandante: "atletico-mg", visitante: "vasco", data: "Sabado, 29/11", hora: "19:30", estadio: "Arena MRV" },
+    { id: "r37_j3", mandante: "mirassol", visitante: "athletico-pr", data: "Domingo, 29/11", hora: "18:30:", estadio: "Maião" },
+    { id: "r37_j4", mandante: "fluminense", visitante: "cruzeiro", data: "Domingo, 27/11", hora: "20:00", estadio: "Maracanã" },
+    { id: "r38_j1", mandante: "cruzeiro", visitante: "internacional", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Minerão" },
+    { id: "r38_j2", mandante: "athletico-pr", visitante: "sao-paulo", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Arena da Baixada" },
+    { id: "r38_j3", mandante: "bragantino", visitante: "fluminense", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Estádio Cicero (Bragança Paulista)" },
+    { id: "r38_j4", mandante: "santos", visitante: "botafogo", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Vila Belmiro" },
+  ]
+};
+
+const RODADAS_INTERESSE = String(rodadaInteresse.rodada).match(/\d+/g).map(Number);
+
+function rotuloRodadas() {
+  const r = RODADAS_INTERESSE;
+  if (r.length === 1) return `Rodada ${r[0]}`;
+  return `Rodadas ${r.slice(0, -1).join(", ")} e ${r[r.length - 1]}`;
+}
+
+const CLUBES_INTERESSE = [
+  "athletico-pr", "atletico-mg", "botafogo", "bragantino", "chapecoense", "corinthians",
+  "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional",
+  "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
+];
+
+// Lista exclusiva de clubes de interesse para 2027
+const CLUBES_INTERESSE_2027 = [
+  "athletico-pr", "atletico-mg", "botafogo", "bragantino", "corinthians",
+  "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional",
+  "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
+];
+
+function obterClubesInteresse() {
+  return interesseAno() === "2027" ? CLUBES_INTERESSE_2027 : CLUBES_INTERESSE;
+}
+
+function normalizarJogoInteresse(j) {
+  const m = (j.data || "").match(/\d{2}\/\d{2}/);
+  const mr = /^r(\d+)_/.exec(j.id || "");
+  return {
+    id: j.id || cryptoId(),
+    rodada: Number(j.rodada) || (mr ? Number(mr[1]) : RODADAS_INTERESSE[0]),
+    mandante: j.mandante,
+    visitante: j.visitante,
+    date: j.date || (m ? m[0] : ""),
+    hora: j.hora || "",
+    estadio: j.estadio || "",
+    m: j.m != null ? String(j.m) : "",
+    v: j.v != null ? String(j.v) : ""
+  };
+}
+
+const CHAVE_INTERESSE = `bahia_jogos_interesse_r${RODADAS_INTERESSE.join("-")}`;
+
+function carregarJogosInteresse() {
+  const seed = rodadaInteresse.jogos.map(normalizarJogoInteresse);
+  const salvo = StorageUtils.get(CHAVE_INTERESSE, null);
+  if (salvo) return salvo.map(normalizarJogoInteresse);
+
+  const antigo = StorageUtils.get("bahia_jogos_interesse_r35", null);
+  if (!antigo) return seed;
+
+  const chave = j => j.mandante + "|" + j.visitante;
+  const porChave = new Map(antigo.map(j => [chave(j), j]));
+  const mesclado = seed.map(j => {
+    const a = porChave.get(chave(j));
+    return a ? { ...j, ...a, id: j.id, rodada: j.rodada } : j;
+  });
+  const naSeed = new Set(seed.map(chave));
+  antigo.forEach(a => {
+    if (!naSeed.has(chave(a)) && a.mandante !== "bahia" && a.visitante !== "bahia") {
+      mesclado.push(normalizarJogoInteresse({ ...a, rodada: a.rodada || 33 }));
+    }
+  });
+  return mesclado;
+}
+
+let jogosInteresse = carregarJogosInteresse();
+let jogoInteresseEditando = null;
+
+const CHAVE_INTERESSE_2027 = "bahia_jogos_interesse_2027";
+let jogosInteresse2027 = (StorageUtils.get(CHAVE_INTERESSE_2027, []) || []).map(normalizarJogoInteresse);
+
+function interesseAno() {
+  return activeSeason === "2027" ? "2027" : "2026";
+}
+
+function listaInteresse() {
+  return interesseAno() === "2027" ? jogosInteresse2027 : jogosInteresse;
+}
+
+function definirListaInteresse(lista) {
+  if (interesseAno() === "2027") jogosInteresse2027 = lista;
+  else jogosInteresse = lista;
+}
+
+function rodadasDisponiveisInteresse() {
+  if (interesseAno() === "2027") return Array.from({ length: 38 }, (_, i) => i + 1);
+  return [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
+}
+
+function salvarJogosInteresse() {
+  if (interesseAno() === "2027") StorageUtils.set(CHAVE_INTERESSE_2027, jogosInteresse2027);
+  else StorageUtils.set(CHAVE_INTERESSE, jogosInteresse);
+}
+
+function proximoJogoBrasileiroDoBahia() {
+  return games
+    .filter(g => (g.category || "masculino") === "masculino" && (g.year || "2026") === "2026" && g.comp === "brasileiro")
+    .filter(g => !g.score || g.score.trim().toLowerCase() === "x")
+    .sort((a, b) => parseDate(a.date, a.year) - parseDate(b.date, b.year))[0] || null;
+}
+
+function renderCardInteresse(j) {
+  const t1 = getTeam(j.mandante), t2 = getTeam(j.visitante);
+  const temPlacar = j.m !== "" && j.v !== "";
+  const centro = temPlacar ? `${j.m} x ${j.v}` : (j.hora || "--:--");
+  const longa = j.date ? fmtLongDate(j.date, interesseAno()) : "";
+  const diaSemana = longa.split(" ")[0] || "";
+  const mes = longa.split(" ").slice(1).join(" ");
+  const dia = j.date ? j.date.split("/")[0] : "--";
+
+  return `
+  <div class="ticket border-white/10 bg-navy-900/60 backdrop-blur-md rise-in rounded-xl overflow-hidden flex border group mb-3">
+    <div class="w-20 sm:w-28 shrink-0 flex flex-col items-center justify-center py-4 bg-navy-950/50">
+      <span class="font-mono text-[10px] text-slate-400 uppercase">${diaSemana}</span>
+      <span class="font-display text-xl sm:text-2xl text-white font-semibold leading-none mt-0.5">${dia}</span>
+      <span class="font-mono text-[10px] text-slate-400 uppercase mt-0.5">${mes}</span>
+    </div>
+    <div class="flex-1 px-3 sm:px-5 py-4 min-w-0 flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <p class="text-[10px] sm:text-[11px] font-semibold text-gold uppercase tracking-wider truncate mr-1">
+          Brasileiro Série A <span class="text-slate-400 font-normal">• ${j.rodada}ª Rodada</span>
+        </p>
+        <div class="flex items-center gap-1 opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+          <button onclick="abrirModalInteresse('${j.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar jogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button onclick="removerJogoInteresse('${j.id}')" class="text-slate-500 hover:text-red-400 p-1" title="Remover jogo">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between my-2">
+        <div class="flex items-center gap-2 flex-1 min-w-0">
+          <img src="${t1.logo}" alt="${t1.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0">
+          <span class="font-display text-xs sm:text-sm text-slate-200 truncate">${t1.name}</span>
+        </div>
+        <div class="px-3 py-1 rounded bg-navy-950 font-mono text-sm font-bold text-white shrink-0 border border-white/5 flex items-center justify-center">${centro}</div>
+        <div class="flex items-center gap-2 flex-1 min-w-0 justify-end">
+          <span class="font-display text-xs sm:text-sm text-slate-200 truncate text-right">${t2.name}</span>
+          <img src="${t2.logo}" alt="${t2.name}" class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0">
+        </div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 font-mono">${j.estadio || "Estádio não informado"}${temPlacar && j.hora ? " · " + j.hora : ""}</p>
+    </div>
+  </div>`;
+}
+
+function renderJogosInteresse() {
+  const listsWrap = document.getElementById("listsWrap");
+  if (!listsWrap) return;
+
+  let sec = document.getElementById("jogosInteresse");
+  if (!sec) {
+    sec = document.createElement("section");
+    sec.id = "jogosInteresse";
+    sec.className = "mt-6";
+    listsWrap.appendChild(sec);
+  }
+
+  // Força a exibição no mobile/Vercel sempre que estiver na categoria Masculino e sem busca ativa
+  const e2027 = interesseAno() === "2027";
+  if (searchTerm.trim() || activeCategory !== "masculino") {
+    sec.classList.add("hidden");
+    sec.innerHTML = "";
+    return;
+  }
+
+  const ano = interesseAno();
+  const outros = listaInteresse()
+    .filter(j => j.mandante !== "bahia" && j.visitante !== "bahia")
+    .sort((a, b) => {
+      const da = a.date ? parseDate(a.date, ano) : 0, db = b.date ? parseDate(b.date, ano) : 0;
+      return (da - db) || String(a.hora).localeCompare(String(b.hora));
+    });
+
+  sec.classList.remove("hidden");
+  sec.innerHTML = `
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">${e2027 ? "Brasileiro 2027" : rotuloRodadas()} · jogos que interessam ao Bahia</h3>
+      <button onclick="abrirModalInteresse()" class="text-[11px] font-semibold text-gold hover:text-white transition-colors">+ Adicionar jogo</button>
+    </div>
+    ${outros.length ? outros.map(renderCardInteresse).join("") : '<p class="text-xs text-slate-500">Nenhum jogo cadastrado.</p>'}`;
+}
+
+function removerJogoInteresse(id) {
+  definirListaInteresse(listaInteresse().filter(j => j.id !== id));
+  salvarJogosInteresse();
+  renderJogosInteresse();
+}
+
+function garantirModalInteresse() {
+  let ov = document.getElementById("modalInteresse");
+  if (ov) return ov;
+
+  const clubesAtuais = obterClubesInteresse();
+  const opts = clubesAtuais.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
+  const rodadasSelect = [...new Set([...RODADAS_INTERESSE, 35, 36, 37, 38])].sort((x, y) => x - y);
+  const optsRodada = rodadasSelect.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
+  const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
+  const rotulo = "block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1";
+
+  ov = document.createElement("div");
+  ov.id = "modalInteresse";
+  ov.style.display = "none";
+  ov.className = "fixed inset-0 z-50 items-center justify-center p-4 bg-black/70";
+  ov.innerHTML = `
+    <form class="w-full max-w-md rounded-2xl border border-white/10 bg-navy-900 p-5 max-h-full overflow-y-auto">
+      <h3 id="iTitulo" class="font-display text-lg text-white mb-4">Editar jogo</h3>
+      <div class="mb-3"><label class="${rotulo}">Rodada</label><select id="iRodada" class="${campo}">${optsRodada}</select></div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="${rotulo}">Mandante</label><select id="iMandante" class="${campo}">${opts}</select></div>
+        <div><label class="${rotulo}">Visitante</label><select id="iVisitante" class="${campo}">${opts}</select></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label class="${rotulo}">Data</label><input id="iData" type="date" class="${campo}"></div>
+        <div><label class="${rotulo}">Hora</label><input id="iHora" type="time" class="${campo}"></div>
+      </div>
+      <div class="mb-3"><label class="${rotulo}">Estádio</label><input id="iEstadio" type="text" class="${campo}"></div>
+      <div class="mb-2">
+        <label class="${rotulo}">Resultado (deixe vazio se não jogou)</label>
+        <div class="flex items-center gap-2">
+          <input id="iGolsM" type="text" inputmode="numeric" maxlength="2" placeholder="-" class="${campo} text-center">
+          <span class="text-slate-500">x</span>
+          <input id="iGolsV" type="text" inputmode="numeric" maxlength="2" placeholder="-" class="${campo} text-center">
+        </div>
+      </div>
+      <p id="iErro" class="text-xs text-red-400 min-h-[1rem] mb-2"></p>
+      <div class="flex gap-2">
+        <button type="button" id="iCancelar" class="flex-1 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 bg-navy-950/50 text-slate-300 hover:text-white">Cancelar</button>
+        <button type="submit" class="flex-1 py-2 rounded-xl text-xs font-semibold bg-gold text-navy-950">Salvar jogo</button>
+      </div>
+    </form>`;
+  document.body.appendChild(ov);
+
+  ov.addEventListener("click", (e) => { if (e.target === ov) fecharModalInteresse(); });
+  ov.querySelector("#iCancelar").addEventListener("click", fecharModalInteresse);
+  ["iGolsM", "iGolsV"].forEach(id => {
+    ov.querySelector("#" + id).addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/\D/g, "").slice(0, 2);
+    });
+  });
+
+  ov.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = id => ov.querySelector("#" + id);
+    const mandante = q("iMandante").value, visitante = q("iVisitante").value;
+
+    if (mandante === visitante) {
+      q("iErro").textContent = "Escolha dois times diferentes.";
+      return;
+    }
+    q("iErro").textContent = "";
+
+    const raw = q("iData").value;
+    const date = raw ? `${raw.split("-")[2]}/${raw.split("-")[1]}` : "";
+    const jogo = {
+      id: jogoInteresseEditando || cryptoId(),
+      rodada: Number(q("iRodada").value),
+      mandante, visitante, date,
+      hora: q("iHora").value,
+      estadio: q("iEstadio").value.trim(),
+      m: q("iGolsM").value,
+      v: q("iGolsV").value
+    };
+
+    const lista = listaInteresse();
+    const i = lista.findIndex(x => x.id === jogoInteresseEditando);
+    if (i !== -1) lista[i] = jogo; else lista.push(jogo);
+
+    salvarJogosInteresse();
+    fecharModalInteresse();
+    renderJogosInteresse();
+  });
+
+  return ov;
+}
+
+function abrirModalInteresse(id) {
+  const ov = garantirModalInteresse();
+  const q = sel => ov.querySelector("#" + sel);
+  
+  const clubesAtuais = obterClubesInteresse();
+  const opts = clubesAtuais.map(s => `<option value="${s}">${getTeam(s).name}</option>`).join("");
+  q("iMandante").innerHTML = opts;
+  q("iVisitante").innerHTML = opts;
+
+  const j = id ? listaInteresse().find(x => x.id === id) : null;
+  const rodadas = rodadasDisponiveisInteresse();
+  jogoInteresseEditando = j ? j.id : null;
+
+  q("iTitulo").textContent = j ? "Editar jogo" : "Adicionar jogo";
+  q("iErro").textContent = "";
+  q("iRodada").innerHTML = rodadas.map(r => `<option value="${r}">${r}ª Rodada</option>`).join("");
+  q("iRodada").value = String(j ? j.rodada : (interesseAno() === "2027" ? rodadas[0] : RODADAS_INTERESSE[RODADAS_INTERESSE.length - 1]));
+  q("iMandante").value = j ? j.mandante : clubesAtuais[0];
+  q("iVisitante").value = j ? j.visitante : clubesAtuais[1];
+  q("iHora").value = j ? j.hora : "";
+  q("iEstadio").value = j ? j.estadio : "";
+  q("iGolsM").value = j ? j.m : "";
+  q("iGolsV").value = j ? j.v : "";
+  if (j && j.date) {
+    const [d, m] = j.date.split("/");
+    q("iData").value = `${interesseAno()}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  } else {
+    q("iData").value = "";
+  }
+
+  ov.style.display = "flex";
+}
+
+function fecharModalInteresse() {
+  jogoInteresseEditando = null;
+  const ov = document.getElementById("modalInteresse");
+  if (ov) ov.style.display = "none";
+}
+
+/* ===========================================================
+   8.3 CLASSIFICAÇÃO — TEMPORADA 2027
+   Tabela editável (aparece só em 2027). O Baiano já vem com os 10 times
+   dos jogos cadastrados; o Brasileiro começa vazio (clubes ainda não definidos).
+   Pontos, jogos e saldo são calculados sozinhos a partir de V / E / D / GP / GC.
+   =========================================================== */
+
+const CHAVE_CLASSIFICACAO_2027 = "bahia_classificacao_2027";
+const COMPS_CLASSIFICACAO_2027 = [
+  { id: "estadual 27",   label: "Baiano" },
+  { id: "brasileiro 27", label: "Brasileiro Série A" },
+];
+
+let classifComp = "estadual 27";
+let classifEditando = null;
+
+function novaLinhaClassificacao(slug) {
+  return { id: "c_" + slug, time: slug, v: 0, e: 0, d: 0, gp: 0, gc: 0 };
+}
+
+function carregarClassificacao2027() {
+  const salvo = StorageUtils.get(CHAVE_CLASSIFICACAO_2027, null) || {};
+  if (!Array.isArray(salvo["estadual 27"])) {
+    const times = [...new Set(
+      games.filter(g => g.year === "2027" && g.comp === "baiano 27").flatMap(g => [g.team1, g.team2])
+    )];
+    salvo["estadual 27"] = times.map(novaLinhaClassificacao);
+  }
+  if (!Array.isArray(salvo["brasileiro 27"])) salvo["brasileiro 27"] = [];
+  return salvo;
+}
+
+let classificacao2027 = carregarClassificacao2027();
+
+function salvarClassificacao2027() {
+  StorageUtils.set(CHAVE_CLASSIFICACAO_2027, classificacao2027);
+}
+
+// Texto digitado -> slug (reaproveita a chave de teamLogos quando já existe)
+function resolverSlugTime(texto) {
+  const alvo = slugify(texto);
+  const achada = Object.keys(teamLogos).find(k => slugify(k) === alvo);
+  return achada || alvo;
+}
+
+function tabelaOrdenada(compId) {
+  return (classificacao2027[compId] || [])
+    .map(l => ({ ...l, j: l.v + l.e + l.d, p: l.v * 3 + l.e, sg: l.gp - l.gc }))
+    .sort((a, b) =>
+      (b.p - a.p) || (b.v - a.v) || (b.sg - a.sg) || (b.gp - a.gp) ||
+      getTeam(a.time).name.localeCompare(getTeam(b.time).name));
+}
+
+function setClassifComp(id) {
+  classifComp = id;
+  renderClassificacao();
+}
+
+function renderClassificacao() {
+  const listsWrap = document.getElementById("listsWrap");
+  if (!listsWrap) return;
+
+  const visivel = activeSeason === "2027" && activeCategory === "masculino" && !searchTerm.trim();
+  let sec = document.getElementById("classificacao2027");
+
+  if (!visivel) {
+    if (sec) { sec.classList.add("hidden"); sec.innerHTML = ""; }
+    return;
+  }
+
+  if (!sec) {
+    sec = document.createElement("section");
+    sec.id = "classificacao2027";
+    sec.className = "mt-6";
+    const ref = document.getElementById("jogosInteresse");
+    if (ref) listsWrap.insertBefore(sec, ref); else listsWrap.appendChild(sec);
+  }
+
+  const linhas = tabelaOrdenada(classifComp);
+  const pills = COMPS_CLASSIFICACAO_2027.map(c => `
+    <button onclick="setClassifComp('${c.id}')" class="text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
+      classifComp === c.id ? "bg-navy-800 text-gold border-gold" : "border-navy-700/50 text-slate-400 hover:text-slate-200"
+    }">${c.label}</button>`).join("");
+
+  const th = "px-2 py-2 text-center font-semibold";
+  const corpo = linhas.map((l, i) => {
+    const t = getTeam(l.time);
+    const ehBahia = l.time === "bahia";
+    const sg = l.sg > 0 ? `+${l.sg}` : l.sg;
+    return `
+      <tr class="border-t border-white/5 group ${ehBahia ? "bg-navy-800/60 text-gold" : "text-slate-200"}">
+        <td class="px-2 py-2 text-center font-mono">${i + 1}</td>
+        <td class="px-2 py-2">
+          <div class="flex items-center gap-2 min-w-[8rem]">
+            <img src="${t.logo}" alt="${t.name}" class="w-5 h-5 object-contain shrink-0">
+            <span class="font-display truncate">${t.name}</span>
+          </div>
+        </td>
+        <td class="${th} font-bold">${l.p}</td>
+        <td class="${th}">${l.j}</td>
+        <td class="${th}">${l.v}</td>
+        <td class="${th}">${l.e}</td>
+        <td class="${th}">${l.d}</td>
+        <td class="${th}">${l.gp}</td>
+        <td class="${th}">${l.gc}</td>
+        <td class="${th}">${sg}</td>
+        <td class="px-2 py-2 text-right whitespace-nowrap">
+          <button onclick="abrirModalClassificacao('${l.id}')" class="text-slate-400 hover:text-gold p-1" title="Editar time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button onclick="removerLinhaClassificacao('${l.id}')" class="text-slate-500 hover:text-red-400 p-1" title="Remover time">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+          </button>
+        </td>
+      </tr>`;
+  }).join("");
+
+  sec.classList.remove("hidden");
+  sec.innerHTML = `
+    <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
+      <h3 class="text-[11px] font-bold tracking-[0.2em] text-gold uppercase">Classificação 2027</h3>
+      <button onclick="abrirModalClassificacao()" class="text-[11px] font-semibold text-gold hover:text-white transition-colors">+ Adicionar time</button>
+    </div>
+    <div class="flex items-center gap-2 mb-3">${pills}</div>
+    ${linhas.length ? `
+    <div class="overflow-x-auto rounded-xl border border-white/10 bg-navy-900/60">
+      <table class="w-full text-xs sm:text-sm">
+        <thead>
+          <tr class="text-[10px] uppercase tracking-wider text-slate-400">
+            <th class="px-2 py-2 text-center">#</th>
+            <th class="px-2 py-2 text-left">Time</th>
+            <th class="${th}">P</th><th class="${th}">J</th><th class="${th}">V</th><th class="${th}">E</th>
+            <th class="${th}">D</th><th class="${th}">GP</th><th class="${th}">GC</th><th class="${th}">SG</th>
+            <th class="px-2 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>${corpo}</tbody>
+      </table>
+    </div>` : '<p class="text-xs text-slate-500">Nenhum time na tabela. Use "+ Adicionar time".</p>'}`;
+}
+
+function removerLinhaClassificacao(id) {
+  classificacao2027[classifComp] = (classificacao2027[classifComp] || []).filter(l => l.id !== id);
+  salvarClassificacao2027();
+  renderClassificacao();
+}
+
+function garantirModalClassificacao() {
+  let ov = document.getElementById("modalClassificacao");
+  if (ov) return ov;
+
+  const campo = "w-full px-3 py-2 rounded-lg bg-navy-950/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-gold";
+  const rotulo = "block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1";
+  const opcoes = Object.keys(teamLogos).map(k => `<option value="${getTeam(k).name}"></option>`).join("");
+  const num = (id, nome) => `<div><label class="${rotulo}">${nome}</label><input id="${id}" type="text" inputmode="numeric" maxlength="3" placeholder="0" class="${campo} text-center"></div>`;
+
+  ov = document.createElement("div");
+  ov.id = "modalClassificacao";
+  ov.style.display = "none";
+  ov.className = "fixed inset-0 z-50 items-center justify-center p-4 bg-black/70";
+  ov.innerHTML = `
+    <form class="w-full max-w-md rounded-2xl border border-white/10 bg-navy-900 p-5 max-h-full overflow-y-auto">
+      <h3 id="cTitulo" class="font-display text-lg text-white mb-4">Adicionar time</h3>
+      <div class="mb-3">
+        <label class="${rotulo}">Time</label>
+        <input id="cTime" type="text" list="cTimes" autocomplete="off" class="${campo}">
+        <datalist id="cTimes">${opcoes}</datalist>
+      </div>
+      <div class="grid grid-cols-3 gap-3 mb-3">${num("cV", "Vitórias")}${num("cE", "Empates")}${num("cD", "Derrotas")}</div>
+      <div class="grid grid-cols-2 gap-3 mb-3">${num("cGP", "Gols pró")}${num("cGC", "Gols contra")}</div>
+      <p class="text-[11px] text-slate-500 mb-2">Pontos, jogos e saldo são calculados automaticamente.</p>
+      <p id="cErro" class="text-xs text-red-400 min-h-[1rem] mb-2"></p>
+      <div class="flex gap-2">
+        <button type="button" id="cCancelar" class="flex-1 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 bg-navy-950/50 text-slate-300 hover:text-white">Cancelar</button>
+        <button type="submit" class="flex-1 py-2 rounded-xl text-xs font-semibold bg-gold text-navy-950">Salvar</button>
+      </div>
+    </form>`;
+  document.body.appendChild(ov);
+
+  ov.addEventListener("click", (e) => { if (e.target === ov) fecharModalClassificacao(); });
+  ov.querySelector("#cCancelar").addEventListener("click", fecharModalClassificacao);
+  ["cV", "cE", "cD", "cGP", "cGC"].forEach(id => {
+    ov.querySelector("#" + id).addEventListener("input", (e) => {
+      e.target.value = e.target.value.replace(/\D/g, "").slice(0, 3);
+    });
+  });
+
+  ov.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = id => ov.querySelector("#" + id);
+    const nome = q("cTime").value.trim();
+
+    if (!nome) { q("cErro").textContent = "Informe o time."; return; }
+
+    const slug = resolverSlugTime(nome);
+    const lista = classificacao2027[classifComp] || (classificacao2027[classifComp] = []);
+    if (lista.some(l => l.time === slug && l.id !== classifEditando)) {
+      q("cErro").textContent = "Esse time já está na tabela.";
+      return;
+    }
+    q("cErro").textContent = "";
+
+    const n = id => Math.max(0, parseInt(q(id).value, 10) || 0);
+    const linha = {
+      id: classifEditando || ("c_" + cryptoId()),
+      time: slug,
+      v: n("cV"), e: n("cE"), d: n("cD"), gp: n("cGP"), gc: n("cGC")
+    };
+
+    const i = lista.findIndex(l => l.id === classifEditando);
+    if (i !== -1) lista[i] = linha; else lista.push(linha);
+
+    salvarClassificacao2027();
+    fecharModalClassificacao();
+    renderClassificacao();
+  });
+
+  return ov;
+}
+
+function abrirModalClassificacao(id) {
+  const ov = garantirModalClassificacao();
+  const q = sel => ov.querySelector("#" + sel);
+  const l = id ? (classificacao2027[classifComp] || []).find(x => x.id === id) : null;
+  classifEditando = l ? l.id : null;
+
+  q("cTitulo").textContent = l ? "Editar time" : "Adicionar time";
+  q("cErro").textContent = "";
+  q("cTime").value = l ? getTeam(l.time).name : "";
+  q("cV").value = l ? l.v : "";
+  q("cE").value = l ? l.e : "";
+  q("cD").value = l ? l.d : "";
+  q("cGP").value = l ? l.gp : "";
+  q("cGC").value = l ? l.gc : "";
+
+  ov.style.display = "flex";
+}
+
+function fecharModalClassificacao() {
+  classifEditando = null;
+  const ov = document.getElementById("modalClassificacao");
+  if (ov) ov.style.display = "none";
+}
+
+/* ===========================================================
+   9. GERENCIAMENTO DE TEMA E CATEGORIAS
    =========================================================== */
 
 function initThemeToggle() {
   const themeBtn = document.getElementById("themeToggleBtn");
   const currentTheme = StorageUtils.get("bahia_theme", "dark");
-  if (currentTheme === "light") document.documentElement.classList.add("light-theme");
+
+  if (currentTheme === "light") {
+    document.documentElement.classList.add("light-theme");
+  }
+
   if (themeBtn) {
     themeBtn.addEventListener("click", () => {
       const isLight = document.documentElement.classList.toggle("light-theme");
@@ -959,6 +1831,31 @@ function initThemeToggle() {
     });
   }
 }
+
+function setCategory(category) {
+  activeCategory = category;
+  
+  const btnM = document.getElementById("btnCategoryMasculino");
+  const btnF = document.getElementById("btnCategoryFeminino");
+  
+  if (category === "masculino") {
+    if (btnM) btnM.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-gold text-navy-950 shadow-md";
+    if (btnF) btnF.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white";
+  } else {
+    if (btnF) btnF.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 bg-gold text-navy-950 shadow-md";
+    if (btnM) btnM.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 text-slate-400 hover:text-white";
+  }
+  
+  activeTab = "todos";
+  activeSub = "todos";
+  activeMandoFilter = "todos";
+  
+  renderApp();
+}
+
+/* ===========================================================
+   10. AÇÕES DOS JOGOS (EDIÇÃO & REMOÇÃO)
+   =========================================================== */
 
 function deleteGame(id) {
   games = games.filter(g => g.id !== id);
@@ -969,10 +1866,12 @@ function deleteGame(id) {
 function editGame(id) {
   const game = games.find(g => g.id === id);
   if (!game) return;
+
   editingGameId = id;
 
   const modalTitle = document.getElementById("modalTitle");
   const submitLabel = document.getElementById("submitLabel");
+
   if (modalTitle) modalTitle.textContent = "Editar jogo";
   if (submitLabel) submitLabel.textContent = "Atualizar jogo";
 
@@ -989,11 +1888,15 @@ function editGame(id) {
 
   const emCasa = game.team1 === "bahia";
   const rivalSlug = emCasa ? game.team2 : game.team1;
-  if (document.getElementById("fRival")) document.getElementById("fRival").value = getTeam(rivalSlug).name;
+  if (document.getElementById("fRival")) {
+    document.getElementById("fRival").value = getTeam(rivalSlug).name;
+  }
 
   document.querySelectorAll(".mando-btn").forEach(btn => {
     const isCasaBtn = btn.dataset.mando === "casa";
     const isActive = (emCasa && isCasaBtn) || (!emCasa && !isCasaBtn);
+
+    btn.classList.toggle("active", isActive);
     btn.className = isActive 
       ? "mando-btn active flex-1 py-2 rounded-xl text-xs font-semibold border border-rose-600 bg-rose-950/40 text-white transition-all"
       : "mando-btn flex-1 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 bg-navy-950/50 text-slate-300 hover:text-white transition-all";
@@ -1002,6 +1905,10 @@ function editGame(id) {
   const modal = document.getElementById("modalOverlay");
   if (modal) modal.classList.remove("hidden");
 }
+
+/* ===========================================================
+   11. RENDER GERAL E INICIALIZAÇÃO
+   =========================================================== */
 
 function render() {
   renderHero();
@@ -1012,10 +1919,50 @@ function render() {
   renderLists();
 }
 
+function initHamburgerMenu() {
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (hamburgerBtn && mobileMenu) {
+    const newBtn = hamburgerBtn.cloneNode(true);
+    hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
+
+    newBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex', !isHidden);
+
+      const svg = newBtn.querySelector('svg');
+      if (svg) {
+        if (!isHidden) {
+          svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+        } else {
+          svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        }
+      }
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initThemeToggle();
   renderApp();
   initBuscaJogos();
+  renderJogosInteresse();
+  initHamburgerMenu();
+
+  document.querySelectorAll(".mando-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".mando-btn").forEach(b => {
+        b.classList.remove("active");
+        b.className = "mando-btn flex-1 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 bg-navy-950/50 text-slate-300 hover:text-white transition-all";
+      });
+
+      btn.classList.add("active");
+      btn.className = "mando-btn active flex-1 py-2 rounded-xl text-xs font-semibold border border-rose-600 bg-rose-950/40 text-white transition-all";
+    });
+  });
 
   const modal = document.getElementById("modalOverlay");
   const btnAdd = document.getElementById("btnAddGame");
@@ -1025,8 +1972,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const openModal = () => {
     editingGameId = null;
-    if (document.getElementById("modalTitle")) document.getElementById("modalTitle").textContent = "Adicionar jogo";
-    if (document.getElementById("submitLabel")) document.getElementById("submitLabel").textContent = "Salvar jogo";
+    const modalTitle = document.getElementById("modalTitle");
+    const submitLabel = document.getElementById("submitLabel");
+    if (modalTitle) modalTitle.textContent = "Adicionar jogo";
+    if (submitLabel) submitLabel.textContent = "Salvar jogo";
     if (gameForm) gameForm.reset();
     if (modal) modal.classList.remove("hidden");
   };
@@ -1043,6 +1992,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (gameForm) {
     gameForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      
       let comp = document.getElementById("fComp").value;
       const round = document.getElementById("fRound").value || "Rodada";
       const dateRaw = document.getElementById("fDate").value;
@@ -1051,7 +2001,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const stadium = document.getElementById("fStadium").value || "Fonte Nova";
       const score = document.getElementById("fScore").value.trim() || "x";
 
-      let dateFmt = "01/01", yearFmt = activeSeason;
+      let dateFmt = "01/01";
+      let yearFmt = activeSeason;
       if (dateRaw) {
         const parts = dateRaw.split("-");
         dateFmt = `${parts[2]}/${parts[1]}`;
@@ -1068,15 +2019,33 @@ document.addEventListener("DOMContentLoaded", () => {
         const index = games.findIndex(g => g.id === editingGameId);
         if (index !== -1) {
           games[index] = {
-            ...games[index], comp, round, date: dateFmt, year: yearFmt, time,
-            team1: emCasa ? "bahia" : rival, team2: emCasa ? rival : "bahia", stadium, score
+            ...games[index],
+            comp,
+            round,
+            date: dateFmt,
+            year: yearFmt,
+            time,
+            team1: emCasa ? "bahia" : rival,
+            team2: emCasa ? rival : "bahia",
+            stadium,
+            score
           };
         }
       } else {
-        games.push({
-          id: cryptoId(), category: activeCategory, comp, round, date: dateFmt, year: yearFmt, time,
-          team1: emCasa ? "bahia" : rival, team2: emCasa ? rival : "bahia", stadium, score
-        });
+        const newGame = {
+          id: cryptoId(),
+          category: activeCategory,
+          comp,
+          round,
+          date: dateFmt,
+          year: yearFmt,
+          time,
+          team1: emCasa ? "bahia" : rival,
+          team2: emCasa ? rival : "bahia",
+          stadium,
+          score
+        };
+        games.push(newGame);
       }
 
       saveGames();
