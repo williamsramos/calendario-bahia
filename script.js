@@ -1,5 +1,5 @@
 ===========================================================
-   Calendário Tricolor EC Bahia  2026— COM ESTATÍSTICAS AVANÇADAS
+   Calendário Tricolor EC Bahia  — COM ESTATÍSTICAS AVANÇADAS
    + Suporte a Categorias (Masculino/Feminino)
    =========================================================== */
 
