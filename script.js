@@ -135,19 +135,37 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "baiano 27", round: "9ª rodada", date: "21/02", year: "2027", team1: "bahia", team2: "flu de feira", stadium: "Arena Fonte Nova", time: "a definir", score: "x" }
 ];
 
-let games = StorageUtils.get("bahia_games", listaAtualizadaDeGames);
+let games = StorageUtils.get("bahia_games", null);
 
-(function mergeJogos2027() {
-  const semSufixo = c => String(c || "").replace(/ 27$/, "");
-  games.forEach(g => {
-    if (g.year === "2027" && (g.category || "masculino") === "masculino" && g.comp && !/ 27$/.test(g.comp)) {
-      g.comp = g.comp + " 27";
+// Sincroniza e remove duplicatas de forma estrita baseada nos dados oficiais
+(function inicializarJogosUnicos() {
+  const jogosArmazenados = games || [];
+  const chaveUnica = g => [
+    g.category || "masculino",
+    g.year || "2026",
+    String(g.comp || "").trim().toLowerCase(),
+    String(g.round || "").trim().toLowerCase(),
+    g.date,
+    g.team1,
+    g.team2
+  ].join("|");
+
+  const mapaUnicos = new Map();
+
+  // Primeiro adiciona os jogos padrões da lista atualizada oficial
+  listaAtualizadaDeGames.forEach(g => {
+    mapaUnicos.set(chaveUnica(g), g);
+  });
+
+  // Depois mescla com os do localStorage (caso o usuário tenha cadastrado novos jogos manualmente)
+  jogosArmazenados.forEach(g => {
+    const chave = chaveUnica(g);
+    if (!mapaUnicos.has(chave)) {
+      mapaUnicos.set(chave, g);
     }
   });
-  const chave = g => [g.category || "masculino", semSufixo(g.comp), g.round, g.date, g.year || "2026"].join("|");
-  const existentes = new Set(games.map(chave));
-  const novos = listaAtualizadaDeGames.filter(g => !existentes.has(chave(g)));
-  games = games.concat(novos);
+
+  games = Array.from(mapaUnicos.values());
   StorageUtils.set("bahia_games", games);
 })();
 
