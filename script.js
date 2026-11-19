@@ -1236,10 +1236,6 @@ function initBuscaJogos() {
 const rodadaInteresse = {
   rodada: "35-38",
   jogos: [
-    { id: "r35_j1", mandante: "mirassol", visitante: "atletico-mg", data: "Sabado, 14/11", hora: "18:30", estadio: "Maião" },
-    { id: "r35_j2", mandante: "coritiba", visitante: "santos", data: "Quarta-Feira, 18/11", hora: "19:30", estadio: "Couto Pereira" },
-    { id: "r35_j3", mandante: "flamengo", visitante: "athletico-pr", data: "Quarta-Feira, 18/11", hora: "20:30", estadio: "Maracanã" },
-    { id: "r35_j4", mandante: "cruzeiro", visitante: "palmeiras", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Minerão" },
     { id: "r35_j5", mandante: "sao-paulo", visitante: "fluminense", data: "Quinta-feira, 19/11", hora: "21:30", estadio: "Morumbis" },
     { id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sabado, 21/11", hora: "16:30", estadio: "Nubank Parque - Jogo do titulo do Varmengo" },
     { id: "r36_j2", mandante: "chapecoense", visitante: "cruzeiro", data: "Sabado, 21/11", hora: "21:00", estadio: "Arena Condá" },
