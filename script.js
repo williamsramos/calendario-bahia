@@ -110,7 +110,7 @@ const listaAtualizadaDeGames = [
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "32ª Rodada", date: "24/10", team1: "santos", team2: "bahia", stadium: "Vila Belmiro", time: "21:00", score: "1x1" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "33ª Rodada", date: "28/10", team1: "bahia", team2: "sao-paulo", stadium: "Arena Fonte Nova", time: "21:30", score: "3x2" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "34ª Rodada", date: "05/11", team1: "cruzeiro", team2: "bahia", stadium: "Minerão", time: "21:30", score: "3x2" },
-  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "21:30", score: "x" },
+  { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "35ª Rodada", date: "18/11", team1: "gremio", team2: "bahia", stadium: "Arena do Grêmio", time: "21:30", score: "0x0" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "36ª Rodada", date: "21/11", team1: "bahia", team2: "coritiba", stadium: "Arena Fonte Nova", time: "17:30", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "37ª Rodada", date: "28/11", team1: "botafogo", team2: "bahia", stadium: "Nilton Santos", time: "21:00", score: "x" },
   { id: cryptoId(), category: "masculino", comp: "brasileiro", round: "38ª Rodada", date: "02/12", team1: "bahia", team2: "atletico-mg", stadium: "Arena Fonte Nova", time: "21:30", score: "x" },
@@ -1234,14 +1234,14 @@ function initBuscaJogos() {
    =========================================================== */
 
 const rodadaInteresse = {
-  rodada: "35-36",
+  rodada: "35-38",
   jogos: [
     { id: "r35_j1", mandante: "mirassol", visitante: "atletico-mg", data: "Sabado, 14/11", hora: "18:30", estadio: "Maião" },
     { id: "r35_j2", mandante: "coritiba", visitante: "santos", data: "Quarta-Feira, 18/11", hora: "19:30", estadio: "Couto Pereira" },
     { id: "r35_j3", mandante: "flamengo", visitante: "athletico-pr", data: "Quarta-Feira, 18/11", hora: "20:30", estadio: "Maracanã" },
     { id: "r35_j4", mandante: "cruzeiro", visitante: "palmeiras", data: "Quarta-feira, 18/11", hora: "20:30", estadio: "Minerão" },
     { id: "r35_j5", mandante: "sao-paulo", visitante: "fluminense", data: "Quinta-feira, 19/11", hora: "21:30", estadio: "Morumbis" },
-    { id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sabado, 21/11", hora: "16:30", estadio: "Nubank Parque" },
+    { id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sabado, 21/11", hora: "16:30", estadio: "Nubank Parque - Jogo do titulo do Varmengo" },
     { id: "r36_j2", mandante: "chapecoense", visitante: "cruzeiro", data: "Sabado, 21/11", hora: "21:00", estadio: "Arena Condá" },
     { id: "r36_j3", mandante: "athletico-pr", visitante: "remo", data: "Domingo, 22/11", hora: "16:00", estadio: "Arena da Baixada" },
     { id: "r36_j4", mandante: "fluminense", visitante: "mirassol", data: "Domingo, 22/11", hora: "18:30", estadio: "Maracanã" },
@@ -1275,9 +1275,9 @@ const CLUBES_INTERESSE = [
 // Lista exclusiva de clubes de interesse para 2027
 const CLUBES_INTERESSE_2027 = [
   "athletico-pr", "atletico-mg", "botafogo", "bragantino", "corinthians",
-  "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional",
-  "mirassol", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
-];
+  "coritiba", "cruzeiro", "flamengo", "fluminense", "gremio", "internacional", "juventude", 
+  "mirassol", "novorizontino", "palmeiras", "remo", "santos", "sao-paulo", "vasco", "vitoria"
+]; // "fortaleza, "atletico-go", "vila nova", "criciuma" - times que estão nos playofss - sobem 2 desses 
 
 function obterClubesInteresse() {
   return interesseAno() === "2027" ? CLUBES_INTERESSE_2027 : CLUBES_INTERESSE;
@@ -1318,7 +1318,7 @@ function carregarJogosInteresse() {
   const naSeed = new Set(seed.map(chave));
   antigo.forEach(a => {
     if (!naSeed.has(chave(a)) && a.mandante !== "bahia" && a.visitante !== "bahia") {
-      mesclado.push(normalizarJogoInteresse({ ...a, rodada: a.rodada || 33 }));
+      mesclado.push(normalizarJogoInteresse({ ...a, rodada: a.rodada || 35 }));
     }
   });
   return mesclado;

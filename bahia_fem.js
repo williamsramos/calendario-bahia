@@ -170,7 +170,7 @@ const COMPS_FEMININO = [
 ];
 
 const posicoesCompeticao = {
-  "todos": "6º",
+  "todos": "Encerrado a temporada",
   "brasileiro_fem": "6º",
   "brasileiro_fem_2ªfase": "eliminada nas semifinais",
   "copas_fem": "Eliminado na Semifinal",
