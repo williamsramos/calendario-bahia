@@ -136,18 +136,35 @@ const dadosClassificacao = [
 
 // ===== ZONAS (fonte única de cores e textos: tabela, filtros e legenda) =====
 const legendaQualificacaoRebaixamento = {
-libertadores_fase_grupos: { label: "1º - 4º: Libertadores (G4)", cor: "#234bc5" },
-pre_libertadores: { label: "5º - 6º: Pré-Libertadores", cor: "#447eff" },
-sul_americana: { label: "7º - 11º: Sul-Americana", cor: "#358856" },
-neutro: { label: "12º - 16º: Neutro", cor: "#64748b" },
-rebaixamento: { label: "17º - 20º: Rebaixamento", cor: "#d93829" }
+  // campeao:                  { label: "1º: Campeão",                cor: "#FFD700" },
+  libertadores_fase_grupos: { label: "1º - 4º: Libertadores (G4)", cor: "#234bc5" },
+  pre_libertadores:         { label: "5º - 6º: Pré-Libertadores",  cor: "#447eff" },
+  sul_americana:            { label: "7º - 11º: Sul-Americana",    cor: "#358856" },
+  neutro:                   { label: "12º - 16º: Neutro",          cor: "#64748b" },
+  rebaixamento:             { label: "17º - 20º: Rebaixamento",    cor: "#d93829" }
 };
 
 // Clubes já rebaixados matematicamente (mostram "R" na tabela e na legenda)
-const clubesRebaixados = ["chapecoense"];
+// const clubesCampeao = [""]; // quando for campeão matemático: ["flamengo"]
+const clubesLiberta    = ["flamengo", "palmeiras"];   // possíveis na 4ª colocação:  "cruzeiro", "fluminense" , "athletico-pr" "bahia"
+//const clubesPreLiberta = ["athletico-pr", "bahia"];                possíveis candidatos: "atletico-mg" "santos" "bragantino" "vasco"
+//const clubesSula       = ["atletico-mg", "santos", "bragantino", "vasco", "sao-paulo"];  possíveis candidatos:  "botafogo" "coritiba"
+//const clubesNeutro     = ["botafogo", "coritiba", "vitoria", "mirassol", "corinthians"];  possível candidato: "internacional"
+const clubesRebaixados = ["chapecoense"]; // possiveis rebaidos "remo" "internacional" "gremio"  "coritiba"  "vitoria" "corinthians"  "mirassol" "botafogo"
+
+// Sigla, nome e cores de cada zona (a ordem define quem tem prioridade)
+const zonasSiglas = [
+  // { lista: clubesCampeao, sigla: "👑", nome: "Campeão", cor: "#FFD700", texto: "#FFD700" },
+  { lista: clubesLiberta,    sigla: "Lib",    nome: "Libertadores",     cor: "#234bc5", texto: "#9db8ff" },
+  // { lista: clubesPreLiberta, sigla: "PreLib", nome: "Pré Libertadores", cor: "#447eff", texto: "#b3caff" },
+  // { lista: clubesSula,       sigla: "Sula",   nome: "Sulamericana",     cor: "#358856", texto: "#86dca7" },
+  // { lista: clubesNeutro,     sigla: "Neu",    nome: "Neutro",           cor: "#64748b", texto: "#cbd5e1" },
+  { lista: clubesRebaixados, sigla: "R",      nome: "Rebaixado",        cor: "#d93829", texto: "#ff6b5e" },
+];
 
 // Define a zona pela POSIÇÃO atual (o simulador reordena a tabela)
 function statusPorPosicao(pos) {
+  // if (pos <=1) return ""
   if (pos <= 4) return "libertadores_fase_grupos";
   if (pos <= 6) return "pre_libertadores";
   if (pos <= 11) return "sul_americana";
@@ -160,6 +177,7 @@ let filtroClassificacao = "todos";
 let ultimosDadosClassificacao = dadosClassificacao;
 
 const filtrosClassificacao = [
+  // {id: "campeao", label: "👑" , faixa: "1º"},
   { id: "libertadores_fase_grupos", label: "Libertadores - G4", faixa: "1º ao 4º" },
   { id: "pre_libertadores",         label: "Pré-Libertadores",  faixa: "5º e 6º" },
   { id: "sul_americana",            label: "Sul-Americana",     faixa: "7º ao 11º" },
@@ -286,6 +304,8 @@ tr.className = trClasses.trim();
 tr.innerHTML = `
 <td class="py-3 px-4"><span class="${posBadgeClass}" style="${posBadgeStyle}">${item.pos}º</span></td>
 <td class="py-3 px-4 flex items-center gap-2.5 font-medium text-slate-200">
+${clubesLiberta.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#234bc5] bg-[#234bc5]/20 text-[#9db8ff]" title="Libertadores">LIB</span>' : ''}
+
 ${clubesRebaixados.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#d93829] bg-[#d93829]/20 text-[#ff6b5e]" title="Rebaixado">R</span>' : ''}
 <img src="${teamData.logo}" alt="Escudo do ${item.clube}" class="w-6 h-6 object-contain shrink-0 drop-shadow" onerror="this.onerror=null; this.src='img/default.png';">
 <span class="${isbahia ? 'text-white font-black tracking-wide' : ''}">${item.clube}</span>
@@ -314,6 +334,10 @@ tbody.appendChild(tr);
 });
 }
 
+// ${clubesPreLiberta.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#447eff] bg-[#447eff]/20 text-[#b3caff]" title="Libertadores">PreLIB</span>' : ''}
+// ${clubesSula.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#358856] bg-[#358856]/20 text-[#86dca7]" title="Libertadores">SULA</span>' : ''}
+// ${clubesNeutro.includes(item.slug) ? '<span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-[#64748b] bg-[#64748b]/20 text-[#cbd5e1]" title="Libertadores">NEU</span>' : ''}
+
 function renderizarLegendaClassificacao() {
 const containerTabela = document.getElementById("tabela-corpo")?.closest('.overflow-x-auto') || document.getElementById("tabela-corpo")?.parentElement;
 
@@ -326,15 +350,38 @@ const itens = Object.values(legendaQualificacaoRebaixamento).map(l => `
 <span>${l.label}</span>
 </div>`).join("");
 
+
+// const itemCampeao = clubesCampeao.length
+//   ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#FFD700]">👑</span><span>- Campeão</span></div>`
+//   : "";
+
+const itemLiberta = clubesLiberta.length
+  ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#9db8ff]">Lib</span><span>- Libertadores</span></div>`
+  : "";
+
+// const itemPreLiberta = clubesPreLiberta.length
+//   ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#b3caff]">PreLib</span><span>- Pré Libertadores</span></div>`
+//   : "";
+
+// const itemSula = clubesSula.length
+//   ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#86dca7]">Sula</span><span>- Sulamericana</span></div>`
+//   : "";
+
+// const itemNeutro = clubesNeutro.length
+//   ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#cbd5e1]">Neu</span><span>- Neutro</span></div>`
+//   : "";
+
 const itemRebaixado = clubesRebaixados.length
-? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#ff6b5e]">R</span><span>- Rebaixado</span></div>`
-: "";
+  ? `<div class="flex items-center gap-2"><span class="font-extrabold text-[#ff6b5e]">R</span><span>- Rebaixado</span></div>`
+  : "";
 
 const legendaHTML = `
 <div id="legenda-classificacao" class="mt-6 p-4 bg-navy-900 border border-navy-800 rounded-xl flex flex-wrap gap-4 text-xs font-medium justify-between items-center text-slate-300">
-${itens}${itemRebaixado}
+// ${itens}${itemLiberta}${itemRebaixado}
 </div>
 `;
+
+// ${itemCampeao}${itemPreLiberta}${itemSula}${itemNeutro}
 
 containerTabela.insertAdjacentHTML('afterend', legendaHTML);
 }
