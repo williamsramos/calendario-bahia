@@ -240,6 +240,7 @@ const teamLogos = {
   "atletico-go": "img/atletico-go.png",
   "fortaleza": "img/fortaleza.svg",
   "vila-nova": "img/vila-nova.svg",
+  "juventude": "img/juventude.png",
 };
  
 function getTeam(slug) {
