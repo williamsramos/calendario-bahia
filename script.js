@@ -234,7 +234,12 @@ const teamLogos = {
   "galicia": "img/galicia.png", 
   "jequie": "img/jequie.png",
   "ssafc": "img/ssa_fc.png",
-  "juazeirense" : "img/juazeirense.png"
+  "juazeirense" : "img/juazeirense.png",
+  "novorizontino" : "img/novorizontino.png",
+  "criciuma": "img/criciuma.png",
+  "atletico-go": "img/atletico-go.png",
+  "fortaleza": "img/fortaleza.svg",
+  "vila-nova": "img/vila-nova.svg",
 };
  
 function getTeam(slug) {

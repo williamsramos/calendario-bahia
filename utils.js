@@ -164,7 +164,7 @@ const zonasSiglas = [
 
 // Define a zona pela POSIÇÃO atual (o simulador reordena a tabela)
 function statusPorPosicao(pos) {
-  // if (pos <=1) return ""
+  // if (pos <=1) return "campeao";
   if (pos <= 4) return "libertadores_fase_grupos";
   if (pos <= 6) return "pre_libertadores";
   if (pos <= 11) return "sul_americana";
@@ -235,7 +235,13 @@ const teamLogos = {
 "remo": "img/remo.png",
 "mirassol": "img/mirassol.png",
 "o-higgins": "img/o-higgins.png",
-"montevideo-city": "img/montevideo-city.png"
+"montevideo-city": "img/montevideo-city.png",
+"novorizontino" : "img/novorizontino.png",
+"criciuma": "img/criciuma.png",
+"atletico-go": "img/atletico-go.png",
+"fortaleza": "img/fortaleza.svg",
+"vila-nova": "img/vila-nova.svg",
+
 };
 
 function getTeam(slug) {
