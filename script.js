@@ -1236,12 +1236,12 @@ function initBuscaJogos() {
 const rodadaInteresse = {
   rodada: "35-38",
   jogos: [
-    { id: "r35_j5", mandante: "sao-paulo", visitante: "fluminense", data: "Quinta-feira, 19/11", hora: "21:30", estadio: "Morumbis" },
     { id: "r36_j1", mandante: "palmeiras", visitante: "flamengo", data: "Sabado, 21/11", hora: "16:30", estadio: "Nubank Parque - Jogo do titulo do Varmengo" },
     { id: "r36_j2", mandante: "chapecoense", visitante: "cruzeiro", data: "Sabado, 21/11", hora: "21:00", estadio: "Arena Condá" },
     { id: "r36_j3", mandante: "athletico-pr", visitante: "remo", data: "Domingo, 22/11", hora: "16:00", estadio: "Arena da Baixada" },
     { id: "r36_j4", mandante: "fluminense", visitante: "mirassol", data: "Domingo, 22/11", hora: "18:30", estadio: "Maracanã" },
-    { id: "r36_j5", mandante: "santos", visitante: "gremio", data: "Domingo, 22/11", hora: "21:00", estadio: "Morumbis" },
+    { id: "r36_j5", mandante: "bragantino", visitante: "vasco", data: "Domingo, 22/11", hora: "19:30", estadio: "Cicero Sousa de Marques" },
+    { id: "r36_j6", mandante: "santos", visitante: "gremio", data: "Domingo, 22/11", hora: "21:00", estadio: "Morumbis" },
     { id: "r36_j6", mandante: "atletico-mg", visitante: "corinthians", data: "Quarta-Feira, 25/11", hora: "20:00", estadio: "Arena MRV" },
     { id: "r37_j1", mandante: "vitoria", visitante: "santos", data: "Sabado, 29/11", hora: "16:00", estadio: "Barradão" },
     { id: "r37_j2", mandante: "atletico-mg", visitante: "vasco", data: "Sabado, 29/11", hora: "19:30", estadio: "Arena MRV" },
@@ -1249,7 +1249,8 @@ const rodadaInteresse = {
     { id: "r37_j4", mandante: "fluminense", visitante: "cruzeiro", data: "Domingo, 27/11", hora: "20:00", estadio: "Maracanã" },
     { id: "r38_j1", mandante: "cruzeiro", visitante: "internacional", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Minerão" },
     { id: "r38_j2", mandante: "athletico-pr", visitante: "sao-paulo", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Arena da Baixada" },
-    { id: "r38_j3", mandante: "bragantino", visitante: "fluminense", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Estádio Cicero (Bragança Paulista)" },
+    { id: "r38_j2", mandante: "vasco", visitante: "vitoria", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "São Januário" },
+    { id: "r38_j3", mandante: "bragantino", visitante: "fluminense", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Cicero Sousa de Marques" },
     { id: "r38_j4", mandante: "santos", visitante: "botafogo", data: "Quarta-Feira, 02/12", hora: "21:30", estadio: "Vila Belmiro" },
   ]
 };
